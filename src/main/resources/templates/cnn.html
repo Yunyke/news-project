@@ -1,0 +1,53 @@
+<!-- src/main/resources/templates/cnn.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>CNN Latest</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 2rem 5vw; }
+    article { margin-bottom: 2rem; border-bottom: 1px solid #ddd; padding-bottom: 1rem; }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+  <h1>CNN News</h1>
+
+  <!-- ⭐️ 修正: 用 article，比 ul/li 更語義化 -->
+  <div th:if="${newsList != null}">
+    <article th:each="news : ${newsList}">
+      <h2 th:text="${news.title}">新聞標題</h2>
+
+      <p>
+        <strong>作者：</strong>
+        <span th:text="${news.author != null ? news.author : '未知'}">作者名稱</span>
+      </p>
+
+      <p>
+        <strong>發布時間：</strong>
+        <span th:text="${#temporals.format(news.publishedAt,'yyyy-MM-dd HH:mm')}">時間</span>
+        <!-- ⭐️ 修正: 加 #temporals.format 讓時區/格式一致 -->
+      </p>
+
+      <!-- ⭐️ 修正: Entity 裡是 imageUrl -->
+      <div th:if="${news.imageUrl != null}">
+        <img th:src="${news.imageUrl}" alt="新聞圖片">
+      </div>
+
+      <p><strong>摘要：</strong><span th:text="${news.description}">新聞摘要</span></p>
+
+      <!-- ⭐️ 修正: 內容可截斷，避免刷太長 -->
+      <p>
+        <strong>內容預覽：</strong>
+        <span th:text="${#strings.abbreviate(news.content, 200)}">部分內容</span>
+      </p>
+
+      <p>
+        <a th:href="${news.url}" target="_blank">🔗 閱讀完整新聞</a>
+      </p>
+    </article>
+  </div>
+
+  <p th:if="${newsList == null || newsList.isEmpty()}">目前沒有可顯示的新聞。</p>
+</body>
+</html>

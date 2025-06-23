@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Error</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css">
+		<link rel="stylesheet" href="/css/buttons.css">
+	</head>
+	<body>
+		<div th:insert="fragments/menu :: menu"></div>
+		<!-- body content -->
+		<div style="padding: 15px">
+			<div class="pure-form">
+				<fieldset>
+					<legend>發生錯誤</legend>
+					${ message }
+				</fieldset>	
+			</div>
+			
+		</div>
+	</body>
+</html>

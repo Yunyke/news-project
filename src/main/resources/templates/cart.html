@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>📰 新聞牆</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" th:href="@{/css/cart.css}">
+</head>
+
+<body th:attr="data-user-id=${userId}" id="user-cart">
+	
+	<div
+		style="position: absolute; top: 5px; right: 20px; z-index: 1050; background-color: #f8f9fa; padding: 5px 10px; border-radius: 8px; color: #6c757d;">
+		<a class="btn btn-sm btn-outline-light me-2 custom-auth-btn" href="/">回首頁</a>
+		<a class="btn btn-sm btn-outline-light custom-auth-btn" href="/logout">登出</a>
+	</div>
+
+	<!-- ✅ 右側收藏清單 -->
+	<nav id="favorite-list">
+		<h5>⭐ 收藏清單</h5>
+		<ul class="sidebar-list" id="favorite-list-ul">
+			<!-- JS 動態產生收藏清單 -->
+		</ul>
+	</nav>
+
+	<!-- ✅ 左側固定目錄 -->
+	<nav id="sidebar-nav">
+		<!-- JS 動態插入目錄連結 -->
+	</nav>
+
+	<main class="feed-container">
+		<h1 class="text-center mb-4">📰 我的新聞牆</h1>
+
+		<div id="cart-content">
+			<!-- 請求資料後這裡會被填滿 -->
+		</div>
+	</main>
+
+<script>
+function syncCartToServer() {
+	  const ids = JSON.parse(localStorage.getItem("newsCart") || "[]");
+
+	  if (!Array.isArray(ids) || ids.length === 0) return;
+
+	  // 呼叫後端 API，把多個 newsId 一次送出
+	  fetch(`/api/cart/users/${userId}/bulk`, {
+	 
+	    method: "POST",
+	    headers: { "Content-Type": "application/json" },
+	    body: JSON.stringify({ newsIds: ids })
+	  })
+	  .then(res => {
+	    if (!res.ok) throw new Error("同步失敗");
+	    return res.text();
+	  })
+	  .then(msg => console.log("✅ 購物車同步完成"))
+	  
+	  .catch(err => console.error("❌ 購物車同步錯誤", err));
+	}
+
+
+const userCartEl = document.getElementById("user-cart");
+const userId = parseInt(document.getElementById("user-cart").dataset.userId, 10);
+const GEMINI_API_KEY = "AIzaSyAe55d1a9eVeG_X5PWnyJEVGcXJTDpBr6I"; // 金鑰
+if (!userId) {
+	  console.warn("⚠️ 無法取得 userId，請確認用戶已登入或 body 標籤有設置 data-user-id");
+	}
+function loadCart(userId) {
+	  const ids = JSON.parse(localStorage.getItem("newsCart") || "[]")
+	              .filter(id => Number.isInteger(id) && id > 0);
+
+	  if (ids.length === 0) {
+	    document.getElementById("cart-content").innerHTML = `
+	      <p class="text-center text-muted mt-5">📭 目前沒有收藏新聞</p>`;
+	    return;
+	  }
+
+	  fetch("/cart/load", {
+	    method: "POST",
+	    headers: { "Content-Type": "application/json" },
+	    body: JSON.stringify(ids)
+	  })
+	  .then(res => res.text())
+	  .then(html => {
+	    document.getElementById("cart-content").innerHTML = html;
+
+    
+
+    
+ // ✅ 綁定收藏按鈕
+    document.querySelectorAll(".favorite-btn").forEach(btn => {
+    	btn.addEventListener("click", function () {
+    		  const newsId = this.dataset.id;
+    		  const self = this;
+
+    		  fetch(`/dailynews/users/${userId}/favorites/${newsId}`, {
+    			  method: "POST"
+    			})
+    		  .then(res => res.json())
+    		  .then(data => {
+    		    if (data.favorited !== undefined) {
+    		      const icon = data.favorited ? "❤️ 已收藏" : "💙 收藏";
+    		      self.innerHTML = icon;
+    		      self.classList.toggle("btn-outline-success", !data.favorited);
+    		      self.classList.toggle("btn-outline-danger", data.favorited);
+
+    		      // ⭐⭐ 加這段：即時更新右側收藏清單
+    		      const card = self.closest(".news-feed-card");
+    		      const title = card.querySelector(".news-feed-title")?.textContent || "未命名新聞";
+    		      const id = card.getAttribute("id");
+
+    		      const favList = document.getElementById("favorite-list-ul");
+
+    		      if (data.favorited) {
+    		        // 加入收藏清單
+    		        const li = document.createElement("li");
+    		        li.className = "sidebar-item";
+    		        li.setAttribute("data-news-id", newsId);
+
+    		        const link = document.createElement("a");
+    		        link.href = `#${id}`;
+    		        link.textContent = title;
+    		        link.title = title;
+
+    		        li.appendChild(link);
+    		        favList.appendChild(li);
+    		      } else {
+    		        // 從清單移除
+    		        const itemToRemove = favList.querySelector(`li[data-news-id="${newsId}"]`);
+    		        if (itemToRemove) itemToRemove.remove();
+    		      }
+    		    }
+    		  })
+    		  .catch(err => {
+    		    console.error("收藏失敗", err);
+    		    alert("⚠️ 收藏失敗，請稍後再試");
+    		  });
+    		});
+    });
+
+
+    // ✅ 移除 localStorage 無效 ID
+    const existingIds = Array.from(document.querySelectorAll(".remove-from-cart-btn"))
+      .map(btn => parseInt(btn.dataset.id));
+
+    let cartIds = JSON.parse(localStorage.getItem("newsCart") || "[]");
+    const filtered = cartIds.filter(id => existingIds.includes(id));
+
+    if (filtered.length !== cartIds.length) {
+      localStorage.setItem("newsCart", JSON.stringify(filtered));
+      console.warn("🧹 已從 localStorage 清除無效新聞 ID：", cartIds.filter(id => !existingIds.includes(id)));
+    }
+
+    // ✅ 產生左側目錄
+    const sidebar = document.getElementById("sidebar-nav");
+    sidebar.innerHTML = "<h5>📑 新聞清單</h5><ul class='sidebar-list'></ul>";
+    const list = sidebar.querySelector(".sidebar-list");
+
+    document.querySelectorAll(".news-feed-card").forEach((card, index) => {
+      const title = card.querySelector(".news-feed-title")?.textContent || `新聞 ${index + 1}`;
+      const id = `news-item-${index}`;
+      card.setAttribute("id", id);
+
+      const li = document.createElement("li");
+      li.className = "sidebar-item";
+
+      const number = document.createElement("span");
+      number.className = "item-index";
+      number.textContent = `${index + 1}.`;
+
+      const link = document.createElement("a");
+      link.href  = `#${card.id}`;  
+      link.textContent = title;
+      link.title = title;
+
+      li.appendChild(number);
+      li.appendChild(link);
+      list.appendChild(li);
+    });
+
+    // ✅ 綁定移除按鈕
+    document.querySelectorAll(".remove-from-cart-btn").forEach(btn => {
+      btn.addEventListener("click", function () {
+        const id = parseInt(this.dataset.id);
+        let cart = JSON.parse(localStorage.getItem("newsCart") || "[]");
+        cart = cart.filter(item => item !== id);
+        localStorage.setItem("newsCart", JSON.stringify(cart));
+        loadCart(userId);
+      });
+    });
+
+    // ✅ 綁定展開全文
+    document.querySelectorAll(".toggle-content-btn").forEach(btn => {
+      btn.addEventListener("click", function () {
+        const content = this.closest(".news-feed-card").querySelector(".news-feed-content");
+        const isShown = content.style.display === "block";
+        content.style.display = isShown ? "none" : "block";
+        this.textContent = isShown ? "閱讀全文" : "收起全文";
+      });
+    });
+  });
+}
+
+// ✅ 開關 AI 聊天視窗
+function toggleChatbox() {
+  const chatbox = document.getElementById("ai-chatbox");
+  chatbox.style.display = (chatbox.style.display === "none" || chatbox.style.display === "") ? "flex" : "none";
+}
+
+// ✅ 傳送訊息到 Gemini 並顯示回覆
+async function sendAiMessage() {
+  const input = document.getElementById("ai-user-input");
+  const msg = input.value.trim();
+  if (!msg) return;
+
+  const messages = document.getElementById("ai-chatbox-messages");
+
+  // 顯示使用者訊息
+  const userMsg = document.createElement("div");
+  userMsg.innerHTML = `<strong>你:</strong> ${msg}`;
+  messages.appendChild(userMsg);
+  input.value = "";
+
+  // 顯示 loading
+  const aiReply = document.createElement("div");
+  aiReply.innerHTML = `<strong>AI:</strong> ⏳ 回覆中...`;
+  messages.appendChild(aiReply);
+  messages.scrollTop = messages.scrollHeight;
+
+  try {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: msg }] }]
+      })
+    });
+
+    const data = await res.json();
+    const replyText = data.candidates?.[0]?.content?.parts?.[0]?.text || "⚠️ 無法取得回應";
+
+    aiReply.innerHTML = `<strong>AI:</strong> ${replyText}`;
+  } catch (err) {
+    console.error("Gemini API 錯誤：", err);
+    aiReply.innerHTML = `<strong>AI:</strong> ❌ 發生錯誤，請稍後再試`;
+  }
+
+  messages.scrollTop = messages.scrollHeight;
+}
+
+// ✅ 綁定 Enter 鍵送出
+document.addEventListener("DOMContentLoaded", () => {
+  // 抓 userId
+  const userCartEl = document.getElementById("user-cart");
+  const userId = parseInt(userCartEl?.dataset.userId, 10);
+
+  if (!userId) {
+    console.warn("⚠️ 沒抓到 userId，登入了嗎？");
+    return;
+  }
+
+  // 初始化功能
+  syncCartToServer(userId);
+  loadCart(userId);
+
+  // 綁定 AI 輸入 Enter 快捷鍵
+  const aiInput = document.getElementById("ai-user-input");
+  if (aiInput) {
+    aiInput.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        sendAiMessage();
+      }
+    });
+  }
+});
+</script>
+
+
+	<!-- Thymeleaf Fragment for cart -->
+	<div th:fragment="cartFragment">
+<script th:inline="javascript">
+	console.log("User ID is:", userId);
+</script>
+
+
+		<div th:each="news : ${cartNews}" class="news-feed-card">
+			<img th:if="${news.imageUrl}" th:src="${news.imageUrl}"
+				class="news-feed-img" />
+
+			<div class="news-feed-title" th:text="${news.title}">標題</div>
+
+			<div class="news-feed-desc" th:text="${news.description}">摘要</div>
+
+			<div class="news-feed-time"
+				th:text="${#temporals.format(news.publishedAt, 'yyyy-MM-dd HH:mm')}">時間</div>
+
+			
+			<div class="news-feed-content" th:utext="${news.content}"></div>
+
+			<div class="news-feed-actions">
+				<button class="btn btn-sm btn-outline-primary toggle-content-btn">閱讀全文</button>
+				<button
+  class="btn btn-sm favorite-btn btn-outline-success"
+  th:text="'💙 收藏'"
+  th:attr="data-id=${news.id}">
+</button>
+					<button class="btn btn-sm btn-outline-danger remove-from-cart-btn"
+						th:attr="data-id=${news.id}">移除</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ✅ AI 助理對話框 -->
+	<div id="ai-chatbox">
+		<div id="ai-chatbox-header">🤖 AI 助理</div>
+		<div id="ai-chatbox-messages">
+			<div>
+				<strong>AI:</strong> 嗨！需要幫忙嗎？
+			</div>
+		</div>
+		<div id="ai-chatbox-input">
+			<input type="text" id="ai-user-input" placeholder="輸入訊息..." />
+			<button onclick="sendAiMessage()">送出</button>
+		</div>
+	</div>
+
+	<button id="ai-assistant-button" onclick="toggleChatbox()">💬
+		有事問 AI</button>
+</body>
+</html>

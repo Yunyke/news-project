@@ -1,0 +1,295 @@
+
+.news-feed-content.show-content {
+  display: block;
+}
+#ai-assistant-button {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	z-index: 999;
+	background-color: #0d6efd;
+	color: white;
+	border: none;
+	border-radius: 50px;
+	padding: 12px 18px;
+	font-size: 0.95rem;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+}
+
+#ai-assistant-button:hover {
+	background-color: #0056b3;
+}
+
+#ai-chatbox {
+	position: fixed;
+	bottom: 80px;
+	right: 20px;
+	width: 320px;
+	max-height: 440px;
+	background-color: #ffffff;
+	border-radius: 16px;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+	display: none;
+	flex-direction: column;
+	overflow: hidden;
+	z-index: 998;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#ai-chatbox-header {
+	background-color: #0d6efd;
+	color: #fff;
+	padding: 12px;
+	font-weight: bold;
+	font-size: 1rem;
+}
+
+#ai-chatbox-messages {
+	flex: 1;
+	padding: 12px;
+	font-size: 0.9rem;
+	overflow-y: auto;
+	background-color: #f9f9f9;
+}
+
+#ai-chatbox-messages div {
+	margin-bottom: 0.75rem;
+	line-height: 1.4;
+}
+
+#ai-chatbox-messages div strong {
+	color: #0d6efd;
+}
+
+#ai-chatbox-input {
+	display: flex;
+	border-top: 1px solid #ddd;
+	background: #fff;
+}
+
+#ai-chatbox-input input {
+	flex: 1;
+	border: none;
+	padding: 10px;
+	font-size: 0.9rem;
+	outline: none;
+	background-color: #f7f7f7;
+}
+
+#ai-chatbox-input button {
+	border: none;
+	background-color: #0d6efd;
+	color: white;
+	padding: 10px 14px;
+	cursor: pointer;
+	font-size: 0.9rem;
+	transition: background-color 0.2s ease;
+}
+
+#ai-chatbox-input button:hover {
+	background-color: #0056b3;
+}
+/* ✅ 左側目錄區塊 */
+/* ✅ 左側目錄區塊 */
+#sidebar-nav {
+	position: fixed;
+	top: 80px;
+	left: 80px;
+	width: 400px;
+	max-height: 80vh;
+	overflow-y: auto;
+	padding: 1rem;
+	background-color: #fff;
+	border-radius: 12px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	font-size: 0.95rem;
+	z-index: 100;
+}
+
+#sidebar-nav h5 {
+	font-weight: bold;
+	font-size: 1rem;
+	margin-bottom: 0.75rem;
+}
+
+.sidebar-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.sidebar-item {
+	display: flex;
+	align-items: center;
+	margin-bottom: 0.5rem;
+}
+
+.sidebar-item .item-index {
+	flex-shrink: 0;
+	width: 2em;
+	text-align: right;
+	margin-right: 0.5rem;
+	color: #555;
+}
+
+.sidebar-item a {
+	display: inline-block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 320px;
+	color: #333;
+	text-decoration: none;
+}
+
+.sidebar-item a:hover {
+	text-decoration: underline;
+}
+
+.sidebar-item a.active {
+	font-weight: bold;
+	color: #0d6efd;
+}
+
+body {
+	background: #f0f2f5;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+.feed-container {
+	max-width: 720px;
+	margin: 0 auto;
+	padding: 1.5rem 1rem;
+}
+
+.news-feed-card {
+	background-color: #fff;
+	border-radius: 12px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+	margin-bottom: 1.5rem;
+	padding: 1rem 1.25rem;
+	transition: box-shadow 0.2s ease-in-out;
+}
+
+.news-feed-card:hover {
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.news-feed-title {
+	font-size: 1.25rem;
+	font-weight: bold;
+	color: #1c1e21;
+	margin-bottom: 0.5rem;
+}
+
+.news-feed-img {
+	width: 100%;
+	max-height: 360px;
+	object-fit: cover;
+	border-radius: 10px;
+	margin: 0.75rem 0;
+}
+
+.news-feed-desc {
+	font-size: 1rem;
+	color: #333;
+	line-height: 1.5;
+	margin-bottom: 0.75rem;
+}
+
+.news-feed-time {
+	font-size: 0.85rem;
+	color: #777;
+}
+
+.news-feed-content {
+	display: none;
+	margin-top: 0.75rem;
+	white-space: pre-wrap;
+	color: #333;
+	font-size: 0.95rem;
+	line-height: 1.6;
+}
+
+.news-feed-actions {
+	display: flex;
+	gap: 0.5rem;
+	margin-top: 0.75rem;
+}
+
+@media ( max-width : 576px) {
+	.news-feed-card {
+		padding: 1rem;
+	}
+	.news-feed-title {
+		font-size: 1.1rem;
+	}
+	.news-feed-desc {
+		font-size: 0.95rem;
+	}
+}
+
+/* ✅ 右側收藏清單 */
+#favorite-list {
+	position: fixed;
+	top: 80px;
+	right: 80px;
+	width: 320px;
+	max-height: 80vh;
+	overflow-y: auto;
+	padding: 1rem;
+	background-color: #fff;
+	border-radius: 12px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	font-size: 0.95rem;
+	z-index: 100;
+}
+
+#favorite-list h5 {
+	font-weight: bold;
+	font-size: 1rem;
+	margin-bottom: 0.75rem;
+}
+
+#favorite-list .sidebar-item {
+	display: flex;
+	align-items: center;
+	margin-bottom: 0.5rem;
+}
+
+#favorite-list .sidebar-item a {
+	display: inline-block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 280px;
+	color: #333;
+	text-decoration: none;
+}
+
+#favorite-list .sidebar-item a:hover {
+	text-decoration: underline;
+}
+
+.card-remove-button {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 1rem;
+	margin-left: auto;
+	padding-left: 1rem;
+}
+
+.custom-auth-btn { /* ★ 新增 */
+	background-color: transparent !important;
+	border: 1px solid white;
+	color: black !important;
+	transition: all .3s ease;
+} /* ★ 新增 */
+.custom-auth-btn:hover { /* ★ 新增 */
+	background-color: white !important;
+	color: black !important;
+}
