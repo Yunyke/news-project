@@ -31,7 +31,7 @@ return "login";
     public String newsPage(HttpSession session, Model model) {
         Integer userId = (Integer) session.getAttribute("userId");
         if (userId != null) {
-            model.addAttribute("userId", userId); // ✅ 給 Thymeleaf 用
+            model.addAttribute("userId", userId); 
         } else {
             return "redirect:/login?redirect=/news"; // 🛡️ 未登入跳回登入頁
         }
@@ -47,24 +47,24 @@ return "login";
             Model model) {
 
         try {
-            // 🔥 清除前一個 session（如果有）
+            //  清除前一個 session
             HttpSession oldSession = req.getSession(false);
             if (oldSession != null) {
                 oldSession.invalidate();
             }
 
-            // ✅ 建立新 session
+            //  建立新 session
             HttpSession session = req.getSession(true);
 
-            // ✅ 登入驗證
+            // 登入驗證
             UserCert userCert = certService.getCert(username, password);
 
-            // ✅ 寫入 session
+            //  寫入 session
             session.setAttribute("userCert", userCert);
             session.setAttribute("name", userCert.getName());
             session.setAttribute("locale", req.getLocale());
             session.setAttribute("userId", userCert.getUserId());
-
+            
             return "redirect:" + redirect + "?resetCart=true";
 
         } catch (Exception e) {
