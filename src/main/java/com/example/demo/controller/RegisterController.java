@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/register")
@@ -34,7 +35,8 @@ public class RegisterController {
     public String registerUser(
         @ModelAttribute("userDto") UserDto userDto,
         Model model,
-        HttpServletRequest request
+        HttpServletRequest request,
+        RedirectAttributes redirectAttributes
     ) {
         try {
             // ✅ 呼叫註冊服務
@@ -57,7 +59,9 @@ public class RegisterController {
             session.setAttribute("locale", request.getLocale());
 
             // ✅ 導向首頁
-            return "redirect:/news";
+           // redirectAttributes.addFlashAttribute("message", "我們已寄出驗證信至 " + email + "，請登入信箱驗證！");
+            
+            return "confirm-not-finish";
 
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
