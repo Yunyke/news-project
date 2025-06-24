@@ -189,12 +189,8 @@ function loadCart(userId) {
         let cart = JSON.parse(localStorage.getItem("newsCart") || "[]");
         cart = cart.filter(item => item !== id);
         localStorage.setItem("newsCart", JSON.stringify(cart));
-        fetch(`/api/cart/users/${userId}/cart/${id}`, {
-            method: "DELETE"
-          }).catch(err => console.error("刪除後端 cart 失敗", err));
-
-          loadCart(userId); // 重新載入畫面
-        });
+        loadCart(userId);
+      });
     });
 
     // ✅ 綁定展開全文
@@ -281,21 +277,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
-
-document.addEventListener("DOMContentLoaded", () => {
-	  // 其他初始化邏輯…
-
-	  // ✅ ⬇️ 加入登出清除 localStorage 的邏輯
-	  const logoutBtn = document.querySelector('a[href="/logout"]');
-	  if (logoutBtn) {
-	    logoutBtn.addEventListener("click", function (e) {
-	      e.preventDefault();
-	      console.log("🚪 [cart.html] 使用者登出，清除 localStorage.newsCart");
-	      localStorage.removeItem("newsCart");
-	      window.location.href = "/logout";
-	    });
-	  }
-	});
 </script>
 
 
@@ -303,8 +284,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	<div th:fragment="cartFragment">
 		<script th:inline="javascript">
 	console.log("User ID is:", userId);
-	
-	
 </script>
 
 		<div th:each="news : ${cartNews}" class="news-feed-card" th:attr="data-url=${news.url}">
@@ -315,6 +294,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			<div class="news-feed-title" th:text="${news.title}">標題</div>
 
 			<div class="news-feed-desc" th:text="${news.description}">摘要</div>
+			<div class="news-feed-aisummary text-secondary" th:if="${news.aiSummary}" th:text="'🧠 AI 摘要：' + ${news.aiSummary}">AI 摘要</div>
 
 			<div class="news-feed-time"
 				th:text="${#temporals.format(news.publishedAt, 'yyyy-MM-dd HH:mm')}">時間</div>
