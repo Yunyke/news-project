@@ -41,6 +41,17 @@ public class News {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private ZonedDateTime publishedAt;
     
+    @Column(length = 1000) // 視長度可調整
+    private String aiSummary;
+    
+    public String getAiSummary() {
+        return aiSummary;
+    }
+
+    public void setAiSummary(String aiSummary) {
+        this.aiSummary = aiSummary;
+    }
+    
     @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Favorite> favorites = new HashSet<>();
     

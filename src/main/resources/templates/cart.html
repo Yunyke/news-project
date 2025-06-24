@@ -294,6 +294,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			<div class="news-feed-title" th:text="${news.title}">標題</div>
 
 			<div class="news-feed-desc" th:text="${news.description}">摘要</div>
+			<div class="news-feed-aisummary text-secondary" th:if="${news.aiSummary}" th:text="'🧠 AI 摘要：' + ${news.aiSummary}">AI 摘要</div>
 
 			<div class="news-feed-time"
 				th:text="${#temporals.format(news.publishedAt, 'yyyy-MM-dd HH:mm')}">時間</div>
