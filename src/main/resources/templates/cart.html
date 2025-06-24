@@ -113,6 +113,7 @@ function loadCart(userId) {
 	              // 👉 同步右側清單
 	              const card = self.closest(".news-feed-card");
 	              const title = card.querySelector(".news-feed-title")?.textContent || "未命名新聞";
+	              const url = card.getAttribute("data-url") || "#";
 	              const id = card.getAttribute("id");
 	              const favList = document.getElementById("favorite-list-ul");
 
@@ -122,7 +123,8 @@ function loadCart(userId) {
 	                li.setAttribute("data-news-id", newsId);
 
 	                const link = document.createElement("a");
-	                link.href = `#${id}`;
+	                link.href = url;                     // ⭐ 指向原始新聞網址
+	                link.target = "_blank";             // ⭐ 在新視窗開啟
 	                link.textContent = title;
 	                link.title = title;
 
@@ -284,8 +286,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	console.log("User ID is:", userId);
 </script>
 
-
-		<div th:each="news : ${cartNews}" class="news-feed-card">
+		<div th:each="news : ${cartNews}" class="news-feed-card" th:attr="data-url=${news.url}">
+		
 			<img th:if="${news.imageUrl}" th:src="${news.imageUrl}"
 				class="news-feed-img" />
 
