@@ -293,3 +293,19 @@ body {
 	background-color: white !important;
 	color: black !important;
 }
+#favorite-list .sidebar-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+}
+
+#favorite-list .sidebar-item a {
+  flex-grow: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+#favorite-list .sidebar-item button {
+  flex-shrink: 0;
+}
