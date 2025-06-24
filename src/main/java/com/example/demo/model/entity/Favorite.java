@@ -41,7 +41,7 @@ public class Favorite {
     private User user;
 
     //  新增關聯到 News
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "news_id", insertable = false, updatable = false)
     private News news;
 }

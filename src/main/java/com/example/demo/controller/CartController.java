@@ -66,12 +66,7 @@ public class CartController {
         }
     }
     
-    @GetMapping("/users/{userId}/cart/details")
-    public ResponseEntity<List<News>> getUserCartDetails(@PathVariable Integer userId) {
-        List<Long> newsIds = cartService.findNewsIdsByUser(userId);
-        List<News> newsList = cartService.getNewsByIds(newsIds);
-        return ResponseEntity.ok(newsList);
-    }
+    
 
     // ✅ 新增：一次加入多筆新聞到購物車
     @PostMapping("/users/{userId}/bulk")

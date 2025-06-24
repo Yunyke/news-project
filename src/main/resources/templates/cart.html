@@ -39,7 +39,31 @@
 		</div>
 	</main>
 
-	<script>
+	<script>function loadFavoriteList(userId) {
+		  fetch(`/favorites?userId=${userId}`)
+		    .then(res => res.json())
+		    .then(favorites => {
+		      const favList = document.getElementById("favorite-list-ul");
+		      favList.innerHTML = ""; // 清空再重新渲染
+
+		      favorites.forEach(item => {
+		        const li = document.createElement("li");
+		        li.className = "sidebar-item";
+		        li.setAttribute("data-news-id", item.newsId);
+
+		        const link = document.createElement("a");
+		        link.href = "#"; // 或直接指向新聞連結
+		        link.textContent = item.title || "未命名新聞";
+		        link.title = item.title;
+
+		        li.appendChild(link);
+		        favList.appendChild(li);
+		      });
+		    })
+		    .catch(err => {
+		      console.error("❌ 無法載入收藏清單", err);
+		    });
+		}
 function syncCartToServer() {
 	  const ids = JSON.parse(localStorage.getItem("newsCart") || "[]");
 
@@ -60,7 +84,13 @@ function syncCartToServer() {
 	  
 	  .catch(err => console.error("❌ 購物車同步錯誤", err));
 	}
-
+function fetchCartFromServer(userId) {
+	  return fetch(`/api/cart/users/${userId}/cart`)
+	    .then(res => {
+	      if (!res.ok) throw new Error("❌ 無法取得伺服器收藏清單");
+	      return res.json();
+	    });
+	}
 
 const userCartEl = document.getElementById("user-cart");
 const userId = parseInt(document.getElementById("user-cart").dataset.userId, 10);
@@ -257,8 +287,7 @@ async function sendAiMessage() {
 }
 
 // ✅ 綁定 Enter 鍵送出
-document.addEventListener("DOMContentLoaded", () => {
-  // 抓 userId
+document.addEventListener("DOMContentLoaded", async () => {
   const userCartEl = document.getElementById("user-cart");
   const userId = parseInt(userCartEl?.dataset.userId, 10);
 
@@ -267,9 +296,22 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // 初始化功能
-  syncCartToServer(userId);
-  loadCart(userId);
+  try {
+    // ✅ 1. 從後端撈回使用者收藏
+    const serverCart = await fetchCartFromServer(userId);
+
+    // ✅ 2. 更新 localStorage
+    localStorage.setItem("newsCart", JSON.stringify(serverCart));
+
+    // ✅ 3. 載入畫面並同步資料
+    syncCartToServer(userId); // 如果想同步到 DB（可保留）
+    loadCart(userId);
+    loadFavoriteList(userId); 
+  } catch (err) {
+    console.error("❌ 初始同步收藏失敗：", err);
+  }
+
+ 
 
   // 綁定 AI 輸入 Enter 快捷鍵
   const aiInput = document.getElementById("ai-user-input");

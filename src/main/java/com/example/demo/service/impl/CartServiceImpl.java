@@ -51,18 +51,6 @@ public class CartServiceImpl implements CartService {
         News news = newsRepository.findById(newsId)
                 .orElseThrow(() -> new RuntimeException("找不到新聞 ID: " + newsId));
         
-        if (news.getAiSummary() == null || news.getAiSummary().isBlank()) {
-            String systemPrompt = "你是一個專業而且中立的新聞專欄作家，你的任務是不帶任何立場的用繁體中文總結新聞裡面的重點";
-            try {
-                String summary = NewsSummarizerTranslator.summarize(news.getContent(), systemPrompt);
-                news.setAiSummary(summary);
-                newsRepository.save(news); // ⚠️ 要存起來
-                System.out.println("🤖 AI 摘要完成：" + summary);
-            } catch (Exception e) {
-                System.out.println("⚠️ AI 摘要失敗：" + e.getMessage());
-            }
-        }
-        
         
         
         // 檢查是否重複加入
@@ -147,8 +135,5 @@ public class CartServiceImpl implements CartService {
         //  把這些新聞資料撈出（假設你要用 News 資料）
         return newsRepository.findAllById(favoritedNewsIds);
     }
-    @Override
-    public List<News> getNewsByIds(List<Long> ids) {
-        return newsRepository.findAllById(ids);
-    }
+    
 }
