@@ -10,6 +10,4 @@ public interface CartService {
 	   List<Long> findNewsIdsByUser(Integer userId);
 	   List<News> getNewsByCartId(Long cartId);
 	    void removeNewsFromCart(Integer userId, Long newsId);
-	    
-	    List<News> getNewsByIds(List<Long> ids);
 }

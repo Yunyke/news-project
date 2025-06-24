@@ -3255,3 +3255,303 @@ java.lang.Error: Unresolved compilation problem:
 2025-06-24T15:35:18.370+08:00  INFO 11488 --- [news-project] [RMI TCP Connection(9)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-06-24T15:35:18.372+08:00  INFO 11488 --- [news-project] [RMI TCP Connection(9)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2025-06-24T15:35:18.375+08:00  INFO 11488 --- [news-project] [RMI TCP Connection(9)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-06-24T15:35:19.991+08:00  INFO 4040 --- [news-project] [main] c.example.demo.NewsProjectApplication    : Starting NewsProjectApplication using Java 21.0.7 with PID 4040 (C:\Users\NTPU\eclipse-workspace\news-project\target\classes started by NTPU in C:\Users\NTPU\eclipse-workspace\news-project)
+2025-06-24T15:35:19.993+08:00  INFO 4040 --- [news-project] [main] c.example.demo.NewsProjectApplication    : No active profile set, falling back to 1 default profile: "default"
+2025-06-24T15:35:20.437+08:00  INFO 4040 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-24T15:35:20.444+08:00  INFO 4040 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2025-06-24T15:35:20.470+08:00  INFO 4040 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.CartItemRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:35:20.471+08:00  INFO 4040 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.CartRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:35:20.472+08:00  INFO 4040 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.FavoriteRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:35:20.473+08:00  INFO 4040 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.NewsRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:35:20.474+08:00  INFO 4040 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.UserRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:35:20.475+08:00  INFO 4040 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.RoomRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:35:20.475+08:00  INFO 4040 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 26 ms. Found 0 JDBC repository interfaces.
+2025-06-24T15:35:20.482+08:00  INFO 4040 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-24T15:35:20.484+08:00  INFO 4040 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-24T15:35:20.510+08:00  INFO 4040 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23 ms. Found 6 JPA repository interfaces.
+2025-06-24T15:35:20.831+08:00  INFO 4040 --- [news-project] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8008 (http)
+2025-06-24T15:35:20.842+08:00  INFO 4040 --- [news-project] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-24T15:35:20.842+08:00  INFO 4040 --- [news-project] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-06-24T15:35:20.988+08:00  INFO 4040 --- [news-project] [main] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2025-06-24T15:35:20.992+08:00  INFO 4040 --- [news-project] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-06-24T15:35:20.992+08:00  INFO 4040 --- [news-project] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 976 ms
+2025-06-24T15:35:21.095+08:00  INFO 4040 --- [news-project] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-24T15:35:21.133+08:00  INFO 4040 --- [news-project] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.18.Final
+2025-06-24T15:35:21.157+08:00  INFO 4040 --- [news-project] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-06-24T15:35:21.355+08:00  INFO 4040 --- [news-project] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-24T15:35:21.377+08:00  INFO 4040 --- [news-project] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-06-24T15:35:21.481+08:00  INFO 4040 --- [news-project] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5b64f771
+2025-06-24T15:35:21.482+08:00  INFO 4040 --- [news-project] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-06-24T15:35:21.534+08:00  INFO 4040 --- [news-project] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.34
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-24T15:35:22.238+08:00  INFO 4040 --- [news-project] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-24T15:35:22.287+08:00  INFO 4040 --- [news-project] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-24T15:35:22.444+08:00  INFO 4040 --- [news-project] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-24T15:35:23.158+08:00  INFO 4040 --- [news-project] [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-06-24T15:35:23.468+08:00  INFO 4040 --- [news-project] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8008 (http) with context path '/'
+2025-06-24T15:35:23.473+08:00  INFO 4040 --- [news-project] [main] c.example.demo.NewsProjectApplication    : Started NewsProjectApplication in 3.73 seconds (process running for 4.102)
+2025-06-24T15:35:26.574+08:00  INFO 4040 --- [news-project] [http-nio-8008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-24T15:35:26.575+08:00  INFO 4040 --- [news-project] [http-nio-8008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-06-24T15:35:26.575+08:00  INFO 4040 --- [news-project] [http-nio-8008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2025-06-24T15:37:23.926+08:00  INFO 4040 --- [news-project] [RMI TCP Connection(10)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2025-06-24T15:37:23.928+08:00  INFO 4040 --- [news-project] [RMI TCP Connection(10)-127.0.0.1] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-24T15:37:23.930+08:00  INFO 4040 --- [news-project] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-06-24T15:37:23.933+08:00  INFO 4040 --- [news-project] [RMI TCP Connection(10)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-24T15:37:23.934+08:00  INFO 4040 --- [news-project] [RMI TCP Connection(10)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-06-24T15:37:23.937+08:00  INFO 4040 --- [news-project] [RMI TCP Connection(10)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-06-24T15:37:38.230+08:00  INFO 16992 --- [news-project] [main] c.example.demo.NewsProjectApplication    : Starting NewsProjectApplication using Java 21.0.7 with PID 16992 (C:\Users\NTPU\eclipse-workspace\news-project\target\classes started by NTPU in C:\Users\NTPU\eclipse-workspace\news-project)
+2025-06-24T15:37:38.231+08:00  INFO 16992 --- [news-project] [main] c.example.demo.NewsProjectApplication    : No active profile set, falling back to 1 default profile: "default"
+2025-06-24T15:37:38.693+08:00  INFO 16992 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-24T15:37:38.694+08:00  INFO 16992 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2025-06-24T15:37:38.717+08:00  INFO 16992 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.CartItemRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:37:38.717+08:00  INFO 16992 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.CartRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:37:38.719+08:00  INFO 16992 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.FavoriteRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:37:38.720+08:00  INFO 16992 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.NewsRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:37:38.720+08:00  INFO 16992 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.UserRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:37:38.721+08:00  INFO 16992 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.RoomRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:37:38.722+08:00  INFO 16992 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23 ms. Found 0 JDBC repository interfaces.
+2025-06-24T15:37:38.728+08:00  INFO 16992 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-24T15:37:38.729+08:00  INFO 16992 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-24T15:37:38.754+08:00  INFO 16992 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22 ms. Found 6 JPA repository interfaces.
+2025-06-24T15:37:39.079+08:00  INFO 16992 --- [news-project] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8008 (http)
+2025-06-24T15:37:39.089+08:00  INFO 16992 --- [news-project] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-24T15:37:39.089+08:00  INFO 16992 --- [news-project] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-06-24T15:37:39.217+08:00  INFO 16992 --- [news-project] [main] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2025-06-24T15:37:39.221+08:00  INFO 16992 --- [news-project] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-06-24T15:37:39.221+08:00  INFO 16992 --- [news-project] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 966 ms
+2025-06-24T15:37:39.323+08:00  INFO 16992 --- [news-project] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-24T15:37:39.360+08:00  INFO 16992 --- [news-project] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.18.Final
+2025-06-24T15:37:39.383+08:00  INFO 16992 --- [news-project] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-06-24T15:37:39.559+08:00  INFO 16992 --- [news-project] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-24T15:37:39.581+08:00  INFO 16992 --- [news-project] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-06-24T15:37:39.687+08:00  INFO 16992 --- [news-project] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1dd443c1
+2025-06-24T15:37:39.689+08:00  INFO 16992 --- [news-project] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-06-24T15:37:39.739+08:00  INFO 16992 --- [news-project] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.34
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-24T15:37:40.408+08:00  INFO 16992 --- [news-project] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-24T15:37:40.454+08:00  INFO 16992 --- [news-project] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-24T15:37:40.601+08:00  INFO 16992 --- [news-project] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-24T15:37:41.312+08:00  INFO 16992 --- [news-project] [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-06-24T15:37:41.611+08:00  INFO 16992 --- [news-project] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8008 (http) with context path '/'
+2025-06-24T15:37:41.615+08:00  INFO 16992 --- [news-project] [main] c.example.demo.NewsProjectApplication    : Started NewsProjectApplication in 3.637 seconds (process running for 4.135)
+2025-06-24T15:37:45.488+08:00  INFO 16992 --- [news-project] [http-nio-8008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-24T15:37:45.488+08:00  INFO 16992 --- [news-project] [http-nio-8008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-06-24T15:37:45.489+08:00  INFO 16992 --- [news-project] [http-nio-8008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-06-24T15:46:07.707+08:00  INFO 16992 --- [news-project] [RMI TCP Connection(18)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2025-06-24T15:46:07.709+08:00  INFO 16992 --- [news-project] [RMI TCP Connection(18)-127.0.0.1] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-24T15:46:07.711+08:00  INFO 16992 --- [news-project] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-06-24T15:46:07.713+08:00  INFO 16992 --- [news-project] [RMI TCP Connection(18)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-24T15:46:07.715+08:00  INFO 16992 --- [news-project] [RMI TCP Connection(18)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-06-24T15:46:07.718+08:00  INFO 16992 --- [news-project] [RMI TCP Connection(18)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-06-24T15:46:09.312+08:00  INFO 3924 --- [news-project] [main] c.example.demo.NewsProjectApplication    : Starting NewsProjectApplication using Java 21.0.7 with PID 3924 (C:\Users\NTPU\eclipse-workspace\news-project\target\classes started by NTPU in C:\Users\NTPU\eclipse-workspace\news-project)
+2025-06-24T15:46:09.313+08:00  INFO 3924 --- [news-project] [main] c.example.demo.NewsProjectApplication    : No active profile set, falling back to 1 default profile: "default"
+2025-06-24T15:46:09.744+08:00  INFO 3924 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-24T15:46:09.745+08:00  INFO 3924 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2025-06-24T15:46:09.768+08:00  INFO 3924 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.CartItemRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:46:09.768+08:00  INFO 3924 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.CartRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:46:09.770+08:00  INFO 3924 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.FavoriteRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:46:09.771+08:00  INFO 3924 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.NewsRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:46:09.771+08:00  INFO 3924 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.UserRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:46:09.772+08:00  INFO 3924 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.RoomRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:46:09.773+08:00  INFO 3924 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 24 ms. Found 0 JDBC repository interfaces.
+2025-06-24T15:46:09.779+08:00  INFO 3924 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-24T15:46:09.780+08:00  INFO 3924 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-24T15:46:09.811+08:00  INFO 3924 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 28 ms. Found 6 JPA repository interfaces.
+2025-06-24T15:46:10.119+08:00  INFO 3924 --- [news-project] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8008 (http)
+2025-06-24T15:46:10.129+08:00  INFO 3924 --- [news-project] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-24T15:46:10.129+08:00  INFO 3924 --- [news-project] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-06-24T15:46:10.266+08:00  INFO 3924 --- [news-project] [main] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2025-06-24T15:46:10.270+08:00  INFO 3924 --- [news-project] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-06-24T15:46:10.270+08:00  INFO 3924 --- [news-project] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 933 ms
+2025-06-24T15:46:10.370+08:00  INFO 3924 --- [news-project] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-24T15:46:10.407+08:00  INFO 3924 --- [news-project] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.18.Final
+2025-06-24T15:46:10.430+08:00  INFO 3924 --- [news-project] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-06-24T15:46:10.600+08:00  INFO 3924 --- [news-project] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-24T15:46:10.622+08:00  INFO 3924 --- [news-project] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-06-24T15:46:10.722+08:00  INFO 3924 --- [news-project] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@52eca410
+2025-06-24T15:46:10.723+08:00  INFO 3924 --- [news-project] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-06-24T15:46:10.774+08:00  INFO 3924 --- [news-project] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.34
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-24T15:46:11.455+08:00  INFO 3924 --- [news-project] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-24T15:46:11.502+08:00  INFO 3924 --- [news-project] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-24T15:46:11.650+08:00  INFO 3924 --- [news-project] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-24T15:46:12.329+08:00  INFO 3924 --- [news-project] [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-06-24T15:46:12.620+08:00  INFO 3924 --- [news-project] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8008 (http) with context path '/'
+2025-06-24T15:46:12.624+08:00  INFO 3924 --- [news-project] [main] c.example.demo.NewsProjectApplication    : Started NewsProjectApplication in 3.556 seconds (process running for 3.913)
+2025-06-24T15:46:13.756+08:00  INFO 3924 --- [news-project] [http-nio-8008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-24T15:46:13.757+08:00  INFO 3924 --- [news-project] [http-nio-8008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-06-24T15:46:13.757+08:00  INFO 3924 --- [news-project] [http-nio-8008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2025-06-24T15:57:57.519+08:00  INFO 3924 --- [news-project] [RMI TCP Connection(22)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2025-06-24T15:57:57.521+08:00  INFO 3924 --- [news-project] [RMI TCP Connection(22)-127.0.0.1] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-24T15:57:57.523+08:00  INFO 3924 --- [news-project] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-06-24T15:57:57.526+08:00  INFO 3924 --- [news-project] [RMI TCP Connection(22)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-24T15:57:57.527+08:00  INFO 3924 --- [news-project] [RMI TCP Connection(22)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-06-24T15:57:57.530+08:00  INFO 3924 --- [news-project] [RMI TCP Connection(22)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-06-24T15:57:59.110+08:00  INFO 9380 --- [news-project] [main] c.example.demo.NewsProjectApplication    : Starting NewsProjectApplication using Java 21.0.7 with PID 9380 (C:\Users\NTPU\eclipse-workspace\news-project\target\classes started by NTPU in C:\Users\NTPU\eclipse-workspace\news-project)
+2025-06-24T15:57:59.111+08:00  INFO 9380 --- [news-project] [main] c.example.demo.NewsProjectApplication    : No active profile set, falling back to 1 default profile: "default"
+2025-06-24T15:57:59.593+08:00  INFO 9380 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-24T15:57:59.594+08:00  INFO 9380 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2025-06-24T15:57:59.625+08:00  INFO 9380 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.CartItemRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:57:59.626+08:00  INFO 9380 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.CartRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:57:59.628+08:00  INFO 9380 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.FavoriteRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:57:59.629+08:00  INFO 9380 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.NewsRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:57:59.630+08:00  INFO 9380 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.UserRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:57:59.631+08:00  INFO 9380 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.RoomRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:57:59.631+08:00  INFO 9380 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 27 ms. Found 0 JDBC repository interfaces.
+2025-06-24T15:57:59.638+08:00  INFO 9380 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-24T15:57:59.639+08:00  INFO 9380 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-24T15:57:59.664+08:00  INFO 9380 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21 ms. Found 6 JPA repository interfaces.
+2025-06-24T15:57:59.973+08:00  INFO 9380 --- [news-project] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8008 (http)
+2025-06-24T15:57:59.983+08:00  INFO 9380 --- [news-project] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-24T15:57:59.983+08:00  INFO 9380 --- [news-project] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-06-24T15:58:00.124+08:00  INFO 9380 --- [news-project] [main] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2025-06-24T15:58:00.128+08:00  INFO 9380 --- [news-project] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-06-24T15:58:00.129+08:00  INFO 9380 --- [news-project] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 995 ms
+2025-06-24T15:58:00.227+08:00  INFO 9380 --- [news-project] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-24T15:58:00.265+08:00  INFO 9380 --- [news-project] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.18.Final
+2025-06-24T15:58:00.287+08:00  INFO 9380 --- [news-project] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-06-24T15:58:00.465+08:00  INFO 9380 --- [news-project] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-24T15:58:00.487+08:00  INFO 9380 --- [news-project] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-06-24T15:58:00.584+08:00  INFO 9380 --- [news-project] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5f67181f
+2025-06-24T15:58:00.585+08:00  INFO 9380 --- [news-project] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-06-24T15:58:00.636+08:00  INFO 9380 --- [news-project] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.34
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-24T15:58:01.323+08:00  INFO 9380 --- [news-project] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-24T15:58:01.369+08:00  INFO 9380 --- [news-project] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-24T15:58:01.550+08:00  INFO 9380 --- [news-project] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-24T15:58:02.196+08:00  INFO 9380 --- [news-project] [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-06-24T15:58:02.495+08:00  INFO 9380 --- [news-project] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8008 (http) with context path '/'
+2025-06-24T15:58:02.499+08:00  INFO 9380 --- [news-project] [main] c.example.demo.NewsProjectApplication    : Started NewsProjectApplication in 3.634 seconds (process running for 4.0)
+2025-06-24T15:58:04.182+08:00  INFO 9380 --- [news-project] [http-nio-8008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-24T15:58:04.182+08:00  INFO 9380 --- [news-project] [http-nio-8008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-06-24T15:58:04.182+08:00  INFO 9380 --- [news-project] [http-nio-8008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2025-06-24T15:59:21.516+08:00  INFO 9380 --- [news-project] [RMI TCP Connection(11)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2025-06-24T15:59:21.518+08:00  INFO 9380 --- [news-project] [RMI TCP Connection(11)-127.0.0.1] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-24T15:59:21.520+08:00  INFO 9380 --- [news-project] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-06-24T15:59:21.522+08:00  INFO 9380 --- [news-project] [RMI TCP Connection(11)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-24T15:59:21.523+08:00  INFO 9380 --- [news-project] [RMI TCP Connection(11)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-06-24T15:59:21.527+08:00  INFO 9380 --- [news-project] [RMI TCP Connection(11)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-06-24T15:59:23.103+08:00  INFO 16872 --- [news-project] [main] c.example.demo.NewsProjectApplication    : Starting NewsProjectApplication using Java 21.0.7 with PID 16872 (C:\Users\NTPU\eclipse-workspace\news-project\target\classes started by NTPU in C:\Users\NTPU\eclipse-workspace\news-project)
+2025-06-24T15:59:23.104+08:00  INFO 16872 --- [news-project] [main] c.example.demo.NewsProjectApplication    : No active profile set, falling back to 1 default profile: "default"
+2025-06-24T15:59:23.541+08:00  INFO 16872 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-24T15:59:23.542+08:00  INFO 16872 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2025-06-24T15:59:23.566+08:00  INFO 16872 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.CartItemRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:59:23.567+08:00  INFO 16872 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.CartRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:59:23.569+08:00  INFO 16872 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.FavoriteRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:59:23.570+08:00  INFO 16872 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.NewsRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:59:23.571+08:00  INFO 16872 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.UserRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:59:23.572+08:00  INFO 16872 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.RoomRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T15:59:23.573+08:00  INFO 16872 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 26 ms. Found 0 JDBC repository interfaces.
+2025-06-24T15:59:23.582+08:00  INFO 16872 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-24T15:59:23.583+08:00  INFO 16872 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-24T15:59:23.612+08:00  INFO 16872 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25 ms. Found 6 JPA repository interfaces.
+2025-06-24T15:59:23.928+08:00  INFO 16872 --- [news-project] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8008 (http)
+2025-06-24T15:59:23.938+08:00  INFO 16872 --- [news-project] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-24T15:59:23.938+08:00  INFO 16872 --- [news-project] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-06-24T15:59:24.074+08:00  INFO 16872 --- [news-project] [main] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2025-06-24T15:59:24.078+08:00  INFO 16872 --- [news-project] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-06-24T15:59:24.078+08:00  INFO 16872 --- [news-project] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 950 ms
+2025-06-24T15:59:24.180+08:00  INFO 16872 --- [news-project] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-24T15:59:24.218+08:00  INFO 16872 --- [news-project] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.18.Final
+2025-06-24T15:59:24.242+08:00  INFO 16872 --- [news-project] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-06-24T15:59:24.421+08:00  INFO 16872 --- [news-project] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-24T15:59:24.443+08:00  INFO 16872 --- [news-project] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-06-24T15:59:24.542+08:00  INFO 16872 --- [news-project] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@26d7cb0d
+2025-06-24T15:59:24.544+08:00  INFO 16872 --- [news-project] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-06-24T15:59:24.594+08:00  INFO 16872 --- [news-project] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.34
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-24T15:59:25.284+08:00  INFO 16872 --- [news-project] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-24T15:59:25.330+08:00  INFO 16872 --- [news-project] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-24T15:59:25.522+08:00  INFO 16872 --- [news-project] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-24T15:59:26.182+08:00  INFO 16872 --- [news-project] [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-06-24T15:59:26.474+08:00  INFO 16872 --- [news-project] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8008 (http) with context path '/'
+2025-06-24T15:59:26.479+08:00  INFO 16872 --- [news-project] [main] c.example.demo.NewsProjectApplication    : Started NewsProjectApplication in 3.63 seconds (process running for 3.988)
+2025-06-24T15:59:36.029+08:00  INFO 16872 --- [news-project] [http-nio-8008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-24T15:59:36.029+08:00  INFO 16872 --- [news-project] [http-nio-8008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-06-24T15:59:36.030+08:00  INFO 16872 --- [news-project] [http-nio-8008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-06-24T16:07:48.483+08:00  INFO 16872 --- [news-project] [RMI TCP Connection(19)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2025-06-24T16:07:48.484+08:00  INFO 16872 --- [news-project] [RMI TCP Connection(19)-127.0.0.1] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-24T16:07:48.487+08:00  INFO 16872 --- [news-project] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-06-24T16:07:48.489+08:00  INFO 16872 --- [news-project] [RMI TCP Connection(19)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-24T16:07:48.490+08:00  INFO 16872 --- [news-project] [RMI TCP Connection(19)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-06-24T16:07:48.493+08:00  INFO 16872 --- [news-project] [RMI TCP Connection(19)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-06-24T16:07:50.064+08:00  INFO 9860 --- [news-project] [main] c.example.demo.NewsProjectApplication    : Starting NewsProjectApplication using Java 21.0.7 with PID 9860 (C:\Users\NTPU\eclipse-workspace\news-project\target\classes started by NTPU in C:\Users\NTPU\eclipse-workspace\news-project)
+2025-06-24T16:07:50.065+08:00  INFO 9860 --- [news-project] [main] c.example.demo.NewsProjectApplication    : No active profile set, falling back to 1 default profile: "default"
+2025-06-24T16:07:50.493+08:00  INFO 9860 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-24T16:07:50.494+08:00  INFO 9860 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2025-06-24T16:07:50.517+08:00  INFO 9860 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.CartItemRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T16:07:50.518+08:00  INFO 9860 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.CartRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T16:07:50.519+08:00  INFO 9860 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.FavoriteRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T16:07:50.520+08:00  INFO 9860 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.NewsRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T16:07:50.521+08:00  INFO 9860 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.UserRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T16:07:50.522+08:00  INFO 9860 --- [news-project] [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.example.demo.repository.RoomRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2025-06-24T16:07:50.522+08:00  INFO 9860 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 24 ms. Found 0 JDBC repository interfaces.
+2025-06-24T16:07:50.529+08:00  INFO 9860 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-06-24T16:07:50.529+08:00  INFO 9860 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-24T16:07:50.554+08:00  INFO 9860 --- [news-project] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21 ms. Found 6 JPA repository interfaces.
+2025-06-24T16:07:50.868+08:00  INFO 9860 --- [news-project] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8008 (http)
+2025-06-24T16:07:50.878+08:00  INFO 9860 --- [news-project] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-24T16:07:50.878+08:00  INFO 9860 --- [news-project] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.42]
+2025-06-24T16:07:51.014+08:00  INFO 9860 --- [news-project] [main] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2025-06-24T16:07:51.018+08:00  INFO 9860 --- [news-project] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-06-24T16:07:51.019+08:00  INFO 9860 --- [news-project] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 929 ms
+2025-06-24T16:07:51.118+08:00  INFO 9860 --- [news-project] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-24T16:07:51.155+08:00  INFO 9860 --- [news-project] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.18.Final
+2025-06-24T16:07:51.178+08:00  INFO 9860 --- [news-project] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-06-24T16:07:51.358+08:00  INFO 9860 --- [news-project] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-24T16:07:51.380+08:00  INFO 9860 --- [news-project] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-06-24T16:07:51.478+08:00  INFO 9860 --- [news-project] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@65503a26
+2025-06-24T16:07:51.479+08:00  INFO 9860 --- [news-project] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-06-24T16:07:51.530+08:00  INFO 9860 --- [news-project] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.34
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-24T16:07:52.205+08:00  INFO 9860 --- [news-project] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-24T16:07:52.251+08:00  INFO 9860 --- [news-project] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-24T16:07:52.431+08:00  INFO 9860 --- [news-project] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-24T16:07:53.080+08:00  INFO 9860 --- [news-project] [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-06-24T16:07:53.368+08:00  INFO 9860 --- [news-project] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8008 (http) with context path '/'
+2025-06-24T16:07:53.372+08:00  INFO 9860 --- [news-project] [main] c.example.demo.NewsProjectApplication    : Started NewsProjectApplication in 3.55 seconds (process running for 3.901)
+2025-06-24T16:07:54.443+08:00  INFO 9860 --- [news-project] [http-nio-8008-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-24T16:07:54.444+08:00  INFO 9860 --- [news-project] [http-nio-8008-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-06-24T16:07:54.445+08:00  INFO 9860 --- [news-project] [http-nio-8008-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2025-06-24T16:09:39.984+08:00  INFO 9860 --- [news-project] [RMI TCP Connection(11)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2025-06-24T16:09:39.985+08:00  INFO 9860 --- [news-project] [RMI TCP Connection(11)-127.0.0.1] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-24T16:09:39.987+08:00  INFO 9860 --- [news-project] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-06-24T16:09:39.989+08:00  INFO 9860 --- [news-project] [RMI TCP Connection(11)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-24T16:09:39.990+08:00  INFO 9860 --- [news-project] [RMI TCP Connection(11)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-06-24T16:09:39.994+08:00  INFO 9860 --- [news-project] [RMI TCP Connection(11)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
