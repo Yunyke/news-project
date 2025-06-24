@@ -25,6 +25,10 @@ public class CartServiceImpl implements CartService {
 
     @Autowired
     private CartItemRepository cartItemRepo;
+    
+    @Autowired
+    private FavoriteRepository favoriteRepository;
+
 
     /**
      * 🆕 新增新聞進購物車
@@ -107,12 +111,26 @@ public class CartServiceImpl implements CartService {
         }
     }
 
-    /**
-     * 🆕 根據 cartId 拿出購物車裡的所有 News 詳細資料
-     */
+    
+     // 根據 cartId 拿出購物車裡的所有 News 詳細資料
+     
     @Transactional(readOnly = true)
     @Override
     public List<News> getNewsByCartId(Long cartId) {
         return cartItemRepo.findNewsByCartId(cartId);
+    }
+    @Override
+    public List<News> getFavoritedNewsInCart(Integer userId) {
+        //  找出購物車裡的所有新聞 ID
+        List<Long> newsIdsInCart = cartRepository.findNewsIdsByUserId(userId);
+        if (newsIdsInCart.isEmpty()) {
+            return List.of(); // 沒有新聞，不用查
+        }
+
+        //  找出有哪些新聞 ID 是有被加入最愛的
+        List<Long> favoritedNewsIds = favoriteRepository.findFavoriteNewsIds(userId, newsIdsInCart);
+
+        //  把這些新聞資料撈出（假設你要用 News 資料）
+        return newsRepository.findAllById(favoritedNewsIds);
     }
 }

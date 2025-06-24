@@ -3,7 +3,10 @@ package com.example.demo.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.example.demo.model.dto.FavoriteToggleResponse;
+import com.example.demo.model.entity.Favorite;
 import com.example.demo.model.entity.News;
+import com.example.demo.repository.FavoriteRepository;
 import com.example.demo.service.CartService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,8 @@ public class CartController {
 
     @Autowired
     private CartService cartService;
+    @Autowired
+    private FavoriteRepository favoriteRepository;
 
     @PostMapping("/users/{userId}/cart")
     public ResponseEntity<String> addToCart(@PathVariable Integer userId,
@@ -41,6 +46,24 @@ public class CartController {
                                                @PathVariable Long newsId) {
         cartService.removeNewsFromCart(userId, newsId);
         return ResponseEntity.noContent().build();
+    }
+    @PostMapping("/dailynews/users/{userId}/favorites/{newsId}")
+    public ResponseEntity<FavoriteToggleResponse> toggleFavorite(
+        @PathVariable Integer userId,
+        @PathVariable Long newsId) {
+
+        boolean exists = favoriteRepository.existsByUserIdAndNewsId(userId, newsId);
+        
+        if (exists) {
+            favoriteRepository.deleteByUserIdAndNewsId(userId, newsId);
+            return ResponseEntity.ok(new FavoriteToggleResponse(newsId, false));
+        } else {
+            Favorite f = new Favorite();
+            f.setUserId(userId);
+            f.setNewsId(newsId);
+            favoriteRepository.save(f);
+            return ResponseEntity.ok(new FavoriteToggleResponse(newsId, true));
+        }
     }
 
     // ✅ 新增：一次加入多筆新聞到購物車

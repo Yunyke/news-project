@@ -11,7 +11,7 @@
 </head>
 
 <body th:attr="data-user-id=${userId}" id="user-cart">
-	
+
 	<div
 		style="position: absolute; top: 5px; right: 20px; z-index: 1050; background-color: #f8f9fa; padding: 5px 10px; border-radius: 8px; color: #6c757d;">
 		<a class="btn btn-sm btn-outline-light me-2 custom-auth-btn" href="/">回首頁</a>
@@ -39,7 +39,7 @@
 		</div>
 	</main>
 
-<script>
+	<script>
 function syncCartToServer() {
 	  const ids = JSON.parse(localStorage.getItem("newsCart") || "[]");
 
@@ -89,58 +89,57 @@ function loadCart(userId) {
 
     
 
-    
- // ✅ 綁定收藏按鈕
-    document.querySelectorAll(".favorite-btn").forEach(btn => {
-    	btn.addEventListener("click", function () {
-    		  const newsId = this.dataset.id;
-    		  const self = this;
+	    document.querySelectorAll(".favorite-btn").forEach(btn => {
+	        btn.addEventListener("click", function () {
+	          const newsId = this.dataset.id;
+	          const self = this;
+	          
 
-    		  fetch(`/dailynews/users/${userId}/favorites/${newsId}`, {
-    			  method: "POST"
-    			})
-    		  .then(res => res.json())
-    		  .then(data => {
-    		    if (data.favorited !== undefined) {
-    		      const icon = data.favorited ? "❤️ 已收藏" : "💙 收藏";
-    		      self.innerHTML = icon;
-    		      self.classList.toggle("btn-outline-success", !data.favorited);
-    		      self.classList.toggle("btn-outline-danger", data.favorited);
+	         // fetch(`/favorites/${newsId}?userId=${window.USER_SESSION.userId}`, { method: "POST" })
+	          fetch(`/favorites/${newsId}?userId=${userId}`, { method: "POST" })
+	          .then(res => {
+	        	    if (!res.ok) {
+	        	        throw new Error(`HTTP ${res.status} - 收藏失敗`);
+	        	      }
+	        	      return res.json();
+	        	    })
+	          .then(data => {
+	            if (data.favorited !== undefined) {
+	              const icon = data.favorited ? "❤️ 已收藏" : "💙 收藏";
+	              self.innerHTML = icon;
+	              self.classList.toggle("btn-outline-success", !data.favorited);
+	              self.classList.toggle("btn-outline-danger", data.favorited);
 
-    		      // ⭐⭐ 加這段：即時更新右側收藏清單
-    		      const card = self.closest(".news-feed-card");
-    		      const title = card.querySelector(".news-feed-title")?.textContent || "未命名新聞";
-    		      const id = card.getAttribute("id");
+	              // 👉 同步右側清單
+	              const card = self.closest(".news-feed-card");
+	              const title = card.querySelector(".news-feed-title")?.textContent || "未命名新聞";
+	              const id = card.getAttribute("id");
+	              const favList = document.getElementById("favorite-list-ul");
 
-    		      const favList = document.getElementById("favorite-list-ul");
+	              if (data.favorited) {
+	                const li = document.createElement("li");
+	                li.className = "sidebar-item";
+	                li.setAttribute("data-news-id", newsId);
 
-    		      if (data.favorited) {
-    		        // 加入收藏清單
-    		        const li = document.createElement("li");
-    		        li.className = "sidebar-item";
-    		        li.setAttribute("data-news-id", newsId);
+	                const link = document.createElement("a");
+	                link.href = `#${id}`;
+	                link.textContent = title;
+	                link.title = title;
 
-    		        const link = document.createElement("a");
-    		        link.href = `#${id}`;
-    		        link.textContent = title;
-    		        link.title = title;
-
-    		        li.appendChild(link);
-    		        favList.appendChild(li);
-    		      } else {
-    		        // 從清單移除
-    		        const itemToRemove = favList.querySelector(`li[data-news-id="${newsId}"]`);
-    		        if (itemToRemove) itemToRemove.remove();
-    		      }
-    		    }
-    		  })
-    		  .catch(err => {
-    		    console.error("收藏失敗", err);
-    		    alert("⚠️ 收藏失敗，請稍後再試");
-    		  });
-    		});
-    });
-
+	                li.appendChild(link);
+	                favList.appendChild(li);
+	              } else {
+	                const itemToRemove = favList.querySelector(`li[data-news-id="${newsId}"]`);
+	                if (itemToRemove) itemToRemove.remove();
+	              }
+	            }
+	          })
+	          .catch(err => {
+	            console.error("收藏失敗", err);
+	            alert("⚠️ 收藏失敗，請稍後再試");
+	          });
+	        });
+	      });
 
     // ✅ 移除 localStorage 無效 ID
     const existingIds = Array.from(document.querySelectorAll(".remove-from-cart-btn"))
@@ -281,7 +280,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	<!-- Thymeleaf Fragment for cart -->
 	<div th:fragment="cartFragment">
-<script th:inline="javascript">
+		<script th:inline="javascript">
 	console.log("User ID is:", userId);
 </script>
 
@@ -297,21 +296,18 @@ document.addEventListener("DOMContentLoaded", () => {
 			<div class="news-feed-time"
 				th:text="${#temporals.format(news.publishedAt, 'yyyy-MM-dd HH:mm')}">時間</div>
 
-			
+
 			<div class="news-feed-content" th:utext="${news.content}"></div>
 
 			<div class="news-feed-actions">
 				<button class="btn btn-sm btn-outline-primary toggle-content-btn">閱讀全文</button>
-				<button
-  class="btn btn-sm favorite-btn btn-outline-success"
-  th:text="'💙 收藏'"
-  th:attr="data-id=${news.id}">
-</button>
-					<button class="btn btn-sm btn-outline-danger remove-from-cart-btn"
-						th:attr="data-id=${news.id}">移除</button>
-				</div>
+				<button class="btn btn-sm favorite-btn btn-outline-success"
+					th:text="'💙 收藏'" th:attr="data-id=${news.id}"></button>
+				<button class="btn btn-sm btn-outline-danger remove-from-cart-btn"
+					th:attr="data-id=${news.id}">移除</button>
 			</div>
 		</div>
+	</div>
 	</div>
 	<!-- ✅ AI 助理對話框 -->
 	<div id="ai-chatbox">
