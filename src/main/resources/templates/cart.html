@@ -56,9 +56,12 @@
 		        link.textContent = item.title || "未命名新聞";
 		        link.title = item.title;
 
-		        const removeBtn = document.createElement("button");
-		        removeBtn.className = "btn btn-sm btn-outline-danger ms-2";
-		        removeBtn.textContent = "🗑️";
+		        const removeBtn = document.createElement("span");
+		        removeBtn.textContent = "❌ ";
+		        removeBtn.style.cursor = "pointer";
+		        removeBtn.title = "移除收藏";
+		        removeBtn.classList.add("text-danger", "me-1");
+
 		        removeBtn.onclick = () => {
 		          if (!confirm("確定要移除這則收藏嗎？")) return;
 
