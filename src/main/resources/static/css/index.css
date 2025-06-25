@@ -87,7 +87,7 @@ h2.news-section-title {
 }
 
 .news-card:hover .hover-description {
-	display: visible;
+	display: block;
 }
 
 .news-img {

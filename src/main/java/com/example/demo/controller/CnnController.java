@@ -2,36 +2,42 @@ package com.example.demo.controller;
 
 import com.example.demo.model.entity.News;
 import com.example.demo.repository.NewsRepository;
-import com.example.demo.service.CnnCrawlerService;
+import com.example.demo.service.NewsService;
+
+import jakarta.servlet.http.HttpSession;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model; // ✅ 正確的 Model
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController; // ⭐️ 修正: 直接用 RestController
+
 import java.util.List;
 
-@RestController                // ⭐️ 修正: 回傳 JSON 就用 RestController
+@Controller
 public class CnnController {
-//
-//    private final CnnCrawlerService cnnCrawlerService;  // 不需要 @Autowired
-//    private final NewsRepository newsRepository;
-//
-//    // ⭐️ 建議改成 Lombok @RequiredArgsConstructor 也行
-//    public CnnController(NewsRepository newsRepository,
-//                         CnnCrawlerService cnnCrawlerService) {
-//        this.newsRepository = newsRepository;
-//        this.cnnCrawlerService = cnnCrawlerService;
-//    }
-//
-//    @GetMapping("/api/news/cnn")
-//    public List<News> getCnnNewsAsJson() {
-//
-//    	 List<News> newsList =
-//    	            newsRepository.findTop30BySourceOrderByPublishedAtDesc("CNN");
-//
-//    	        if (newsList.isEmpty()) {
-//    	            cnnCrawlerService.fetchAndSaveIfNotExist();
-//    	            newsList =
-//    	                newsRepository.findTop30BySourceOrderByPublishedAtDesc("CNN");
-//    	        }
-//
-//    	        return newsList;
-//    	    }
-    	}
+
+    private final NewsRepository newsRepository;
+    private final NewsService newsService; // 雖然沒用到也可以先放著
+
+    public CnnController(NewsRepository newsRepository, NewsService newsService) {
+        this.newsRepository = newsRepository;
+        this.newsService = newsService;
+    }
+    
+    private <T> List<T> limit(List<T> list, int max) {
+	    return list == null ? List.of() : list.subList(0, Math.min(max, list.size()));
+	}
+    @GetMapping("/cnn")
+    public String cnnPage(Model model, HttpSession session) {
+        // 設定頁面標題（前端可用 ${title} 顯示）
+        model.addAttribute("title", "CNN News");
+
+        // 將 CNN 資料存進 Model
+        List<News> newsList = limit(newsRepository.findBySourceOrderByPublishedAtDesc("CNN"), 30);
+        model.addAttribute("newsList", newsList);
+
+        // 讓前端能使用登入資訊（如果你有用 session.name）
+        model.addAttribute("session", session);
+
+        return "cnn";
+    }
+}
