@@ -192,6 +192,12 @@
 	<script>
 /* ==================== index.html – 購物車腳本 ==================== */
 document.addEventListener("DOMContentLoaded", async function () {
+	
+	if (!window.IS_LOGGED_IN) {
+	    console.log(" 未登入狀態，自動清除 localStorage.newsCart");
+	    localStorage.removeItem("newsCart");
+	  }
+
 
   /* ---------- 0. 若剛登入強制清空 localStorage ---------- */
   const urlParams = new URLSearchParams(window.location.search);
@@ -311,10 +317,8 @@ function handleViewCartClick() {
   if (!window.IS_LOGGED_IN) {
     alert("請先登入才能查看新聞清單！");
     return;
-  }
-  
-  
-  window.location.href = "/cart";
+  }  
+    window.location.href = "/cart";
 }
 </script>
 

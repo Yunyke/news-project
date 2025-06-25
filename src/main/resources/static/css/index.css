@@ -4,6 +4,7 @@ body {
 	padding: 0;
 	background-color: #f8f9fa;
 	font-family: Arial, sans-serif;
+	
 }
 
 .header-title {
@@ -22,6 +23,7 @@ body {
 	background-color: #333333;
 	border-radius: 5px;
 	transition: background-color 0.3s ease, color 0.3s ease;
+	
 }
 
 .grid-container {
@@ -49,6 +51,8 @@ h2.news-section-title {
 	grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
 	gap: 20px;
 	align-items: start;
+	
+	
 }
 
 /* 卡片樣式調整 */
