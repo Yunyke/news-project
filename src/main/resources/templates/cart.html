@@ -18,7 +18,7 @@
 		<a class="btn btn-sm btn-outline-light custom-auth-btn" href="/logout">登出</a>
 	</div>
 
-	<!-- ✅ 右側收藏清單 -->
+	<!-- 右側收藏清單 -->
 	<nav id="favorite-list">
 		<h5>⭐ 收藏清單</h5>
 		<ul class="sidebar-list" id="favorite-list-ul">
@@ -26,7 +26,7 @@
 		</ul>
 	</nav>
 
-	<!-- ✅ 左側固定目錄 -->
+	<!-- 左側固定目錄 -->
 	<nav id="sidebar-nav">
 		<!-- JS 動態插入目錄連結 -->
 	</nav>
@@ -52,7 +52,8 @@
 		          li.setAttribute("data-news-id", item.newsId);
 
 		        const link = document.createElement("a");
-		        link.href = "#"; // 或直接指向新聞連結
+		        link.href = item.url || "#";  
+		        link.target = "_blank";       
 		        link.textContent = item.title || "未命名新聞";
 		        link.title = item.title;
 
@@ -186,8 +187,37 @@ function loadCart(userId) {
 	                link.target = "_blank";             // ⭐ 在新視窗開啟
 	                link.textContent = title;
 	                link.title = title;
+	                
+	                
 
-	                li.appendChild(link);
+	                const removeBtn = document.createElement("span");
+	                removeBtn.textContent = "❌ ";
+	                removeBtn.style.cursor = "pointer";
+	                removeBtn.title = "移除收藏";
+	                removeBtn.classList.add("text-danger", "me-1");
+
+	                removeBtn.onclick = () => {
+	                  if (!confirm("確定要移除這則收藏嗎？")) return;
+
+	                  fetch(`/favorites/${newsId}?userId=${userId}`, { method: "DELETE" })
+	                    .then(res => {
+	                      if (!res.ok) throw new Error("移除失敗");
+	                      li.remove();
+	                      console.log(`🗑️ 已移除收藏：${newsId}`);
+	                      loadCart(userId);
+	                    })
+	                    .catch(err => {
+	                      console.error("❌ 移除收藏失敗", err);
+	                      alert("移除收藏失敗，請稍後再試");
+	                    });
+	                };
+
+	                const textWrap = document.createElement("div");
+	                textWrap.className = "text-truncate";
+	                textWrap.appendChild(link);
+
+	                li.appendChild(textWrap);
+	                li.appendChild(removeBtn);
 	                favList.appendChild(li);
 	              } else {
 	                const itemToRemove = favList.querySelector(`li[data-news-id="${newsId}"]`);
