@@ -61,6 +61,7 @@ public ResponseEntity<FavoriteToggleResponse> toggleFavorite(@PathVariable Long 
             map.put("newsId", fav.getNews().getId());
             map.put("title", fav.getNews().getTitle());
             map.put("favoritedAt", fav.getCreatedAt());
+            map.put("url", fav.getNews().getUrl());
             return map;
         }).collect(Collectors.toList());
 

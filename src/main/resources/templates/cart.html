@@ -50,13 +50,13 @@
 		          const li = document.createElement("li");
 		          li.className = "sidebar-item d-flex justify-content-between align-items-center";
 		          li.setAttribute("data-news-id", item.newsId);
-
+				
 		        const link = document.createElement("a");
 		        link.href = item.url || "#";  
 		        link.target = "_blank";       
 		        link.textContent = item.title || "未命名新聞";
 		        link.title = item.title;
-
+				
 		        const removeBtn = document.createElement("span");
 		        removeBtn.textContent = "❌ ";
 		        removeBtn.style.cursor = "pointer";
