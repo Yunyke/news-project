@@ -27,7 +27,7 @@ public class BBCController {
 	    return list == null ? List.of() : list.subList(0, Math.min(max, list.size()));
 	}
     @GetMapping("/bbc")
-    public String cnnPage(Model model, HttpSession session) {
+    public String bbcPage(Model model, HttpSession session) {
         // 設定頁面標題（前端可用 ${title} 顯示）
         model.addAttribute("title", "BBC News");
 

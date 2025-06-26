@@ -7,7 +7,342 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
-<link rel="stylesheet" th:href="@{/css/cart.css}">
+<style>
+.ai-reply-block {
+  background-color: #eef3ff;
+  border-left: 4px solid #0d6efd;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin: 6px 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.ai-label {
+  font-weight: bold;
+  color: #0d6efd;
+}
+
+.ai-content {
+  margin-top: 4px;
+  color: #333;
+  white-space: pre-line;
+}
+
+
+.news-feed-actions .btn.btn-outline-secondary {
+    margin-left: auto;
+}
+.news-feed-content.show-content {
+  display: block;
+}
+#ai-assistant-button {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	z-index: 999;
+	background-color: #0d6efd;
+	color: white;
+	border: none;
+	border-radius: 50px;
+	padding: 12px 18px;
+	font-size: 0.95rem;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+}
+
+#ai-assistant-button:hover {
+	background-color: #0056b3;
+}
+
+#ai-chatbox {
+	position: fixed;
+	bottom: 80px;
+	right: 20px;
+	width: 500px;
+	height: 600px;
+	max-height: 400px;
+	background-color: #ffffff;
+	border-radius: 16px;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+	display: none;
+	flex-direction: column;
+	overflow: hidden;
+	z-index: 998;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#ai-chatbox-header {
+	background-color: #0d6efd;
+	color: #fff;
+	padding: 12px;
+	font-weight: bold;
+	font-size: 1rem;
+}
+
+#ai-chatbox-messages {
+	flex: 1;
+	padding: 16px;
+	font-size: 1.2rem;
+	overflow-y: auto;
+	background-color: #f9f9f9;
+}
+
+#ai-chatbox-messages div {
+	margin-bottom: 0.75rem;
+	line-height: 1.4;
+}
+
+#ai-chatbox-messages div strong {
+	color: #0d6efd;
+}
+
+#ai-chatbox-input {
+	display: flex;
+	border-top: 1px solid #ddd;
+	background: #fff;
+}
+
+#ai-chatbox-input input {
+	flex: 1;
+	border: none;
+	padding: 10px;
+	font-size: 0.9rem;
+	outline: none;
+	background-color: #f7f7f7;
+}
+
+#ai-chatbox-input button {
+	border: none;
+	background-color: #0d6efd;
+	color: white;
+	padding: 10px 14px;
+	cursor: pointer;
+	font-size: 0.9rem;
+	transition: background-color 0.2s ease;
+}
+
+#ai-chatbox-input button:hover {
+	background-color: #0056b3;
+}
+
+#sidebar-nav {
+	position: fixed;
+	top: 80px;
+	left: 80px;
+	width: 400px;
+	max-height: 80vh;
+	overflow-y: auto;
+	padding: 1rem;
+	background-color: #fff;
+	border-radius: 12px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	font-size: 0.95rem;
+	z-index: 100;
+}
+
+#sidebar-nav h5 {
+	font-weight: bold;
+	font-size: 1rem;
+	margin-bottom: 0.75rem;
+}
+
+.sidebar-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.sidebar-item {
+	display: flex;
+	align-items: center;
+	margin-bottom: 0.5rem;
+}
+
+.sidebar-item .item-index {
+	flex-shrink: 0;
+	width: 2em;
+	text-align: right;
+	margin-right: 0.5rem;
+	color: #555;
+}
+
+.sidebar-item a {
+	display: inline-block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 320px;
+	color: #333;
+	text-decoration: none;
+}
+
+.sidebar-item a:hover {
+	text-decoration: underline;
+}
+
+.sidebar-item a.active {
+	font-weight: bold;
+	color: #0d6efd;
+}
+
+body {
+	background: #f0f2f5;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+.feed-container {
+	max-width: 720px;
+	margin: 0 auto;
+	padding: 1.5rem 1rem;
+}
+
+.news-feed-card {
+	background-color: #fff;
+	border-radius: 12px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+	margin-bottom: 1.5rem;
+	padding: 1rem 1.25rem;
+	transition: box-shadow 0.2s ease-in-out;
+}
+
+.news-feed-card:hover {
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.news-feed-title {
+	font-size: 1.25rem;
+	font-weight: bold;
+	color: #1c1e21;
+	margin-bottom: 0.5rem;
+}
+
+.news-feed-img {
+	width: 100%;
+	max-height: 360px;
+	object-fit: cover;
+	border-radius: 10px;
+	margin: 0.75rem 0;
+}
+
+.news-feed-desc {
+	font-size: 1rem;
+	color: #333;
+	line-height: 1.5;
+	margin-bottom: 0.75rem;
+}
+
+.news-feed-time {
+	font-size: 0.85rem;
+	color: #777;
+}
+
+.news-feed-content {
+	display: none;
+	margin-top: 0.75rem;
+	white-space: pre-wrap;
+	color: #333;
+	font-size: 0.95rem;
+	line-height: 1.6;
+}
+
+.news-feed-actions {
+	display: flex;
+	gap: 0.5rem;
+	margin-top: 0.75rem;
+}
+
+@media ( max-width : 576px) {
+	.news-feed-card {
+		padding: 1rem;
+	}
+	.news-feed-title {
+		font-size: 1.1rem;
+	}
+	.news-feed-desc {
+		font-size: 0.95rem;
+	}
+}
+
+/* ✅ 右側收藏清單 */
+#favorite-list {
+	position: fixed;
+	top: 80px;
+	right: 80px;
+	width: 320px;
+	max-height: 80vh;
+	overflow-y: auto;
+	padding: 1rem;
+	background-color: #fff;
+	border-radius: 12px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	font-size: 0.95rem;
+	z-index: 100;
+}
+
+#favorite-list h5 {
+	font-weight: bold;
+	font-size: 1rem;
+	margin-bottom: 0.75rem;
+}
+
+#favorite-list .sidebar-item {
+	display: flex;
+	align-items: center;
+	margin-bottom: 0.5rem;
+}
+
+#favorite-list .sidebar-item a {
+	display: inline-block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 280px;
+	color: #333;
+	text-decoration: none;
+}
+
+#favorite-list .sidebar-item a:hover {
+	text-decoration: underline;
+}
+
+.card-remove-button {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 1rem;
+	margin-left: auto;
+	padding-left: 1rem;
+}
+
+.custom-auth-btn { /* ★ 新增 */
+	background-color: transparent !important;
+	border: 1px solid white;
+	color: black !important;
+	transition: all .3s ease;
+} /* ★ 新增 */
+.custom-auth-btn:hover { /* ★ 新增 */
+	background-color: white !important;
+	color: black !important;
+}
+#favorite-list .sidebar-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+}
+
+#favorite-list .sidebar-item a {
+  flex-grow: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+#favorite-list .sidebar-item button {
+  flex-shrink: 0;
+}</style>
 </head>
 
 <body th:attr="data-user-id=${userId}" id="user-cart">
@@ -124,7 +459,7 @@ function fetchCartFromServer(userId) {
 
 const userCartEl = document.getElementById("user-cart");
 const userId = parseInt(document.getElementById("user-cart").dataset.userId, 10);
-const GEMINI_API_KEY = "AIzaSyAe55d1a9eVeG_X5PWnyJEVGcXJTDpBr6I"; // 金鑰
+
 if (!userId) {
 	  console.warn("⚠️ 無法取得 userId，請確認用戶已登入或 body 標籤有設置 data-user-id");
 	}
@@ -312,33 +647,27 @@ async function sendAiMessage() {
 
   const messages = document.getElementById("ai-chatbox-messages");
 
-  // 顯示使用者訊息
   const userMsg = document.createElement("div");
   userMsg.innerHTML = `<strong>你:</strong> ${msg}`;
   messages.appendChild(userMsg);
   input.value = "";
 
-  // 顯示 loading
   const aiReply = document.createElement("div");
   aiReply.innerHTML = `<strong>AI:</strong> ⏳ 回覆中...`;
   messages.appendChild(aiReply);
   messages.scrollTop = messages.scrollHeight;
 
   try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`, {
+    const res = await fetch("/api/openai/ask", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: msg }] }]
-      })
+      body: JSON.stringify({ message: msg })
     });
 
-    const data = await res.json();
-    const replyText = data.candidates?.[0]?.content?.parts?.[0]?.text || "⚠️ 無法取得回應";
-
-    aiReply.innerHTML = `<strong>AI:</strong> ${replyText}`;
+    const reply = await res.text(); // 🔁 回傳是純文字
+    aiReply.innerHTML = `<strong>AI:</strong> ${reply}`;
   } catch (err) {
-    console.error("Gemini API 錯誤：", err);
+    console.error("❌ AI 回覆錯誤", err);
     aiReply.innerHTML = `<strong>AI:</strong> ❌ 發生錯誤，請稍後再試`;
   }
 
@@ -369,7 +698,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   } catch (err) {
     console.error("❌ 初始同步收藏失敗：", err);
   }
-
+  toggleChatbox();
  
 
   // 綁定 AI 輸入 Enter 快捷鍵
@@ -397,6 +726,69 @@ document.addEventListener("DOMContentLoaded", () => {
 	    });
 	  }
 	});
+	
+//✅ 綁定每篇新聞的「AI 重點整理」按鈕
+document.addEventListener("click", function (e) {
+  if (e.target && e.target.textContent.includes("AI 重點整理")) {
+    const card = e.target.closest(".news-feed-card");
+    const contentEl = card.querySelector(".news-feed-content");
+
+    if (!contentEl) {
+      alert("❌ 找不到新聞內容");
+      return;
+    }
+
+    const contentText = contentEl.innerText.trim();
+    if (!contentText) {
+      alert("❗ 該新聞沒有內容可以摘要");
+      return;
+    }
+
+    // 自動打開 AI 對話框（如果還沒打開）
+    const chatbox = document.getElementById("ai-chatbox");
+    if (chatbox.style.display === "none" || chatbox.style.display === "") {
+      chatbox.style.display = "flex";
+    }
+
+    // 送出新聞內容給 AI
+    sendAiContentToChat(contentText);
+  }
+});
+
+// ✅ 專門給「AI 重點整理」用的函數
+function sendAiContentToChat(contentText) {
+  const messages = document.getElementById("ai-chatbox-messages");
+
+  const userMsg = document.createElement("div");
+  userMsg.innerHTML = `<strong>你:</strong> 重點整理以下新聞：<br><div style="font-size: 0.85rem; color: #555; margin-top: 4px;">${contentText}</div>`;
+  messages.appendChild(userMsg);
+
+  const aiReply = document.createElement("div");
+  aiReply.innerHTML = `<strong>AI:</strong> ⏳ 正在分析中...`;
+  messages.appendChild(aiReply);
+  messages.scrollTop = messages.scrollHeight;
+
+  fetch("/api/openai/ask", {
+	    method: "POST",
+	    headers: { "Content-Type": "application/json" },
+	    // ✅ ⬇️ 只送純新聞內文
+	    body: JSON.stringify({ message: contentText })
+	  })
+	    .then(res => res.text())
+	    .then(reply => {
+	    	aiReply.innerHTML = `
+	    		  <div class="ai-reply-block">
+	    		    <strong class="ai-label">AI:</strong>
+	    		    <div class="ai-content">${reply.replace(/\n/g, "<br>")}</div>
+	    		  </div>`;
+	      messages.scrollTop = messages.scrollHeight;
+	    })
+	    .catch(err => {
+	      console.error("❌ AI 回覆錯誤", err);
+	      aiReply.innerHTML = `<strong>AI:</strong> ❌ 發生錯誤，請稍後再試`;
+	    });
+	}
+
 </script>
 
 
@@ -424,13 +816,14 @@ document.addEventListener("DOMContentLoaded", () => {
 			<div class="news-feed-content" th:utext="${news.content}"></div>
 
 			<div class="news-feed-actions">
-				<button class="btn btn-sm btn-outline-primary toggle-content-btn">閱讀全文</button>
-				<button class="btn btn-sm favorite-btn btn-outline-success"
-					th:text="'💙 收藏'" th:attr="data-id=${news.id}"></button>
-				<button class="btn btn-sm btn-outline-danger remove-from-cart-btn"
-					th:attr="data-id=${news.id}">移除</button>
-			</div>
-		</div>
+    <button class="btn btn-sm btn-outline-primary toggle-content-btn">閱讀全文</button>
+    <button class="btn btn-sm favorite-btn btn-outline-success"
+        th:text="'💙 收藏'" th:attr="data-id=${news.id}"></button>
+    <button class="btn btn-sm btn-outline-danger remove-from-cart-btn"
+        th:attr="data-id=${news.id}">移除</button>    
+   
+    <button class="btn btn-sm btn-outline-secondary ms-auto">AI 重點整理</button>
+</div>
 	</div>
 	</div>
 	<!-- ✅ AI 助理對話框 -->
@@ -438,16 +831,14 @@ document.addEventListener("DOMContentLoaded", () => {
 		<div id="ai-chatbox-header">🤖 AI 助理</div>
 		<div id="ai-chatbox-messages">
 			<div>
-				<strong>AI:</strong> 嗨！需要幫忙嗎？
+				<strong>AI:</strong> 請選擇新聞...
 			</div>
+			<div id="ai-chatbox-input">
+			
 		</div>
-		<div id="ai-chatbox-input">
-			<input type="text" id="ai-user-input" placeholder="輸入訊息..." />
-			<button onclick="sendAiMessage()">送出</button>
 		</div>
+		
 	</div>
-
-	<button id="ai-assistant-button" onclick="toggleChatbox()">💬
-		有事問 AI</button>
+	
 </body>
 </html>

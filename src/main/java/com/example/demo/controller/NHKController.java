@@ -27,7 +27,7 @@ public class NHKController {
 	    return list == null ? List.of() : list.subList(0, Math.min(max, list.size()));
 	}
     @GetMapping("/nhk")
-    public String cnnPage(Model model, HttpSession session) {
+    public String nhkPage(Model model, HttpSession session) {
         // 設定頁面標題（前端可用 ${title} 顯示）
         model.addAttribute("title", "NHK News");
 
@@ -40,4 +40,5 @@ public class NHKController {
 
         return "nhk";
     }
+    
 }
