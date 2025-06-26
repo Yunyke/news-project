@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
 @Controller
-public class CnnController {
+public class BBCController {
 
     private final NewsRepository newsRepository;
-    private final NewsService newsService; // 雖然沒用到也可以先放著
+    private final NewsService newsService; 
 
-    public CnnController(NewsRepository newsRepository, NewsService newsService) {
+    public BBCController(NewsRepository newsRepository, NewsService newsService) {
         this.newsRepository = newsRepository;
         this.newsService = newsService;
     }
@@ -26,18 +26,18 @@ public class CnnController {
     private <T> List<T> limit(List<T> list, int max) {
 	    return list == null ? List.of() : list.subList(0, Math.min(max, list.size()));
 	}
-    @GetMapping("/cnn")
+    @GetMapping("/bbc")
     public String cnnPage(Model model, HttpSession session) {
         // 設定頁面標題（前端可用 ${title} 顯示）
-        model.addAttribute("title", "CNN News");
+        model.addAttribute("title", "BBC News");
 
-        // 將 CNN 資料存進 Model
-        List<News> newsList = limit(newsRepository.findBySourceOrderByPublishedAtDesc("CNN"), 50);
+        
+        List<News> newsList = limit(newsRepository.findBySourceOrderByPublishedAtDesc("BBC"), 50);
         model.addAttribute("newsList", newsList);
 
         // 讓前端能使用登入資訊（如果你有用 session.name）
         model.addAttribute("session", session);
 
-        return "cnn";
+        return "bbc";
     }
 }
