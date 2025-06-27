@@ -9,7 +9,7 @@ import com.openai.models.chat.completions.ChatCompletionCreateParams;
 
 public class NewsAiAssistant {
 	private static OpenAIClient client = OpenAIOkHttpClient.builder()
-    	    .apiKey("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")
+    	    .apiKey("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")
     	    .baseUrl("https://openrouter.ai/api/v1")
     	    .build(); 
 	

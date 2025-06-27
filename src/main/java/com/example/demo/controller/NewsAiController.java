@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-@RestController // 用 RestController 直接回傳字串
+@RestController 
 @RequestMapping("/api/openai") 
 public class NewsAiController {
 	

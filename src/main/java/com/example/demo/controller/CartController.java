@@ -68,7 +68,7 @@ public class CartController {
     
     
 
-    // ✅ 新增：一次加入多筆新聞到購物車
+    // 一次加入多筆新聞到購物車
     @PostMapping("/users/{userId}/bulk")
     public ResponseEntity<String> addMultipleToCart(@PathVariable Integer userId,
                                                     @RequestBody Map<String, List<Long>> payload) {

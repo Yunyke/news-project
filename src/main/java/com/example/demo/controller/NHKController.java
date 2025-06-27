@@ -28,14 +28,14 @@ public class NHKController {
 	}
     @GetMapping("/nhk")
     public String nhkPage(Model model, HttpSession session) {
-        // 設定頁面標題（前端可用 ${title} 顯示）
+        
         model.addAttribute("title", "NHK News");
 
         
         List<News> newsList = limit(newsRepository.findBySourceOrderByPublishedAtDesc("NHK"), 50);
         model.addAttribute("newsList", newsList);
 
-        // 讓前端能使用登入資訊（如果你有用 session.name）
+       
         model.addAttribute("session", session);
 
         return "nhk";

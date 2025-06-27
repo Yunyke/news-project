@@ -19,23 +19,23 @@ import jakarta.servlet.http.HttpSession;
 public class CartPageController {
 
     private final NewsService newsService;
-  //  private final FavoriteService favoriteService;     // 🆕
+  //  private final FavoriteService favoriteService;     
 
     public CartPageController(NewsService newsService
-                             ) {  // 🆕
+                             ) {  
         this.newsService = newsService;
        
     }
 
-    /** 進入 cart.html – 只要把 userId 送進去即可 */
+   
     @GetMapping("/cart")
     public String cartPage(HttpSession session, Model model) {
         Integer userId = (Integer) session.getAttribute("userId");
         model.addAttribute("userId", userId);
-        return "cart"; // resources/templates/cart.html
-    }
+        return "cart"; 
+        }
 
-    /** 前端 JS 會把一串 newsId POST 進來，要回一段 Thymeleaf Fragment */
+    
     @PostMapping("/cart/load")
     public String loadCart(@RequestBody List<Long> newsIds,
                            HttpSession session,
@@ -43,10 +43,8 @@ public class CartPageController {
 
         List<News> cartNews = newsService.findAllById(newsIds);
         model.addAttribute("cartNews", cartNews);
-
         
-
-        // 回 cart.html 裡的 fragment（最下方已經有 <div th:fragment="cartFragment">…）
+        
         return "cart :: cartFragment";
         
     }

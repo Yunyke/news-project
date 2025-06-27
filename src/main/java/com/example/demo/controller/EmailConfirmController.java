@@ -16,13 +16,13 @@ public class EmailConfirmController {
 	 @Autowired
 	    private RegisterService registerService;
 
-	    // ✅ 用來處理驗證連結
+	    
 	    @GetMapping("/confirm")
 	    public String confirmUser(@RequestParam("email") String email, Model model) {
 	        try {
 	            registerService.confirmUser(email);
-	            model.addAttribute("email", email); // ✅ 傳 email 給 view
-	            return "confirm"; // ✅ Thymeleaf 會找 templates/confirm-success.html
+	            model.addAttribute("email", email); 
+	            return "confirm"; 
 	        } catch (Exception e) {
 	            model.addAttribute("error", e.getMessage());
 	            return "confirm-fail";

@@ -26,11 +26,11 @@ public class UserMapper {
         modelMapper.typeMap(UserDto.class, User.class)
             .addMapping(UserDto::getUserId, User::setId);
 
-        // ✅ 新增：User.id -> UserCert.userId
+        // User.id -> UserCert.userId
         modelMapper.typeMap(User.class, UserCert.class)
             .addMapping(User::getId, UserCert::setUserId);
 
-        // ✅ 新增：UserCert.userId -> User.id (如果 UserCert 也會轉回 User 實體)
+        // UserCert.userId -> User.id 
         modelMapper.typeMap(UserCert.class, User.class)
             .addMapping(UserCert::getUserId, User::setId);
     }
@@ -40,12 +40,12 @@ public class UserMapper {
         return modelMapper.map(user, UserCert.class);
     }
 
-    // 新增 UserCert 到 User 的轉換方法 (如果需要)
+    // 新增 UserCert 到 User 的轉換方法 
     public User toEntity(UserCert userCert) {
         return modelMapper.map(userCert, User.class);
     }
     
-    // 以下是原有的 DTO 轉換方法
+    // DTO 轉換方法
 	public UserDto toDto(User user) {
 		return modelMapper.map(user, UserDto.class);
 	}

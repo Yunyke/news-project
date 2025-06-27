@@ -15,26 +15,26 @@ import com.example.demo.service.NewsService;             // <-- added import
 @Controller
 public class SearchController {
 
-    // ✅ 推薦用「建構式注入」(也可改用 @Autowired)
-    private final NewsService newsService;               // <-- added field
+    
+    private final NewsService newsService;            
 
-    public SearchController(NewsService newsService) {   // <-- added constructor
+    public SearchController(NewsService newsService) {   
         this.newsService = newsService;
     }
 
     @GetMapping("/search")
     public String searchNews(@RequestParam("keyword") String keyword,
-                             Model model) {              // <-- use correct Model
+                             Model model) {          
 
-        // ✅ 基本防呆：Keyword 為空就直接回傳空結果
-        if (keyword == null || keyword.trim().isEmpty()) { // <-- added
+        // Keyword 為空就直接回傳空結果
+        if (keyword == null || keyword.trim().isEmpty()) { 
             model.addAttribute("keyword", "");
-            model.addAttribute("results", List.of());      // Java 9+ List.of()
+            model.addAttribute("results", List.of());      
             return "search-results";
         }
 
-        // ✅ 使用真正的 NewsService 進行搜尋
-        List<News> searchResults = newsService.searchByKeyword(keyword); // <-- fixed
+        
+        List<News> searchResults = newsService.searchByKeyword(keyword); 
 
         model.addAttribute("keyword", keyword);
         model.addAttribute("results", searchResults);

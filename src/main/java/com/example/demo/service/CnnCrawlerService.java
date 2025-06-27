@@ -21,7 +21,7 @@ import java.util.List;
 @Service
 public class CnnCrawlerService {
 
-    private final NewsRepository newsRepository; // ⭐️ 建構式注入
+    private final NewsRepository newsRepository; 
 
     public CnnCrawlerService(NewsRepository newsRepository) {
         this.newsRepository = newsRepository;

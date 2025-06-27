@@ -28,14 +28,14 @@ public class BBCController {
 	}
     @GetMapping("/bbc")
     public String bbcPage(Model model, HttpSession session) {
-        // 設定頁面標題（前端可用 ${title} 顯示）
+        
         model.addAttribute("title", "BBC News");
 
         
         List<News> newsList = limit(newsRepository.findBySourceOrderByPublishedAtDesc("BBC"), 50);
         model.addAttribute("newsList", newsList);
 
-        // 讓前端能使用登入資訊（如果你有用 session.name）
+        // 讓前端能使用session登入資訊
         model.addAttribute("session", session);
 
         return "bbc";

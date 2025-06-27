@@ -92,7 +92,7 @@ public class NewsService {
         try {
             return ZonedDateTime.parse(dateTimeStr);
         } catch (Exception e) {
-            return ZonedDateTime.now(); // fallback 用現在時間
+            return ZonedDateTime.now(); 
         }
     }
     
@@ -111,16 +111,16 @@ public class NewsService {
         List<News> rawResults = newsRepository
             .findByTitleContainingIgnoreCaseOrContentContainingIgnoreCase(keyword, keyword);
 
-        // ✅ 為每個結果加上高亮（title only，可擴充）
+        
         String highlightKeyword = "(?i)(" + Pattern.quote(keyword) + ")";
         Pattern pattern = Pattern.compile(highlightKeyword);
 
         for (News news : rawResults) {
-            // 這裡假設你想高亮 title，內容可擴充
+            
             String title = news.getTitle();
             if (title != null) {
                 String highlighted = pattern.matcher(title)
-                    .replaceAll("<mark>$1</mark>");  // ✅ <mark> 是 HTML 高亮標籤
+                    .replaceAll("<mark>$1</mark>"); 
                 news.setTitle(highlighted);
             }
         }

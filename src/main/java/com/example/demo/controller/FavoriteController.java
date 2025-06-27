@@ -55,7 +55,7 @@ public ResponseEntity<FavoriteToggleResponse> toggleFavorite(@PathVariable Long 
     public ResponseEntity<List<Map<String, Object>>> getFavorites( @RequestParam("userId")Integer userId) {
         List<Favorite> favorites = favoriteService.getFavoritesByUser(userId);
 
-        // 把收藏對象轉成前端友好的格式
+        // 把收藏對象轉前端
         List<Map<String, Object>> result = favorites.stream().map(fav -> {
             Map<String, Object> map = new HashMap<>();
             map.put("newsId", fav.getNews().getId());

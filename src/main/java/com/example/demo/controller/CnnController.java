@@ -16,7 +16,7 @@ import java.util.List;
 public class CnnController {
 
     private final NewsRepository newsRepository;
-    private final NewsService newsService; // 雖然沒用到也可以先放著
+    private final NewsService newsService; 
 
     public CnnController(NewsRepository newsRepository, NewsService newsService) {
         this.newsRepository = newsRepository;
@@ -28,14 +28,14 @@ public class CnnController {
 	}
     @GetMapping("/cnn")
     public String cnnPage(Model model, HttpSession session) {
-        // 設定頁面標題（前端可用 ${title} 顯示）
+        // 設定頁面標題
         model.addAttribute("title", "CNN News");
 
         // 將 CNN 資料存進 Model
         List<News> newsList = limit(newsRepository.findBySourceOrderByPublishedAtDesc("CNN"), 50);
         model.addAttribute("newsList", newsList);
 
-        // 讓前端能使用登入資訊（如果你有用 session.name）
+        // 讓前端能使用登入資訊
         model.addAttribute("session", session);
 
         return "cnn";

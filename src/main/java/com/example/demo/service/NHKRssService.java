@@ -59,7 +59,7 @@ public class NHKRssService {
                     }
                 }
 
-                // ✅ 建立 DTO
+                //  建立 DTO
                 NHKNews news = new NHKNews();
                 news.setTitle(title);
                 news.setDescription(description);
