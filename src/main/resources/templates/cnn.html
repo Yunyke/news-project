@@ -57,14 +57,13 @@ h2.news-section-title {
 
 /* 新聞區塊的排列 */
 .news-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 80px;
-  align-items: start;
-  
-  max-width: 1400px;             /* ✅ 限制整個 grid 最大寬度 */
-  margin: 0 auto;                /* ✅ 讓整個 grid 水平置中 */
-  padding: 0 20px;             
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 20PX 190px;
+	align-items: start;
+	max-width: 1400px; /* ✅ 限制整個 grid 最大寬度 */
+	margin: 0 auto; /* ✅ 讓整個 grid 水平置中 */
+	padding: 0 20px;
 }
 
 /* 卡片樣式調整 */
@@ -79,11 +78,12 @@ h2.news-section-title {
 	position: relative; /* 讓 tooltip 可以定位 */
 	transition: background-color 0.3s ease;
 	margin: 10px;
-	height: 135px;
-	width: 110%;
+	height: 150px;
+	width: 150%;
 	max-width: none;
-         /* 用 grid gap 控間距就好 */
+	margin-left: -13%;
 }
+
 .hover-description {
 	display: none;
 	position: absolute;
@@ -131,7 +131,7 @@ h2.news-section-title {
 /* 標題加大並換行 */
 .news-title {
 	font-weight: 700;
-	font-size: 0.8rem;
+	font-size: 1.2rem;
 	margin: 0 0 8px 0;
 	word-wrap: break-word;
 	line-height: 1.2;
@@ -263,7 +263,46 @@ body {
 </style>
 <body>
 
-	<div class="container-fluid px-4 mt-4" style="max-width: 1600px; margin: auto;">
+	<div class="header-title notranslate" translate="no">Daily News</div>
+
+	<!-- 導覽列  -->
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark mt-3 mb-4">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/" translate="no">Home</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNav">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link" href="/">Top30</a></li>
+					<li class="nav-item"><a class="nav-link" href="/cnn">CNN</a></li>
+					<li class="nav-item"><a class="nav-link" href="/bbc">BBC</a></li>
+					<li class="nav-item">
+						<!-- ✅ 設定 NHK 為 active --> <a class="nav-link active" href="/nhk">NHK</a>
+					</li>
+				</ul>
+
+				<!--  搜尋表單 -->
+				<ul class="navbar-nav ms-auto">
+					<form class="d-flex ms-auto align-items-center"
+						th:action="@{/search}" method="get">
+						<div class="input-group input-group-sm" style="max-width: 250px;">
+							<button class="btn btn-outline-light" type="submit">搜尋</button>
+							<input type="text" name="keyword"
+								class="form-control white text-black border-0"
+								placeholder="輸入關鍵字…" aria-label="Search">
+						</div>
+					</form>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container-fluid px-4 mt-4"
+		style="max-width: 1600px; margin: auto;">
 		<h1 class="mb-4">CNN 新聞</h1>
 
 		<div class="news-grid">
