@@ -18,127 +18,123 @@ import java.util.regex.Pattern;
 @Service
 public class NewsService {
 
-    @Autowired
-    private NewsRepository newsRepository;
+	@Autowired
+	private NewsRepository newsRepository;
 
-    @Autowired
-    private CnnCrawlerService cnnCrawlerService;
+	@Autowired
+	private CnnCrawlerService cnnCrawlerService;
 
-    @Autowired
-    private BBCRssService bbcRssService;
+	@Autowired
+	private BBCRssService bbcRssService;
 
-    @Autowired
-    private NHKRssService nhkRssService;
+	@Autowired
+	private NHKRssService nhkRssService;
 
-    public void fetchAndSaveAllNews() {
-        saveCnnNews();
-        saveBbcNews();
-        saveNhkNews();
-    }
+	public void fetchAndSaveAllNews() {
+		saveCnnNews();
+		saveBbcNews();
+		saveNhkNews();
+	}
 
-    private void saveCnnNews() {
-    	List<News> cnnNewsList = cnnCrawlerService.fetchAndSaveIfNotExist();
-        System.out.println("CNN News fetched: " + cnnNewsList.size());
+	private void saveCnnNews() {
+		List<News> cnnNewsList = cnnCrawlerService.fetchAndSaveIfNotExist();
+		System.out.println("CNN News fetched: " + cnnNewsList.size());
 
-        
-    }
+	}
 
-    private void saveBbcNews() {
-        List<BBCNews> bbcNewsList = bbcRssService.getBbcNews();
-        System.out.println("BBC News fetched: " + bbcNewsList.size());
+	private void saveBbcNews() {
+		List<BBCNews> bbcNewsList = bbcRssService.getBbcNews();
+		System.out.println("BBC News fetched: " + bbcNewsList.size());
 
-        for (BBCNews item : bbcNewsList) {
-            String url = item.getLink();
-            if (!newsRepository.findByUrl(url).isPresent()) {
-                News news = new News();
-                news.setTitle(item.getTitle());
-                news.setDescription(item.getDescription());
-                news.setUrl(url);
-                news.setImageUrl(item.getImageUrl());
-                news.setSource("BBC");
-                news.setPublishedAt(parseZonedTime(item.getPubDate()));
-                news.setContent(item.getContent());
-                newsRepository.save(news);
-            }
-        }
-    }
+		for (BBCNews item : bbcNewsList) {
+			String url = item.getLink();
+			if (!newsRepository.findByUrl(url).isPresent()) {
+				News news = new News();
+				news.setTitle(item.getTitle());
+				news.setDescription(item.getDescription());
+				news.setUrl(url);
+				news.setImageUrl(item.getImageUrl());
+				news.setSource("BBC");
+				news.setPublishedAt(parseZonedTime(item.getPubDate()));
+				news.setContent(item.getContent());
+				newsRepository.save(news);
+			}
+		}
+	}
 
+	private void saveNhkNews() {
+		List<NHKNews> nhkNewsList = nhkRssService.getNhkNews();
+		System.out.println("NHK News fetched: " + nhkNewsList.size());
 
-    private void saveNhkNews() {
-        List<NHKNews> nhkNewsList = nhkRssService.getNhkNews();
-        System.out.println("NHK News fetched: " + nhkNewsList.size());
+		for (NHKNews item : nhkNewsList) {
+			String url = item.getLink();
+			if (!newsRepository.findByUrl(url).isPresent()) {
+				News news = new News();
+				news.setTitle(item.getTitle());
+				news.setDescription(item.getDescription());
+				news.setUrl(url);
+				news.setImageUrl(item.getImageUrl());
+				news.setSource("NHK");
+				news.setPublishedAt(parseZonedTime(item.getPubDate()));
+				news.setContent(item.getContent());
+				newsRepository.save(news);
+			}
+		}
+	}
 
-        for (NHKNews item : nhkNewsList) {
-            String url = item.getLink();
-            if (!newsRepository.findByUrl(url).isPresent()) {
-                News news = new News();
-                news.setTitle(item.getTitle());
-                news.setDescription(item.getDescription());
-                news.setUrl(url);
-                news.setImageUrl(item.getImageUrl());
-                news.setSource("NHK");
-                news.setPublishedAt(parseZonedTime(item.getPubDate())); 
-                news.setContent(item.getContent());
-                newsRepository.save(news);
-            }
-        }
-    }
-    
-    public News getNewsById(Long id) {
-        return newsRepository.findById(id).orElse(null);
-    }
+	public News getNewsById(Long id) {
+		return newsRepository.findById(id).orElse(null);
+	}
 
-    private ZonedDateTime parseZonedTime(String dateTimeStr) {
-        try {
-            return ZonedDateTime.parse(dateTimeStr);
-        } catch (Exception e) {
-            return ZonedDateTime.now(); 
-        }
-    }
-    
-    public List<News> getNewsByIds(List<Long> ids) {          
-        if (ids == null || ids.isEmpty()) {                   
-            return List.of();                                 
-        }                                                     
-        return newsRepository.findByIdIn(ids);               
-    }         
-    
-    public List<News> searchByKeyword(String keyword) {
-        if (keyword == null || keyword.trim().isEmpty()) {
-            return List.of();
-        }
+	private ZonedDateTime parseZonedTime(String dateTimeStr) {
+		try {
+			return ZonedDateTime.parse(dateTimeStr);
+		} catch (Exception e) {
+			return ZonedDateTime.now();
+		}
+	}
 
-        List<News> rawResults = newsRepository
-            .findByTitleContainingIgnoreCaseOrContentContainingIgnoreCase(keyword, keyword);
+	public List<News> getNewsByIds(List<Long> ids) {
+		if (ids == null || ids.isEmpty()) {
+			return List.of();
+		}
+		return newsRepository.findByIdIn(ids);
+	}
 
-        
-        String highlightKeyword = "(?i)(" + Pattern.quote(keyword) + ")";
-        Pattern pattern = Pattern.compile(highlightKeyword);
+	public List<News> searchByKeyword(String keyword) {
+		if (keyword == null || keyword.trim().isEmpty()) {
+			return List.of();
+		}
 
-        for (News news : rawResults) {
-            
-            String title = news.getTitle();
-            if (title != null) {
-                String highlighted = pattern.matcher(title)
-                    .replaceAll("<mark>$1</mark>"); 
-                news.setTitle(highlighted);
-            }
-        }
+		List<News> rawResults = newsRepository.findByTitleContainingIgnoreCaseOrContentContainingIgnoreCase(keyword,
+				keyword);
 
-        return rawResults;
-    }
-    
-    public List<News> findAllById(List<Long> ids) {
-        return newsRepository.findAllById(ids);
-    }
+		String highlightKeyword = "(?i)(" + Pattern.quote(keyword) + ")";
+		Pattern pattern = Pattern.compile(highlightKeyword);
 
+		for (News news : rawResults) {
 
-    public List<News> findByIds(List<Long> ids) {
-        return newsRepository.findByIdIn(ids);
-    }
-    @Scheduled(cron = "0 */30 * * * *")
-    public void autoFetchNews() {
-        System.out.println("🕒 自動開始抓新聞...");
-        fetchAndSaveAllNews();
-    }
+			String title = news.getTitle();
+			if (title != null) {
+				String highlighted = pattern.matcher(title).replaceAll("<mark>$1</mark>");
+				news.setTitle(highlighted);
+			}
+		}
+
+		return rawResults;
+	}
+
+	public List<News> findAllById(List<Long> ids) {
+		return newsRepository.findAllById(ids);
+	}
+
+	public List<News> findByIds(List<Long> ids) {
+		return newsRepository.findByIdIn(ids);
+	}
+
+	@Scheduled(cron = "0 */30 * * * *")
+	public void autoFetchNews() {
+		System.out.println("🕒 自動開始抓新聞...");
+		fetchAndSaveAllNews();
+	}
 }

@@ -25,25 +25,18 @@ public class CertServiceImpl implements CertService {
 		if (user == null) {
 			throw new CertException("查無此人");
 		}
-		
-		   try {
-		        // 用 HashUtil 驗證密碼
-		        boolean valid = HashUtil.verifyPassword(password, user.getSalt(), user.getPassword());
-		        if (!valid) {
-		            throw new CertException("密碼錯誤");
-		        }
-		    } catch (Exception e) {
-		        throw new CertException("驗證失敗：" + e.getMessage());
-		    }
 
-		    return new UserCert(
-		        user.getId(),
-		        user.getName(),
-		        user.getUsername(),
-		        null, // 密碼不回傳
-		        user.getBirthdate(),
-		        user.getGender(),
-		        user.getEmail(),
-		        user.getActive()
-		    );
-		}}
+		try {
+			// 用 HashUtil 驗證密碼
+			boolean valid = HashUtil.verifyPassword(password, user.getSalt(), user.getPassword());
+			if (!valid) {
+				throw new CertException("密碼錯誤");
+			}
+		} catch (Exception e) {
+			throw new CertException("驗證失敗：" + e.getMessage());
+		}
+
+		return new UserCert(user.getId(), user.getName(), user.getUsername(), null, // 密碼不回傳
+				user.getBirthdate(), user.getGender(), user.getEmail(), user.getActive());
+	}
+}

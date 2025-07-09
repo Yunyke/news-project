@@ -10,42 +10,34 @@ import org.springframework.stereotype.Service;
 @Service
 public class BBCCrawlerService {
 
-    public void enrich(BBCNews news) {
+	public void enrich(BBCNews news) {
 
-        try {
-            Document doc = Jsoup.connect(news.getLink())
-                                .userAgent("Mozilla/5.0")
-                                .timeout(10000)
-                                .get();
+		try {
+			Document doc = Jsoup.connect(news.getLink()).userAgent("Mozilla/5.0").timeout(10000).get();
 
-           
-            StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new StringBuilder();
 
-            
-            Elements paras = doc.select("article div[data-component=text-block] > p");
+			Elements paras = doc.select("article div[data-component=text-block] > p");
 
-            
-            if (paras.isEmpty()) {
-                paras = doc.select("div[data-testid=live-text-block] p");
-            }
+			if (paras.isEmpty()) {
+				paras = doc.select("div[data-testid=live-text-block] p");
+			}
 
-            
-            if (paras.isEmpty()) {
-                paras = doc.select("article p");
-            }
+			if (paras.isEmpty()) {
+				paras = doc.select("article p");
+			}
 
-            for (Element p : paras) {
-                sb.append(p.text()).append("\n\n");
-            }
+			for (Element p : paras) {
+				sb.append(p.text()).append("\n\n");
+			}
 
-            news.setContent(sb.toString().trim());
+			news.setContent(sb.toString().trim());
 
-        } catch (Exception e) {
-            
-            news.setContent("");
-            e.printStackTrace();
-        }
+		} catch (Exception e) {
 
-        
-    }
+			news.setContent("");
+			e.printStackTrace();
+		}
+
+	}
 }

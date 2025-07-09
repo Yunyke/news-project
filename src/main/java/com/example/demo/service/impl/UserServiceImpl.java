@@ -22,60 +22,60 @@ import com.example.demo.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
-	
-    @Autowired
-    private UserRepository userRepository;
 
-    @Autowired
-    private NewsRepository newsRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-    @Autowired
-    private UserMapper userMapper;
-    
-    @Autowired
-    private CartRepository cartRepository;         
-    
-    @Autowired
-    private FavoriteRepository favoriteRepository;
+	@Autowired
+	private NewsRepository newsRepository;
 
-    @Override
-    public UserDto getUser(String username) {
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
-            return null;
-        }
-        return userMapper.toDto(user);
-    }
+	@Autowired
+	private UserMapper userMapper;
 
-    @Override
-    public void addUser(UserDto userDto) {
-        User user = userMapper.toEntity(userDto);
-        userRepository.save(user);
-    }
-    public UserDto login(String username, String password) {
-        User user = userRepository.findByUsername(username);
-        if (user != null && user.getPassword().equals(password)) {
+	@Autowired
+	private CartRepository cartRepository;
 
-            // ✅ 若該用戶沒有購物車，就新建一個並綁定
-            if (cartRepository.findByUserId(user.getId()).isEmpty()) {
-                Cart cart = new Cart();
-                cart.setUser(user);
-                cartRepository.save(cart);
-            }
+	@Autowired
+	private FavoriteRepository favoriteRepository;
 
-            return userMapper.toDto(user);
-        }
-        return null;
-    }
-    
-    @Override
-    public List<Cart> getUserCarts(Integer userId) {
-        return cartRepository.findByUserId(userId); 
-    }
-    
-    @Override
-    public Set<Favorite> getUserFavorites(Integer userId) {
-        return new HashSet<>(favoriteRepository.findByUserId(userId)); 
-    }
+	@Override
+	public UserDto getUser(String username) {
+		User user = userRepository.findByUsername(username);
+		if (user == null) {
+			return null;
+		}
+		return userMapper.toDto(user);
+	}
+
+	@Override
+	public void addUser(UserDto userDto) {
+		User user = userMapper.toEntity(userDto);
+		userRepository.save(user);
+	}
+
+	public UserDto login(String username, String password) {
+		User user = userRepository.findByUsername(username);
+		if (user != null && user.getPassword().equals(password)) {
+
+			// 新建購物車一個並綁定
+			if (cartRepository.findByUserId(user.getId()).isEmpty()) {
+				Cart cart = new Cart();
+				cart.setUser(user);
+				cartRepository.save(cart);
+			}
+
+			return userMapper.toDto(user);
+		}
+		return null;
+	}
+
+	@Override
+	public List<Cart> getUserCarts(Integer userId) {
+		return cartRepository.findByUserId(userId);
+	}
+
+	@Override
+	public Set<Favorite> getUserFavorites(Integer userId) {
+		return new HashSet<>(favoriteRepository.findByUserId(userId));
+	}
 }
-   

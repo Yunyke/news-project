@@ -23,7 +23,7 @@ public class EmailService {
 	// 寄件者的電子郵件地址
 	String from = "min221218@gmail.com";
 	
-	// to: // 收件者的電子郵件地址
+	// 收件者的電子郵件地址
 	public void sendEmail(String to, String confirmUrl) {
 
 		// 使用 Gmail SMTP 伺服器
@@ -39,8 +39,6 @@ public class EmailService {
 		// 建立會話物件，並提供驗證資訊
 		Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
-				// Google應用程式密碼請參考此篇
-				// https://www.yongxin-design.com/Article/10
 				return new PasswordAuthentication(from, googleAppPassword);
 			}
 		});
