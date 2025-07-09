@@ -17,15 +17,16 @@ import jakarta.transaction.Transactional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
-	
+
 	@Query("SELECT u FROM User u WHERE u.username = :username")
 	User findByUsername(@Param("username") String username);
+
 	User findByEmail(String email);
-	
+
 	@Modifying
 	@Transactional
 	@Query("update User u set u.active = true where u.email = :email and u.active = false")
 	int activateUser(@Param("email") String email);
-	
+
 	List<News> findByIdIn(List<Long> ids);
 }

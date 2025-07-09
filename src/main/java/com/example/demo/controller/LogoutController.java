@@ -17,13 +17,13 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class LogoutController {
-	
+
 	@Autowired
 	private CertService certService;
-	
+
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
-	    session.invalidate(); // 清除所有 session
-	    return "redirect:/news"; // 回登入頁
+		session.invalidate(); // 清除所有 session
+		return "redirect:/news"; // 回登入頁
 	}
 }

@@ -15,29 +15,30 @@ import java.util.List;
 @Controller
 public class CnnController {
 
-    private final NewsRepository newsRepository;
-    private final NewsService newsService; 
+	private final NewsRepository newsRepository;
+	private final NewsService newsService;
 
-    public CnnController(NewsRepository newsRepository, NewsService newsService) {
-        this.newsRepository = newsRepository;
-        this.newsService = newsService;
-    }
-    
-    private <T> List<T> limit(List<T> list, int max) {
-	    return list == null ? List.of() : list.subList(0, Math.min(max, list.size()));
+	public CnnController(NewsRepository newsRepository, NewsService newsService) {
+		this.newsRepository = newsRepository;
+		this.newsService = newsService;
 	}
-    @GetMapping("/cnn")
-    public String cnnPage(Model model, HttpSession session) {
-        // 設定頁面標題
-        model.addAttribute("title", "CNN News");
 
-        // 將 CNN 資料存進 Model
-        List<News> newsList = limit(newsRepository.findBySourceOrderByPublishedAtDesc("CNN"), 50);
-        model.addAttribute("newsList", newsList);
+	private <T> List<T> limit(List<T> list, int max) {
+		return list == null ? List.of() : list.subList(0, Math.min(max, list.size()));
+	}
 
-        // 讓前端能使用登入資訊
-        model.addAttribute("session", session);
+	@GetMapping("/cnn")
+	public String cnnPage(Model model, HttpSession session) {
+		// 頁面標題
+		model.addAttribute("title", "CNN News");
 
-        return "cnn";
-    }
+		// 將 CNN 資料存進 Model
+		List<News> newsList = limit(newsRepository.findBySourceOrderByPublishedAtDesc("CNN"), 50);
+		model.addAttribute("newsList", newsList);
+
+		// 讓前端能使用登入資訊
+		model.addAttribute("session", session);
+
+		return "cnn";
+	}
 }

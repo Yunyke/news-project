@@ -18,54 +18,51 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/register")
 public class RegisterController {
 
-    @Autowired
-    private RegisterService registerService;
-    
-    @Autowired  
-    private EmailService emailService;
+	@Autowired
+	private RegisterService registerService;
 
-    // 顯示註冊表單頁面
-    @GetMapping
-    public String showRegisterForm(Model model) {
-        model.addAttribute("userDto", new UserDto());
-        return "register"; 
-    }
+	@Autowired
+	private EmailService emailService;
 
-    @PostMapping
-    public String registerUser(
-        @ModelAttribute("userDto") UserDto userDto,
-        Model model,
-        HttpServletRequest request,
-        RedirectAttributes redirectAttributes
-    ) {
-        try {
-            //  呼叫註冊服務
-            registerService.registerUser(userDto);
+	// 顯示註冊表單頁面
+	@GetMapping
+	public String showRegisterForm(Model model) {
+		model.addAttribute("userDto", new UserDto());
+		return "register";
+	}
 
-            //  傳送 Email 確認信
-            String email = userDto.getEmail();  
-            String confirmUrl = "http://localhost:8008/user/confirm?email=" + email;
-            emailService.sendEmail(email, confirmUrl);
+	@PostMapping
+	public String registerUser(@ModelAttribute("userDto") UserDto userDto, Model model, HttpServletRequest request,
+			RedirectAttributes redirectAttributes) {
+		try {
+			// 呼叫註冊服務
+			registerService.registerUser(userDto);
 
-            //  建立登入憑證
-            UserCert userCert = new UserCert();
-            userCert.setUsername(userDto.getUsername());
-            userCert.setName(userDto.getName()); 
+			// 傳送 Email 確認信
+			String email = userDto.getEmail();
+			String confirmUrl = "http://localhost:8008/user/confirm?email=" + email;
+			emailService.sendEmail(email, confirmUrl);
 
-            //  儲存 Session
-            HttpSession session = request.getSession();
-            session.setAttribute("userCert", userCert);
-            session.setAttribute("name", userDto.getName());
-            session.setAttribute("locale", request.getLocale());
+			// 建立登入憑證
+			UserCert userCert = new UserCert();
+			userCert.setUsername(userDto.getUsername());
+			userCert.setName(userDto.getName());
 
-            //  導向首頁
-           // redirectAttributes.addFlashAttribute("message", "我們已寄出驗證信至 " + email + "，請登入信箱驗證！");
-            
-            return "confirm-not-finish";
+			// 儲存 Session
+			HttpSession session = request.getSession();
+			session.setAttribute("userCert", userCert);
+			session.setAttribute("name", userDto.getName());
+			session.setAttribute("locale", request.getLocale());
 
-        } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
-            return "register";
-        }
-    }
+			// 導向首頁
+			// redirectAttributes.addFlashAttribute("message", "我們已寄出驗證信至 " + email +
+			// "，請登入信箱驗證！");
+
+			return "confirm-not-finish";
+
+		} catch (Exception e) {
+			model.addAttribute("error", e.getMessage());
+			return "register";
+		}
+	}
 }

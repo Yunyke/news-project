@@ -15,29 +15,29 @@ import java.util.List;
 @Controller
 public class BBCController {
 
-    private final NewsRepository newsRepository;
-    private final NewsService newsService; 
+	private final NewsRepository newsRepository;
+	private final NewsService newsService;
 
-    public BBCController(NewsRepository newsRepository, NewsService newsService) {
-        this.newsRepository = newsRepository;
-        this.newsService = newsService;
-    }
-    
-    private <T> List<T> limit(List<T> list, int max) {
-	    return list == null ? List.of() : list.subList(0, Math.min(max, list.size()));
+	public BBCController(NewsRepository newsRepository, NewsService newsService) {
+		this.newsRepository = newsRepository;
+		this.newsService = newsService;
 	}
-    @GetMapping("/bbc")
-    public String bbcPage(Model model, HttpSession session) {
-        
-        model.addAttribute("title", "BBC News");
 
-        
-        List<News> newsList = limit(newsRepository.findBySourceOrderByPublishedAtDesc("BBC"), 50);
-        model.addAttribute("newsList", newsList);
+	private <T> List<T> limit(List<T> list, int max) {
+		return list == null ? List.of() : list.subList(0, Math.min(max, list.size()));
+	}
 
-        // 讓前端能使用session登入資訊
-        model.addAttribute("session", session);
+	@GetMapping("/bbc")
+	public String bbcPage(Model model, HttpSession session) {
 
-        return "bbc";
-    }
+		model.addAttribute("title", "BBC News");
+
+		List<News> newsList = limit(newsRepository.findBySourceOrderByPublishedAtDesc("BBC"), 50);
+		model.addAttribute("newsList", newsList);
+
+		// 讓前端能使用session登入資訊
+		model.addAttribute("session", session);
+
+		return "bbc";
+	}
 }

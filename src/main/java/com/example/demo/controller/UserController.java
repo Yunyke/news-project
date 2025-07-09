@@ -21,16 +21,16 @@ import com.example.demo.service.UserService;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    @Autowired
-    private UserService userService;
-    
-    @Autowired
-    private NewsService newsService;
-    
-    @PostMapping("/cart/load")
-    public String loadCart(@RequestBody List<Long> newsIds, Model model) {
-        List<News> newsList = newsService.getNewsByIds(newsIds);
-        model.addAttribute("cartNews", newsList);
-        return "cart :: cartFragment"; // 可用 Thymeleaf fragment render
-    }
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private NewsService newsService;
+
+	@PostMapping("/cart/load")
+	public String loadCart(@RequestBody List<Long> newsIds, Model model) {
+		List<News> newsList = newsService.getNewsByIds(newsIds);
+		model.addAttribute("cartNews", newsList);
+		return "cart :: cartFragment"; // 可用 Thymeleaf fragment render
+	}
 }

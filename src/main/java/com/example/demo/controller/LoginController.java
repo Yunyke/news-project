@@ -33,7 +33,7 @@ return "login";
         if (userId != null) {
             model.addAttribute("userId", userId); 
         } else {
-            return "redirect:/login?redirect=/news"; // 🛡️ 未登入跳回登入頁
+            return "redirect:/login?redirect=/news"; 
         }
         return "news"; // 對應 news.html
     }

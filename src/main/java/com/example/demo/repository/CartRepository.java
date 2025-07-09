@@ -11,18 +11,19 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.model.entity.Cart;
 
 import jakarta.transaction.Transactional;
+
 @Repository
-public interface CartRepository extends JpaRepository<Cart, Long>{
+public interface CartRepository extends JpaRepository<Cart, Long> {
 	List<Cart> findByUserId(Integer userId);
-	
+
 	@Query("SELECT c.news.id FROM CartItem c WHERE c.cart.user.id = :userId")
 	List<Long> findNewsIdsByUserId(Integer userId);
-	
+
 	@Modifying
 	@Transactional
 	@Query("DELETE FROM CartItem ci WHERE ci.cart.user.id = :userId AND ci.news.id = :newsId")
 	void deleteByUserIdAndNewsId(Integer userId, Long newsId);
-	 
-	 Optional<Cart> findByIdAndUserId(Long cartId, Integer userId);
-	 
+
+	Optional<Cart> findByIdAndUserId(Long cartId, Integer userId);
+
 }

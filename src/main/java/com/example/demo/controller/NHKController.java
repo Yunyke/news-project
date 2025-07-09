@@ -15,30 +15,29 @@ import java.util.List;
 @Controller
 public class NHKController {
 
-    private final NewsRepository newsRepository;
-    private final NewsService newsService; 
+	private final NewsRepository newsRepository;
+	private final NewsService newsService;
 
-    public NHKController(NewsRepository newsRepository, NewsService newsService) {
-        this.newsRepository = newsRepository;
-        this.newsService = newsService;
-    }
-    
-    private <T> List<T> limit(List<T> list, int max) {
-	    return list == null ? List.of() : list.subList(0, Math.min(max, list.size()));
+	public NHKController(NewsRepository newsRepository, NewsService newsService) {
+		this.newsRepository = newsRepository;
+		this.newsService = newsService;
 	}
-    @GetMapping("/nhk")
-    public String nhkPage(Model model, HttpSession session) {
-        
-        model.addAttribute("title", "NHK News");
 
-        
-        List<News> newsList = limit(newsRepository.findBySourceOrderByPublishedAtDesc("NHK"), 50);
-        model.addAttribute("newsList", newsList);
+	private <T> List<T> limit(List<T> list, int max) {
+		return list == null ? List.of() : list.subList(0, Math.min(max, list.size()));
+	}
 
-       
-        model.addAttribute("session", session);
+	@GetMapping("/nhk")
+	public String nhkPage(Model model, HttpSession session) {
 
-        return "nhk";
-    }
-    
+		model.addAttribute("title", "NHK News");
+
+		List<News> newsList = limit(newsRepository.findBySourceOrderByPublishedAtDesc("NHK"), 50);
+		model.addAttribute("newsList", newsList);
+
+		model.addAttribute("session", session);
+
+		return "nhk";
+	}
+
 }
