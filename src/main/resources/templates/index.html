@@ -12,6 +12,202 @@
 	rel="stylesheet">
 <link rel="stylesheet" th:href="@{css/index.css}">
 <style>
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #f8f9fa;
+	font-family: Arial, sans-serif;
+}
+
+.header-title {
+	font-family: 'Playfair Display', serif;
+	font-weight: 700;
+	font-size: 6rem;
+	text-align: center;
+	margin-top: 20px;
+	color: #000;
+	letter-spacing: 0.05em;
+	font-style: normal;
+}
+
+.nav-link:hover {
+	color: #ffcc00 !important;
+	background-color: #333333;
+	border-radius: 5px;
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.grid-container {
+	padding: 20px;
+	background-color: #f8f9fa;
+	display: block;
+}
+
+.news-section {
+	margin-bottom: 30px;
+	background-color: #f0f0f0;
+	padding: 20px;
+	border-radius: 8px;
+}
+
+h2.news-section-title {
+	margin-bottom: 20px;
+	text-align: left;
+	margin-left: 15px;
+}
+
+/* 新聞區塊 */
+.news-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+	gap: 20px;
+	align-items: start;
+}
+
+/* 卡片樣式 */
+.news-card {
+	background-color: #f7f7f7;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+	cursor: pointer;
+	display: flex;
+	flex-direction: row;
+	padding: 10px;
+	position: relative;
+	transition: background-color 0.3s ease;
+	margin: 10px;
+	height: 135px;
+}
+
+.hover-description {
+	display: none;
+	position: absolute;
+	background-color: rgba(50, 50, 50, 0.9);
+	color: #fff;
+	padding: 10px;
+	border-radius: 6px;
+	font-size: 0.9rem;
+	max-width: 500px;
+	z-index: 999;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+	top: 100%;
+	left: 0;
+	white-space: normal;
+}
+
+.news-card:hover .hover-description {
+	display: block;
+}
+
+.news-img {
+	width: auto;
+	height: auto;
+	object-fit: contain;
+	max-width: 45%;
+	max-height: 100px;
+	flex-shrink: 0;
+	border-radius: 6px;
+	margin-right: 15px;
+	margin-top: 5px;
+}
+
+.news-content {
+	padding-top: 5px;
+	padding-bottom: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	flex-grow: 1;
+	max-height: 120px;
+	overflow: hidden;
+}
+
+.news-title {
+	font-weight: 700;
+	font-size: 1.2rem;
+	margin: 0 0 8px 0;
+	word-wrap: break-word;
+	line-height: 1.2;
+	overflow: visible;
+	text-overflow: normal;
+	white-space: normal;
+	max-height: 2.4em;
+	padding-right: 80px;
+	padding-left: 5px;
+}
+
+.news-time {
+	position: absolute;
+	bottom: 10px;
+	right: 15px;
+	font-size: 0.8rem;
+	color: #888;
+}
+
+.news-desc {
+	flex-grow: 1;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 3; /* 最多顯示三行 */
+	-webkit-box-orient: vertical;
+	text-overflow: ellipsis;
+	margin: 0 0 8px 0;
+	color: #444;
+	font-size: 0.9rem;
+}
+
+.news-tags {
+	font-size: 0.8rem;
+	color: #666;
+	margin-top: auto;
+}
+
+.add-to-cart-btn {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	z-index: 10;
+	font-size: 0.75rem;
+	padding: 4px 10px;
+	background-color: #ffffff;
+	color: #333;
+	border: 1px solid #aaa;
+	border-radius: 20px;
+	box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+	transition: all 0.2s ease;
+}
+
+.news-item {
+	position: relative;
+	padding: 1rem;
+	border-bottom: 1px solid #ccc;
+}
+
+.cnn-card .news-title {
+	font-size: 0.95rem;
+	line-height: 1.2;
+	margin: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding-right: 60px;
+}
+
+body {
+	top: 0 !important;
+}
+
+.custom-auth-btn {
+	background-color: transparent !important;
+	border: 1px solid white;
+	color: black !important;
+	transition: all 0.3s ease;
+}
+
+.custom-auth-btn:hover {
+	background-color: white !important;
+	color: black !important;
+}
 </style>
 
 </head>
@@ -25,10 +221,10 @@
   window.IS_LOGGED_IN = /*[[${session.name != null}]]*/ false;
 </script>
 
-	<!-- 🔵 頁面主標題 -->
+	<!--  頁面主標題 -->
 	<div class="header-title notranslate" translate="no">Daily News</div>
 
-	<!-- 🔵 導覽列 -->
+	<!-- 導覽列 -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark mt-3 mb-4">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#" translate="no">Home</a>
@@ -54,10 +250,10 @@
 
 					<form class="d-flex ms-auto align-items-center"
 						th:action="@{/search}" method="get">
-						<!-- 🔤 Label -->
 
 
-						<!-- 🔘 按鈕 + 輸入框 -->
+
+
 						<div class="input-group input-group-sm" style="max-width: 250px;">
 							<!-- 搜尋按鈕 -->
 							<button class="btn btn-outline-light" type="submit">搜尋</button>
@@ -73,7 +269,7 @@
 			</div>
 		</div>
 	</nav>
-	<!-- ✅ 尚未登入時顯示登入/註冊 -->
+	<!-- 未登入 -->
 	<div th:if="${session.name == null}"
 		style="position: absolute; top: 5px; right: 20px; z-index: 1050; background-color: #f8f9fa; padding: 5px 10px; border-radius: 8px; color: #6c757d;">
 		<a class="btn btn-sm btn-outline-light me-2 custom-auth-btn"
@@ -82,7 +278,7 @@
 			th:href="@{/register}" style="color: #6c757d;">註冊</a>
 	</div>
 
-	<!-- ✅ 已登入時顯示歡迎詞和登出 -->
+	<!-- 已登入 -->
 	<div th:if="${session.name != null}"
 		style="position: absolute; top: 5px; right: 20px; z-index: 1050; background-color: #f8f9fa; padding: 5px 10px; border-radius: 8px; color: #6c757d;">
 		<span class="text-warning me-2"> 歡迎～<strong
@@ -90,12 +286,12 @@
 		</span> <a id="logoutBtn" class="btn btn-sm btn-outline-light me-2"
 			th:href="@{/logout}" style="color: #6c757d;">登出</a>
 	</div>
-	<!-- 🔵 新聞卡片區 -->
+	<!-- 新聞卡片區 -->
 	<div class="grid-container">
-		<!-- 三個區塊：CNN、BBC 和 NHK -->
+
 		<div class="news-grid">
 
-
+			<!-- CNN  -->
 			<div class="news-section">
 				<h2 class="news-section-title mb-3" translate="no">CNN</h2>
 
@@ -124,16 +320,16 @@
 			</div>
 
 
-			<!-- BBC News -->
+			<!-- BBC  -->
 			<div class="news-section">
 				<h2 class="news-section-title mb-3" translate="no">BBC</h2>
 				<div th:each="news : ${bbcNewsList}" class="news-card">
 
-					<!-- 加入清單用主鍵 id 就好 -->
+
 					<button class="btn btn-sm btn-outline-primary add-to-cart-btn"
 						th:attr="data-id=${news.id}">➕</button>
 
-					<!-- 統一用 url －－ Entity 裡的唯一欄位 -->
+
 					<a th:href="${news.url}" target="_blank">
 						<div style="display: flex">
 							<img th:if="${news.imageUrl}" th:src="${news.imageUrl}"
@@ -144,7 +340,7 @@
 
 								<p class="hover-description" th:text="${news.description}">摘要</p>
 
-								<!-- publishedAt ➜ 用 #temporals 格式化 -->
+
 								<p class="news-time"
 									th:text="${#temporals.format(news.publishedAt,'yyyy-MM-dd HH:mm')}">
 								</p>
@@ -154,18 +350,18 @@
 				</div>
 			</div>
 
-			<!-- NHK News -->
+			<!-- NHK  -->
 			<div class="news-section">
 				<h2 class="news-section-title mb-3" translate="no">NHK</h2>
 				<div th:each="news : ${nhkNewsList}"
 					th:if="${news.title != null and news.title != ''}"
 					class="news-card">
 
-					<!-- 🔧 用 news.url.hashCode() 而非不存在的 news.link -->
+
 					<button class="btn btn-sm btn-outline-primary add-to-cart-btn"
 						th:attr="data-id=${news.id}">➕</button>
 
-					<!-- 🔧 href 改為 news.url -->
+
 					<a th:href="${news.url}" target="_blank"
 						style="text-decoration: none; color: inherit;">
 						<div style="display: flex; align-items: center;">
@@ -175,7 +371,7 @@
 								<h5 class="news-title" th:text="${news.title}">標題</h5>
 								<div class="hover-description" th:text="${news.description}">內容</div>
 
-								<!-- 🔧 統一使用 publishedAt 時間格式（若有） -->
+
 								<p class="text-muted news-time"
 									th:text="${#temporals.format(news.publishedAt, 'yyyy-MM-dd HH:mm')}">日期</p>
 							</div>
@@ -190,8 +386,8 @@
 	</div>
 
 	</div>
+
 	<script>
-/* ==================== index.html – 購物車腳本 ==================== */
 document.addEventListener("DOMContentLoaded", async function () {
 	
 	if (!window.IS_LOGGED_IN) {
@@ -200,7 +396,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 	  }
 
 
-  /* ---------- 0. 若剛登入強制清空 localStorage ---------- */
+  /* ---------- 強制清空 localStorage ---------- */
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get("resetCart") === "true") {
     console.log("🧹 清除 localStorage.newsCart（因登入）");
@@ -208,21 +404,21 @@ document.addEventListener("DOMContentLoaded", async function () {
     
     
 
-    // 把 resetCart 參數從網址拿掉，避免 F5 又執行一次
+    
     const cleanUrl = window.location.origin + window.location.pathname;
     window.history.replaceState({}, document.title, cleanUrl);
   }
 
-  /* ---------- 1. 先從 localStorage 取；如果已登入再向後端同步 ---------- */
+  
   let cart = JSON.parse(localStorage.getItem("newsCart") || "[]");
 
-  // 🆕 只有「已登入」才跟雲端比對清單
+ 
   if (window.IS_LOGGED_IN) {
     try {
       const res = await fetch(`/api/cart/users/${window.USER_SESSION.userId}/cart`);
       if (res.ok) {
-        const serverIds = await res.json();     // [101, 102, 103…]
-        // 🆕 合併（避免 localStorage 已有的手動加入）
+        const serverIds = await res.json();  
+       
         cart = Array.from(new Set([...cart, ...serverIds]));
         localStorage.setItem("newsCart", JSON.stringify(cart));
         console.log("☁️  已從伺服器同步清單：", serverIds);
@@ -232,22 +428,22 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   }
 
-  /* ---------- 2. 掃描所有「➕」按鈕，依 cart 狀態決定文字 ---------- */
+ 
   document.querySelectorAll(".add-to-cart-btn").forEach(btn => {
     const id   = parseInt(btn.dataset.id, 10);
     const card = btn.closest(".news-card");
 
-    /* 預設狀態 */
+    
     if (cart.includes(id)) {
       card.classList.add("added-to-cart");
       btn.innerText = "✅ 已加入";
     }
 
-    /* 點擊事件 */
+    
     btn.addEventListener("click", function (event) {
       event.stopPropagation();
 
-      /* 未登入直接擋下 */
+      /* 未登入 */
       if (!window.IS_LOGGED_IN) {
         alert("請先登入才能加入新聞清單！");
         return;
@@ -265,7 +461,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         card.classList.add("added-to-cart");
         btn.innerText = "✅ 已加入";
 
-        fetch(`/api/cart/users/${userId}/cart`, {     // 路徑不變
+        fetch(`/api/cart/users/${userId}/cart`, {     
           method : "POST",
           headers: { "Content-Type": "application/json" },
           body   : JSON.stringify({ newsId: id })
@@ -278,7 +474,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         btn.innerText = "➕";
 
         fetch(
-          `/api/cart/users/${userId}/cart/${id}`,      // 🔄 改用 RESTful 路徑
+          `/api/cart/users/${userId}/cart/${id}`,    
           { method: "DELETE" }
         ).catch(err => console.error("移除清單失敗：", err));
       }
@@ -288,11 +484,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
   });
 
-  updateCartCount();  // 初始載入更新右下角 badge
+  updateCartCount();  
 
-}); /* --- DOMContentLoaded end --- */
+}); 
 
-/* ---------- 3. 小工具：更新右下角數字 ---------- */
+/* ----------更新數字 ---------- */
 function updateCartCount() {
   const cart   = JSON.parse(localStorage.getItem("newsCart") || "[]");
   const badge  = document.getElementById("cart-count");
@@ -305,15 +501,15 @@ function updateCartCount() {
 document.getElementById("logoutBtn")?.addEventListener("click", function (e) {
 	  e.preventDefault(); // 防止預設跳轉
 
-	  // 🔥 清除本地儲存
+	  // 清除本地儲存
 	  console.log("🚪 使用者登出，清除 localStorage.newsCart");
 	  localStorage.removeItem("newsCart");
 	  updateCartCount();
-	  // ➡️ 然後導向後端 logout URL
+	  // 導向後端 logout URL
 	  window.location.href = "/logout";
 	});
 
-/* ---------- 4. 查看新聞清單 ---------- */
+/* ---------- 查看新聞清單 ---------- */
 function handleViewCartClick() {
   if (!window.IS_LOGGED_IN) {
     alert("請先登入才能查看新聞清單！");

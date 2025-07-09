@@ -17,13 +17,13 @@
 		沒有找到關於「<span th:text="${keyword}"></span>」的新聞。
 	</div>
 
-	<!-- 有結果 -->
+
 	<ul th:if="${!#lists.isEmpty(results)}" class="list-group mt-3">
 		<li th:each="news : ${results}" class="list-group-item">
-			<!-- 標題用 utext 才能顯示 <mark> -->
+
 			<h5>
 				<a th:href="${news.url}" target="_blank" th:utext="${news.title}"></a>
-			</h5> <!-- 內文同理（如果你也高亮了 description／content） -->
+			</h5>
 			<p th:utext="${news.description}" class="mb-0 small"></p>
 
 			</div>
@@ -31,7 +31,7 @@
 		</li>
 	</ul>
 	<div style="position: absolute; top: 20px; right: 30px; z-index: 1050;">
-  <button class="btn btn-sm btn-secondary" onclick="history.back();">上一頁</button>
-</div>
+		<button class="btn btn-sm btn-secondary" onclick="history.back();">上一頁</button>
+	</div>
 </body>
 </html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>註冊</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+
+    .login-container {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    .header-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #000;
+      margin-bottom: 30px;
+    }
+
+    .form-control {
+      margin-bottom: 15px;
+    }
+
+    .btn-primary {
+      width: 100%;
+    }
+
+    .text-danger {
+      margin-top: 10px;
+    }
+    /* 修改生日選單排版用 */
+.form-label {
+   font-weight: normal;
+  font-size: 1rem;
+  color: #6c757d; 
+}
+
+/* 生日選單看起來像一個欄位 */
+.birthday-selects .form-control {
+  margin-bottom: 0; /* 去掉原本 form-control 下的 margin */
+}
+
+.form-label {
+  font-weight: bold;
+}
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <div class="header-title">註冊 Daily News</div>
+
+    <form method="post" action="/register">
+      <div th:if="${message}" class="text-danger" th:text="${message}"></div>
+
+      <div class="mb-3">
+        <input type="text" name="name" class="form-control" placeholder="姓名" required>
+      </div>
+
+      <div class="mb-3">
+        <input type="text" name="username" class="form-control" placeholder="帳號" required>
+      </div>
+
+      <div class="mb-3">
+        <input type="password" name="password" class="form-control" placeholder="密碼" required>
+      </div>
+
+      <!-- 修改開始：自訂生日選單 -->
+<div class="mb-3 text-start">
+  <div class="form-control d-flex align-items-center gap-2 p-2">
+    <label class="form-label mb-0" style="white-space: nowrap; min-width: 50px;">生日</label>
+    <select name="birthYear" required class="form-select border-0 shadow-none p-0" style="width: 30%;">
+      <option value="">年</option>
+    </select>
+    <select name="birthMonth" required class="form-select border-0 shadow-none p-0" style="width: 30%;">
+      <option value="">月</option>
+    </select>
+    <select name="birthDay" required class="form-select border-0 shadow-none p-0" style="width: 30%;">
+      <option value="">日</option>
+    </select>
+  </div>
+</div>
+
+<!-- 隱藏的真實送出欄位 -->
+<input type="hidden" name="birthdate" id="birthdate">
+
+      <div class="mb-3">
+        <select name="gender" class="form-control" required>
+          <option value="">請選擇性別</option>
+          <option value="M">男</option>
+          <option value="F">女</option>
+          
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <input type="email" name="email" class="form-control" placeholder="Email" required>
+      </div>
+
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary">註冊</button>
+        <a href="/login" class="btn btn-secondary">回登入</a>
+      </div>
+    </form>
+
+    <div class="mt-3">
+      <a href="/" class="btn btn-link">回首頁</a>
+    </div>
+  </div>
+  <script>
+  const yearSelect = document.querySelector('select[name="birthYear"]');
+  const monthSelect = document.querySelector('select[name="birthMonth"]');
+  const daySelect = document.querySelector('select[name="birthDay"]');
+
+  // 填年份
+  const currentYear = new Date().getFullYear();
+  for (let y = currentYear; y >= 1900; y--) {
+    const option = document.createElement("option");
+    option.value = y;
+    option.text = y;
+    yearSelect.appendChild(option);
+  }
+
+  // 填月份
+  for (let m = 1; m <= 12; m++) {
+    const option = document.createElement("option");
+    option.value = m;
+    option.text = m;
+    monthSelect.appendChild(option);
+  }
+
+  // 更新日數
+  function updateDays() {
+    const year = parseInt(yearSelect.value);
+    const month = parseInt(monthSelect.value);
+    const selectedDay = parseInt(daySelect.value);
+
+    if (!year || !month) return;
+
+    const daysInMonth = new Date(year, month, 0).getDate();
+    daySelect.innerHTML = '<option value="">日</option>';
+    for (let d = 1; d <= daysInMonth; d++) {
+      const option = document.createElement("option");
+      option.value = d;
+      option.text = d;
+      if (d === selectedDay) option.selected = true;
+      daySelect.appendChild(option);
+    }
+  }
+
+  yearSelect.addEventListener("change", updateDays);
+  monthSelect.addEventListener("change", updateDays);
+
+  // 組合完整生日進 hidden 欄位
+  document.querySelector("form").addEventListener("submit", function () {
+    const y = yearSelect.value;
+    const m = monthSelect.value.padStart(2, "0");
+    const d = daySelect.value.padStart(2, "0");
+    if (y && m && d) {
+      document.getElementById("birthdate").value = `${y}-${m}-${d}`;
+    }
+  });
+
+</script>
+
+</body>
+</html>

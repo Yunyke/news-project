@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>驗證失敗</title>
+    <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+
+    .confirm-faill-container {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 500px; 
+      text-align: center;
+      margin-top: -350px; 
+    }
+
+    .header-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem; 
+      font-weight: 700;
+      color: #000;
+      margin-bottom: 30px;
+    }
+
+    
+
+    .text-danger {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+        
+    <div class="confirm-faill-container">
+   	<div class="header-title">❌ 驗證失敗</div>
+    <p th:text="${error}">發生未知錯誤</p>
+     <a href="/">返回首頁</a>
+    
+</body>
+</html>

@@ -1,49 +1,47 @@
 <!DOCTYPE html>
 <html lang="zh-Hant" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>驗證成功</title>
-    <style>
-    body {
-      background-color: #f8f9fa;
-      font-family: Arial, sans-serif;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0;
-    }
+<meta charset="UTF-8">
+<title>驗證成功</title>
+<style>
+body {
+	background-color: #f8f9fa;
+	font-family: Arial, sans-serif;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0;
+}
 
-    .confirm-container {
-      background-color: #ffffff;
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      width: 100%;
-      max-width: 500px; 
-      text-align: center;
-      margin-top: -350px; 
-    }
+.confirm-container {
+	background-color: #ffffff;
+	padding: 40px;
+	border-radius: 12px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	width: 100%;
+	max-width: 500px;
+	text-align: center;
+	margin-top: -350px;
+}
 
-    .header-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.5rem; 
-      font-weight: 700;
-      color: #000;
-      margin-bottom: 30px;
-    }
+.header-title {
+	font-family: 'Playfair Display', serif;
+	font-size: 2.5rem;
+	font-weight: 700;
+	color: #000;
+	margin-bottom: 30px;
+}
 
-    
-
-    .text-danger {
-      margin-top: 10px;
-    }
-  </style>
+.text-danger {
+	margin-top: 10px;
+}
+</style>
 </head>
 <body>
 	<div class="confirm-container">
-   	<div class="header-title">🎉 驗證成功！</div>
-    <p th:text="'您好，帳號 ' + ${email} + ' 已啟用！'"></p>
-    <a href="/login">點我登入</a>
+		<div class="header-title">🎉 驗證成功！</div>
+		<p th:text="'您好，帳號 ' + ${email} + ' 已啟用！'"></p>
+		<a href="/login">點我登入</a>
 </body>
 </html>

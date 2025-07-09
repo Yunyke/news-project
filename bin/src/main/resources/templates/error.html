@@ -1,0 +1,21 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Error</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css">
+		<link rel="stylesheet" href="/css/buttons.css">
+	</head>
+	<body>
+		<div th:fragment="menu">
+	<div style="background-color: #dddddd">
+		<div style="padding: 10px">
+			<span th:text="${userCert == null ? '尚未登入' : userCert.username}"></span>
+			<a href="/login" class="button-secondary pure-button">Login</a>
+			<a href="/index" class="button-secondary pure-button">Index</a>
+		</div>
+	</div>
+</div>
+	</body>
+</html>

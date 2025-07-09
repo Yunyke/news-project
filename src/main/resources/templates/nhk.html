@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>NHK 最新新聞</title>
 
-<!-- Bootstrap & 自訂樣式 -->
+
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -43,16 +43,16 @@ body {
 }
 
 .news-section {
-	margin-bottom: 30px; /* 顯示區塊間的間距 */
-	background-color: #f0f0f0; /* 設置背景色 */
-	padding: 20px; /* 向右偏移，這裡的40px會讓區塊更靠右 */
-	border-radius: 8px; /* 圓角效果 */
+	margin-bottom: 30px;
+	background-color: #f0f0f0;
+	padding: 20px;
+	border-radius: 8px;
 }
 
 h2.news-section-title {
-	margin-bottom: 20px; /* 減少標題與卡片之間的空間 */
-	text-align: left; /* 確保標題左對齊 */
-	margin-left: 15px; /* 增加左边距，向右偏移 */
+	margin-bottom: 20px;
+	text-align: left;
+	margin-left: 15px;
 }
 
 /* 新聞區塊的排列 */
@@ -61,8 +61,8 @@ h2.news-section-title {
 	grid-template-columns: repeat(3, 1fr);
 	gap: 20PX 170px;
 	align-items: start;
-	max-width: 1400px; /* ✅ 限制整個 grid 最大寬度 */
-	margin: 0 auto; /* ✅ 讓整個 grid 水平置中 */
+	max-width: 1400px;
+	margin: 0 auto;
 	padding: 0 20px;
 }
 
@@ -75,7 +75,7 @@ h2.news-section-title {
 	display: flex;
 	flex-direction: row;
 	padding: 10px;
-	position: relative; /* 讓 tooltip 可以定位 */
+	position: relative;
 	transition: background-color 0.3s ease;
 	margin: 10px;
 	height: 150px;
@@ -95,7 +95,7 @@ h2.news-section-title {
 	max-width: 500px;
 	z-index: 999;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-	top: 100%; /* 出現在卡片下方 */
+	top: 100%;
 	left: 0;
 	white-space: normal;
 }
@@ -118,17 +118,16 @@ h2.news-section-title {
 
 /* 文字內容區 */
 .news-content {
-	padding-top: 5px; /* ✅ 輕微上邊距控制間距 */
-	padding-bottom: 20px; /* ✅ 保留底部空間給時間 */
+	padding-top: 5px;
+	padding-bottom: 20px;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
 	flex-grow: 1;
 	max-height: 120px;
-	overflow: hidden; /* 防止文字溢出 */
+	overflow: hidden;
 }
 
-/* 標題加大並換行 */
 .news-title {
 	font-weight: 700;
 	font-size: 1.2rem;
@@ -139,8 +138,8 @@ h2.news-section-title {
 	text-overflow: normal; /* 超過範圍顯示省略號 */
 	white-space: normal; /* 允許標題換行 */
 	max-height: 2.4em;
-	padding-right: 80px; /* ✅ 預留按鈕位置 */
-	padding-left: 2px; /* ✅ 減一點左右空間，讓 title 留更多行 */
+	padding-right: 80px;
+	padding-left: 2px;
 }
 
 .news-time {
@@ -151,7 +150,6 @@ h2.news-section-title {
 	color: #888;
 }
 
-/* 摘要限制最多三行，多的顯示... */
 .news-desc {
 	flex-grow: 1;
 	overflow: hidden;
@@ -186,53 +184,10 @@ h2.news-section-title {
 	transition: all 0.2s ease;
 }
 
-.star-button {
-	background: none;
-	border: none;
-	cursor: pointer;
-	padding: 0;
-}
-
 .news-item {
 	position: relative;
 	padding: 1rem;
 	border-bottom: 1px solid #ccc;
-}
-
-.star-form {
-	position: absolute;
-	top: 0.5rem;
-	right: 0.5rem;
-}
-
-.star-button {
-	position: absolute;
-	top: 0;
-	right: -24px; /* 凸出右側約一半寬度 */
-	width: 32px; /* ✅ 書籤的寬度 */
-	height: 36px; /* ✅ 書籤的高度，比字體稍長，像標籤紙 */
-	background-color: rgba(255, 105, 180, 0.6); /* ✅ 半透明 hotpink */
-	border: none;
-	border-top-right-radius: 8px;
-	border-bottom-right-radius: 8px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 1rem;
-	cursor: pointer;
-	z-index: 1; /* ✅ 讓它「被蓋住」，部分藏在卡片底下 */
-	box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
-	backdrop-filter: blur(2px);
-	transition: transform 0.2s ease;
-}
-
-.star {
-	color: white;
-	transition: color 0.3s, transform 0.2s;
-}
-
-.star.filled {
-	color: gray; /* 可以換成 crimson、deeppink、red 看你喜歡哪種 */
 }
 
 body {

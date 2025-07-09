@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>📰 新聞牆</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<style>
+.ai-reply-block {
+  background-color: #eef3ff;
+  border-left: 4px solid #0d6efd;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin: 6px 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.ai-label {
+  font-weight: bold;
+  color: #0d6efd;
+}
+
+.ai-content {
+  margin-top: 4px;
+  color: #333;
+  white-space: pre-line;
+}
+
+
+.news-feed-actions .btn.btn-outline-secondary {
+    margin-left: auto;
+}
+.news-feed-content.show-content {
+  display: block;
+}
+#ai-assistant-button {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	z-index: 999;
+	background-color: #0d6efd;
+	color: white;
+	border: none;
+	border-radius: 50px;
+	padding: 12px 18px;
+	font-size: 0.95rem;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+}
+
+#ai-assistant-button:hover {
+	background-color: #0056b3;
+}
+
+#ai-chatbox {
+	position: fixed;
+	bottom: 80px;
+	right: 20px;
+	width: 500px;
+	height: 600px;
+	max-height: 400px;
+	background-color: #ffffff;
+	border-radius: 16px;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+	display: none;
+	flex-direction: column;
+	overflow: hidden;
+	z-index: 998;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#ai-chatbox-header {
+	background-color: #0d6efd;
+	color: #fff;
+	padding: 12px;
+	font-weight: bold;
+	font-size: 1rem;
+}
+
+#ai-chatbox-messages {
+	flex: 1;
+	padding: 16px;
+	font-size: 1.2rem;
+	overflow-y: auto;
+	background-color: #f9f9f9;
+}
+
+#ai-chatbox-messages div {
+	margin-bottom: 0.75rem;
+	line-height: 1.4;
+}
+
+#ai-chatbox-messages div strong {
+	color: #0d6efd;
+}
+
+#ai-chatbox-input {
+	display: flex;
+	border-top: 1px solid #ddd;
+	background: #fff;
+}
+
+#ai-chatbox-input input {
+	flex: 1;
+	border: none;
+	padding: 10px;
+	font-size: 0.9rem;
+	outline: none;
+	background-color: #f7f7f7;
+}
+
+#ai-chatbox-input button {
+	border: none;
+	background-color: #0d6efd;
+	color: white;
+	padding: 10px 14px;
+	cursor: pointer;
+	font-size: 0.9rem;
+	transition: background-color 0.2s ease;
+}
+
+#ai-chatbox-input button:hover {
+	background-color: #0056b3;
+}
+
+#sidebar-nav {
+	position: fixed;
+	top: 80px;
+	left: 80px;
+	width: 400px;
+	max-height: 80vh;
+	overflow-y: auto;
+	padding: 1rem;
+	background-color: #fff;
+	border-radius: 12px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	font-size: 0.95rem;
+	z-index: 100;
+}
+
+#sidebar-nav h5 {
+	font-weight: bold;
+	font-size: 1rem;
+	margin-bottom: 0.75rem;
+}
+
+.sidebar-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.sidebar-item {
+	display: flex;
+	align-items: center;
+	margin-bottom: 0.5rem;
+}
+
+.sidebar-item .item-index {
+	flex-shrink: 0;
+	width: 2em;
+	text-align: right;
+	margin-right: 0.5rem;
+	color: #555;
+}
+
+.sidebar-item a {
+	display: inline-block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 320px;
+	color: #333;
+	text-decoration: none;
+}
+
+.sidebar-item a:hover {
+	text-decoration: underline;
+}
+
+.sidebar-item a.active {
+	font-weight: bold;
+	color: #0d6efd;
+}
+
+body {
+	background: #f0f2f5;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+.feed-container {
+	max-width: 720px;
+	margin: 0 auto;
+	padding: 1.5rem 1rem;
+}
+
+.news-feed-card {
+	background-color: #fff;
+	border-radius: 12px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+	margin-bottom: 1.5rem;
+	padding: 1rem 1.25rem;
+	transition: box-shadow 0.2s ease-in-out;
+}
+
+.news-feed-card:hover {
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.news-feed-title {
+	font-size: 1.25rem;
+	font-weight: bold;
+	color: #1c1e21;
+	margin-bottom: 0.5rem;
+}
+
+.news-feed-img {
+	width: 100%;
+	max-height: 360px;
+	object-fit: cover;
+	border-radius: 10px;
+	margin: 0.75rem 0;
+}
+
+.news-feed-desc {
+	font-size: 1rem;
+	color: #333;
+	line-height: 1.5;
+	margin-bottom: 0.75rem;
+}
+
+.news-feed-time {
+	font-size: 0.85rem;
+	color: #777;
+}
+
+.news-feed-content {
+	display: none;
+	margin-top: 0.75rem;
+	white-space: pre-wrap;
+	color: #333;
+	font-size: 0.95rem;
+	line-height: 1.6;
+}
+
+.news-feed-actions {
+	display: flex;
+	gap: 0.5rem;
+	margin-top: 0.75rem;
+}
+
+@media ( max-width : 576px) {
+	.news-feed-card {
+		padding: 1rem;
+	}
+	.news-feed-title {
+		font-size: 1.1rem;
+	}
+	.news-feed-desc {
+		font-size: 0.95rem;
+	}
+}
+
+/* ✅ 右側收藏清單 */
+#favorite-list {
+	position: fixed;
+	top: 80px;
+	right: 80px;
+	width: 320px;
+	max-height: 80vh;
+	overflow-y: auto;
+	padding: 1rem;
+	background-color: #fff;
+	border-radius: 12px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	font-size: 0.95rem;
+	z-index: 100;
+}
+
+#favorite-list h5 {
+	font-weight: bold;
+	font-size: 1rem;
+	margin-bottom: 0.75rem;
+}
+
+#favorite-list .sidebar-item {
+	display: flex;
+	align-items: center;
+	margin-bottom: 0.5rem;
+}
+
+#favorite-list .sidebar-item a {
+	display: inline-block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 280px;
+	color: #333;
+	text-decoration: none;
+}
+
+#favorite-list .sidebar-item a:hover {
+	text-decoration: underline;
+}
+
+.card-remove-button {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 1rem;
+	margin-left: auto;
+	padding-left: 1rem;
+}
+
+.custom-auth-btn { /* ★ 新增 */
+	background-color: transparent !important;
+	border: 1px solid white;
+	color: black !important;
+	transition: all .3s ease;
+} /* ★ 新增 */
+.custom-auth-btn:hover { /* ★ 新增 */
+	background-color: white !important;
+	color: black !important;
+}
+#favorite-list .sidebar-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+}
+
+#favorite-list .sidebar-item a {
+  flex-grow: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+#favorite-list .sidebar-item button {
+  flex-shrink: 0;
+}</style>
+</head>
+
+<body th:attr="data-user-id=${userId}" id="user-cart">
+
+	<div
+		style="position: absolute; top: 5px; right: 20px; z-index: 1050; background-color: #f8f9fa; padding: 5px 10px; border-radius: 8px; color: #6c757d;">
+		<a class="btn btn-sm btn-outline-light me-2 custom-auth-btn" href="/">回首頁</a>
+		<a class="btn btn-sm btn-outline-light custom-auth-btn" href="/logout">登出</a>
+	</div>
+
+	<!-- 右側收藏清單 -->
+	<nav id="favorite-list">
+		<h5>⭐ 收藏清單</h5>
+		<ul class="sidebar-list" id="favorite-list-ul">
+			<!-- JS 動態產生收藏清單 -->
+		</ul>
+	</nav>
+
+	<!-- 左側固定目錄 -->
+	<nav id="sidebar-nav">
+		<!-- JS 動態插入目錄連結 -->
+	</nav>
+
+	<main class="feed-container">
+		<h1 class="text-center mb-4">📰 我的新聞牆</h1>
+
+		<div id="cart-content">
+			<!-- 請求資料後這裡會被填滿 -->
+		</div>
+	</main>
+
+	<script>function loadFavoriteList(userId) {
+		  fetch(`/favorites?userId=${userId}`)
+		    .then(res => res.json())
+		    .then(favorites => {
+		      const favList = document.getElementById("favorite-list-ul");
+		      favList.innerHTML = ""; // 清空再重新渲染
+
+		      favorites.forEach(item => {
+		          const li = document.createElement("li");
+		          li.className = "sidebar-item d-flex justify-content-between align-items-center";
+		          li.setAttribute("data-news-id", item.newsId);
+				
+		        const link = document.createElement("a");
+		        link.href = item.url || "#";  
+		        link.target = "_blank";       
+		        link.textContent = item.title || "未命名新聞";
+		        link.title = item.title;
+				
+		        const removeBtn = document.createElement("span");
+		        removeBtn.textContent = "❌ ";
+		        removeBtn.style.cursor = "pointer";
+		        removeBtn.title = "移除收藏";
+		        removeBtn.classList.add("text-danger", "me-1");
+
+		        removeBtn.onclick = () => {
+		          if (!confirm("確定要移除這則收藏嗎？")) return;
+
+		          fetch(`/favorites/${item.newsId}?userId=${userId}`, {
+		            method: "DELETE"
+		          })
+		          .then(res => {
+		            if (!res.ok) throw new Error("移除失敗");
+		            li.remove();
+		            console.log(`🗑️ 已移除收藏：${item.newsId}`);
+		            loadCart(userId); // ⬅️ 同步主畫面收藏狀態
+		          })
+		          .catch(err => {
+		            console.error("❌ 移除收藏失敗", err);
+		            alert("移除收藏失敗，請稍後再試");
+		          });
+		        };
+
+		        const textWrap = document.createElement("div");
+		        textWrap.className = "text-truncate";
+		        textWrap.appendChild(link);
+
+		        li.appendChild(textWrap);
+		        li.appendChild(removeBtn);
+		        favList.appendChild(li);
+		      });
+		    })
+		    .catch(err => {
+		      console.error("❌ 無法載入收藏清單", err);
+		    });
+		}
+function syncCartToServer() {
+	  const ids = JSON.parse(localStorage.getItem("newsCart") || "[]");
+
+	  if (!Array.isArray(ids) || ids.length === 0) return;
+
+	  // 呼叫後端 API，把多個 newsId 一次送出
+	  fetch(`/api/cart/users/${userId}/bulk`, {
+	 
+	    method: "POST",
+	    headers: { "Content-Type": "application/json" },
+	    body: JSON.stringify({ newsIds: ids })
+	  })
+	  .then(res => {
+	    if (!res.ok) throw new Error("同步失敗");
+	    return res.text();
+	  })
+	  .then(msg => console.log("✅ 購物車同步完成"))
+	  
+	  .catch(err => console.error("❌ 購物車同步錯誤", err));
+	}
+function fetchCartFromServer(userId) {
+	  return fetch(`/api/cart/users/${userId}/cart`)
+	    .then(res => {
+	      if (!res.ok) throw new Error("❌ 無法取得伺服器收藏清單");
+	      return res.json();
+	    });
+	}
+
+const userCartEl = document.getElementById("user-cart");
+const userId = parseInt(document.getElementById("user-cart").dataset.userId, 10);
+
+if (!userId) {
+	  console.warn("⚠️ 無法取得 userId，請確認用戶已登入或 body 標籤有設置 data-user-id");
+	}
+function loadCart(userId) {
+	  const ids = JSON.parse(localStorage.getItem("newsCart") || "[]")
+	              .filter(id => Number.isInteger(id) && id > 0);
+
+	  if (ids.length === 0) {
+	    document.getElementById("cart-content").innerHTML = `
+	      <p class="text-center text-muted mt-5">📭 新聞清單空空的~</p>`;
+	    return;
+	  }
+
+	  fetch("/cart/load", {
+	    method: "POST",
+	    headers: { "Content-Type": "application/json" },
+	    body: JSON.stringify(ids)
+	  })
+	  .then(res => res.text())
+	  .then(html => {
+	    document.getElementById("cart-content").innerHTML = html;
+
+    
+
+	    document.querySelectorAll(".favorite-btn").forEach(btn => {
+	        btn.addEventListener("click", function () {
+	          const newsId = this.dataset.id;
+	          const self = this;
+	          
+
+	         // fetch(`/favorites/${newsId}?userId=${window.USER_SESSION.userId}`, { method: "POST" })
+	          fetch(`/favorites/${newsId}?userId=${userId}`, { method: "POST" })
+	          .then(res => {
+	        	    if (!res.ok) {
+	        	        throw new Error(`HTTP ${res.status} - 收藏失敗`);
+	        	      }
+	        	      return res.json();
+	        	    })
+	          .then(data => {
+	            if (data.favorited !== undefined) {
+	              const icon = data.favorited ? "❤️ 已收藏" : "💙 收藏";
+	              self.innerHTML = icon;
+	              self.classList.toggle("btn-outline-success", !data.favorited);
+	              self.classList.toggle("btn-outline-danger", data.favorited);
+
+	              // 👉 同步右側清單
+	              const card = self.closest(".news-feed-card");
+	              const title = card.querySelector(".news-feed-title")?.textContent || "未命名新聞";
+	              const url = card.getAttribute("data-url") || "#";
+	              const id = card.getAttribute("id");
+	              const favList = document.getElementById("favorite-list-ul");
+
+	              if (data.favorited) {
+	                const li = document.createElement("li");
+	                li.className = "sidebar-item";
+	                li.setAttribute("data-news-id", newsId);
+
+	                const link = document.createElement("a");
+	                link.href = url;                     // ⭐ 指向原始新聞網址
+	                link.target = "_blank";             // ⭐ 在新視窗開啟
+	                link.textContent = title;
+	                link.title = title;
+	                
+	                
+
+	                const removeBtn = document.createElement("span");
+	                removeBtn.textContent = "❌ ";
+	                removeBtn.style.cursor = "pointer";
+	                removeBtn.title = "移除收藏";
+	                removeBtn.classList.add("text-danger", "me-1");
+
+	                removeBtn.onclick = () => {
+	                  if (!confirm("確定要移除這則收藏嗎？")) return;
+
+	                  fetch(`/favorites/${newsId}?userId=${userId}`, { method: "DELETE" })
+	                    .then(res => {
+	                      if (!res.ok) throw new Error("移除失敗");
+	                      li.remove();
+	                      console.log(`🗑️ 已移除收藏：${newsId}`);
+	                      loadCart(userId);
+	                    })
+	                    .catch(err => {
+	                      console.error("❌ 移除收藏失敗", err);
+	                      alert("移除收藏失敗，請稍後再試");
+	                    });
+	                };
+
+	                const textWrap = document.createElement("div");
+	                textWrap.className = "text-truncate";
+	                textWrap.appendChild(link);
+
+	                li.appendChild(textWrap);
+	                li.appendChild(removeBtn);
+	                favList.appendChild(li);
+	              } else {
+	                const itemToRemove = favList.querySelector(`li[data-news-id="${newsId}"]`);
+	                if (itemToRemove) itemToRemove.remove();
+	              }
+	            }
+	          })
+	          .catch(err => {
+	            console.error("收藏失敗", err);
+	            alert("⚠️ 收藏失敗，請稍後再試");
+	          });
+	        });
+	      });
+
+    // ✅ 移除 localStorage 無效 ID
+    const existingIds = Array.from(document.querySelectorAll(".remove-from-cart-btn"))
+      .map(btn => parseInt(btn.dataset.id));
+
+    let cartIds = JSON.parse(localStorage.getItem("newsCart") || "[]");
+    const filtered = cartIds.filter(id => existingIds.includes(id));
+
+    if (filtered.length !== cartIds.length) {
+      localStorage.setItem("newsCart", JSON.stringify(filtered));
+      console.warn("🧹 已從 localStorage 清除無效新聞 ID：", cartIds.filter(id => !existingIds.includes(id)));
+    }
+
+    // ✅ 產生左側目錄
+    const sidebar = document.getElementById("sidebar-nav");
+    sidebar.innerHTML = "<h5>📑 新聞清單</h5><ul class='sidebar-list'></ul>";
+    const list = sidebar.querySelector(".sidebar-list");
+
+    document.querySelectorAll(".news-feed-card").forEach((card, index) => {
+      const title = card.querySelector(".news-feed-title")?.textContent || `新聞 ${index + 1}`;
+      const id = `news-item-${index}`;
+      card.setAttribute("id", id);
+
+      const li = document.createElement("li");
+      li.className = "sidebar-item";
+
+      const number = document.createElement("span");
+      number.className = "item-index";
+      number.textContent = `${index + 1}.`;
+
+      const link = document.createElement("a");
+      link.href  = `#${card.id}`;  
+      link.textContent = title;
+      link.title = title;
+
+      li.appendChild(number);
+      li.appendChild(link);
+      list.appendChild(li);
+    });
+
+    // ✅ 綁定移除按鈕
+    document.querySelectorAll(".remove-from-cart-btn").forEach(btn => {
+      btn.addEventListener("click", function () {
+        const id = parseInt(this.dataset.id);
+        let cart = JSON.parse(localStorage.getItem("newsCart") || "[]");
+        cart = cart.filter(item => item !== id);
+        localStorage.setItem("newsCart", JSON.stringify(cart));
+        fetch(`/api/cart/users/${userId}/cart/${id}`, {
+            method: "DELETE"
+          }).catch(err => console.error("刪除後端 cart 失敗", err));
+
+          loadCart(userId); // 重新載入畫面
+        });
+    });
+
+    // ✅ 綁定展開全文
+    document.querySelectorAll(".toggle-content-btn").forEach(btn => {
+      btn.addEventListener("click", function () {
+        const content = this.closest(".news-feed-card").querySelector(".news-feed-content");
+        const isShown = content.style.display === "block";
+        content.style.display = isShown ? "none" : "block";
+        this.textContent = isShown ? "閱讀全文" : "收起全文";
+      });
+    });
+  });
+}
+
+// ✅ 開關 AI 聊天視窗
+function toggleChatbox() {
+  const chatbox = document.getElementById("ai-chatbox");
+  chatbox.style.display = (chatbox.style.display === "none" || chatbox.style.display === "") ? "flex" : "none";
+}
+
+// ✅ 傳送訊息到 Gemini 並顯示回覆
+async function sendAiMessage() {
+  const input = document.getElementById("ai-user-input");
+  const msg = input.value.trim();
+  if (!msg) return;
+
+  const messages = document.getElementById("ai-chatbox-messages");
+
+  const userMsg = document.createElement("div");
+  userMsg.innerHTML = `<strong>你:</strong> ${msg}`;
+  messages.appendChild(userMsg);
+  input.value = "";
+
+  const aiReply = document.createElement("div");
+  aiReply.innerHTML = `<strong>AI:</strong> ⏳ 回覆中...`;
+  messages.appendChild(aiReply);
+  messages.scrollTop = messages.scrollHeight;
+
+  try {
+    const res = await fetch("/api/openai/ask", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: msg })
+    });
+
+    const reply = await res.text(); // 🔁 回傳是純文字
+    aiReply.innerHTML = `<strong>AI:</strong> ${reply}`;
+  } catch (err) {
+    console.error("❌ AI 回覆錯誤", err);
+    aiReply.innerHTML = `<strong>AI:</strong> ❌ 發生錯誤，請稍後再試`;
+  }
+
+  messages.scrollTop = messages.scrollHeight;
+}
+
+// ✅ 綁定 Enter 鍵送出
+document.addEventListener("DOMContentLoaded", async () => {
+  const userCartEl = document.getElementById("user-cart");
+  const userId = parseInt(userCartEl?.dataset.userId, 10);
+
+  if (!userId) {
+    console.warn("⚠️ 沒抓到 userId，登入了嗎？");
+    return;
+  }
+
+  try {
+    // ✅ 1. 從後端撈回使用者收藏
+    const serverCart = await fetchCartFromServer(userId);
+
+    // ✅ 2. 更新 localStorage
+    localStorage.setItem("newsCart", JSON.stringify(serverCart));
+
+    // ✅ 3. 載入畫面並同步資料
+    syncCartToServer(userId); // 如果想同步到 DB（可保留）
+    loadCart(userId);
+    loadFavoriteList(userId); 
+  } catch (err) {
+    console.error("❌ 初始同步收藏失敗：", err);
+  }
+  toggleChatbox();
+ 
+
+  // 綁定 AI 輸入 Enter 快捷鍵
+  const aiInput = document.getElementById("ai-user-input");
+  if (aiInput) {
+    aiInput.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        sendAiMessage();
+      }
+    });
+  }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+	  // 其他初始化邏輯…
+
+	  // ✅ ⬇️ 加入登出清除 localStorage 的邏輯
+	  const logoutBtn = document.querySelector('a[href="/logout"]');
+	  if (logoutBtn) {
+	    logoutBtn.addEventListener("click", function (e) {
+	      e.preventDefault();
+	      console.log("🚪 [cart.html] 使用者登出，清除 localStorage.newsCart");
+	      localStorage.removeItem("newsCart");
+	      window.location.href = "/logout";
+	    });
+	  }
+	});
+	
+//✅ 綁定每篇新聞的「AI 重點整理」按鈕
+document.addEventListener("click", function (e) {
+  if (e.target && e.target.textContent.includes("AI 重點整理")) {
+    const card = e.target.closest(".news-feed-card");
+    const contentEl = card.querySelector(".news-feed-content");
+
+    if (!contentEl) {
+      alert("❌ 找不到新聞內容");
+      return;
+    }
+
+    const contentText = contentEl.innerText.trim();
+    if (!contentText) {
+      alert("❗ 該新聞沒有內容可以摘要");
+      return;
+    }
+
+    // 自動打開 AI 對話框（如果還沒打開）
+    const chatbox = document.getElementById("ai-chatbox");
+    if (chatbox.style.display === "none" || chatbox.style.display === "") {
+      chatbox.style.display = "flex";
+    }
+
+    // 送出新聞內容給 AI
+    sendAiContentToChat(contentText);
+  }
+});
+
+// ✅ 專門給「AI 重點整理」用的函數
+function sendAiContentToChat(contentText) {
+  const messages = document.getElementById("ai-chatbox-messages");
+
+  const userMsg = document.createElement("div");
+  userMsg.innerHTML = `<strong>你:</strong> 重點整理以下新聞：<br><div style="font-size: 0.85rem; color: #555; margin-top: 4px;">${contentText}</div>`;
+  messages.appendChild(userMsg);
+
+  const aiReply = document.createElement("div");
+  aiReply.innerHTML = `<strong>AI:</strong> ⏳ 正在分析中...`;
+  messages.appendChild(aiReply);
+  messages.scrollTop = messages.scrollHeight;
+
+  fetch("/api/openai/ask", {
+	    method: "POST",
+	    headers: { "Content-Type": "application/json" },
+	    // ✅ ⬇️ 只送純新聞內文
+	    body: JSON.stringify({ message: contentText })
+	  })
+	    .then(res => res.text())
+	    .then(reply => {
+	    	aiReply.innerHTML = `
+	    		  <div class="ai-reply-block">
+	    		    <strong class="ai-label">AI:</strong>
+	    		    <div class="ai-content">${reply.replace(/\n/g, "<br>")}</div>
+	    		  </div>`;
+	      messages.scrollTop = messages.scrollHeight;
+	    })
+	    .catch(err => {
+	      console.error("❌ AI 回覆錯誤", err);
+	      aiReply.innerHTML = `<strong>AI:</strong> ❌ 發生錯誤，請稍後再試`;
+	    });
+	}
+
+</script>
+
+
+	<!-- Thymeleaf Fragment for cart -->
+	<div th:fragment="cartFragment">
+		<script th:inline="javascript">
+	console.log("User ID is:", userId);
+	
+	
+</script>
+
+		<div th:each="news : ${cartNews}" class="news-feed-card" th:attr="data-url=${news.url}">
+		
+			<img th:if="${news.imageUrl}" th:src="${news.imageUrl}"
+				class="news-feed-img" />
+
+			<div class="news-feed-title" th:text="${news.title}">標題</div>
+
+			<div class="news-feed-desc" th:text="${news.description}">摘要</div>
+
+			<div class="news-feed-time"
+				th:text="${#temporals.format(news.publishedAt, 'yyyy-MM-dd HH:mm')}">時間</div>
+
+
+			<div class="news-feed-content" th:utext="${news.content}"></div>
+
+			<div class="news-feed-actions">
+    <button class="btn btn-sm btn-outline-primary toggle-content-btn">閱讀全文</button>
+    <button class="btn btn-sm favorite-btn btn-outline-success"
+        th:text="'💙 收藏'" th:attr="data-id=${news.id}"></button>
+    <button class="btn btn-sm btn-outline-danger remove-from-cart-btn"
+        th:attr="data-id=${news.id}">移除</button>    
+   
+    <button class="btn btn-sm btn-outline-secondary ms-auto">AI 重點整理</button>
+</div>
+	</div>
+	</div>
+	<!-- ✅ AI 助理對話框 -->
+	<div id="ai-chatbox">
+		<div id="ai-chatbox-header">🤖 AI 助理</div>
+		<div id="ai-chatbox-messages">
+			<div>
+				<strong>AI:</strong> 請選擇新聞...
+			</div>
+			<div id="ai-chatbox-input">
+			
+		</div>
+		</div>
+		
+	</div>
+	
+</body>
+</html>

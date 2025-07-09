@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>驗尚未完成</title>
+    <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+
+    .confirm-not-finish-container {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 500px; 
+      text-align: center;
+      margin-top: -350px; 
+    }
+
+    .header-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem; 
+      font-weight: 700;
+      color: #000;
+      margin-bottom: 30px;
+    }
+
+    
+
+    .text-danger {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+	 <div class="confirm-not-finish-container">
+  	 
+  	<div class="header-title">📩 驗證尚未完成</div>
+    <p > 驗證信已寄出，請登入信箱驗證！</p>
+  
+   
+    <a href="/login">返回登入頁</a>
+    </div>
+</body>
+</html>

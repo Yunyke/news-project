@@ -1,0 +1,254 @@
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #f8f9fa;
+	font-family: Arial, sans-serif;
+	
+}
+
+.header-title {
+	font-family: 'Playfair Display', serif;
+	font-weight: 700;
+	font-size: 6rem;
+	text-align: center;
+	margin-top: 20px;
+	color: #000;
+	letter-spacing: 0.05em;
+	font-style: normal;
+}
+
+.nav-link:hover {
+	color: #ffcc00 !important;
+	background-color: #333333;
+	border-radius: 5px;
+	transition: background-color 0.3s ease, color 0.3s ease;
+	
+}
+
+.grid-container {
+	padding: 20px;
+	background-color: #f8f9fa;
+	display: block;
+}
+
+.news-section {
+	margin-bottom: 30px; /* 顯示區塊間的間距 */
+	background-color: #f0f0f0; /* 設置背景色 */
+	padding: 20px; /* 向右偏移，這裡的40px會讓區塊更靠右 */
+	border-radius: 8px; /* 圓角效果 */
+}
+
+h2.news-section-title {
+	margin-bottom: 20px; /* 減少標題與卡片之間的空間 */
+	text-align: left; /* 確保標題左對齊 */
+	margin-left: 15px; /* 增加左边距，向右偏移 */
+}
+
+/* 新聞區塊的排列 */
+.news-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+	gap: 20px;
+	align-items: start;
+	
+	
+}
+
+/* 卡片樣式調整 */
+.news-card {
+	background-color: #f7f7f7;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+	cursor: pointer;
+	display: flex;
+	flex-direction: row;
+	padding: 10px;
+	position: relative; /* 讓 tooltip 可以定位 */
+	transition: background-color 0.3s ease;
+	margin: 10px;
+	height: 135px;
+}
+
+.hover-description {
+	display: none;
+	position: absolute;
+	background-color: rgba(50, 50, 50, 0.9);
+	color: #fff;
+	padding: 10px;
+	border-radius: 6px;
+	font-size: 0.9rem;
+	max-width: 500px;
+	z-index: 999;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+	top: 100%; /* 出現在卡片下方 */
+	left: 0;
+	white-space: normal;
+}
+
+.news-card:hover .hover-description {
+	display: block;
+}
+
+.news-img {
+	width: auto;
+	height: auto;
+	object-fit: contain;
+	max-width: 45%;
+	max-height: 100px;
+	flex-shrink: 0;
+	border-radius: 6px;
+	margin-right: 15px;
+	margin-top: 5px;
+}
+
+/* 文字內容區 */
+.news-content {
+	padding-top: 5px; /* ✅ 輕微上邊距控制間距 */
+	padding-bottom: 20px; /* ✅ 保留底部空間給時間 */
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	flex-grow: 1;
+	max-height: 120px;
+	overflow: hidden; /* 防止文字溢出 */
+}
+
+/* 標題加大並換行 */
+.news-title {
+	font-weight: 700;
+	font-size: 1.2rem;
+	margin: 0 0 8px 0;
+	word-wrap: break-word;
+	line-height: 1.2;
+	overflow: visible;
+	text-overflow: normal; /* 超過範圍顯示省略號 */
+	white-space: normal; /* 允許標題換行 */
+	
+	max-height: 2.4em;
+	padding-right: 80px; /* ✅ 預留按鈕位置 */
+  padding-left: 5px;    /* ✅ 減一點左右空間，讓 title 留更多行 */
+}
+
+.news-time {
+	position: absolute;
+	bottom: 10px;
+	right: 15px;
+	font-size: 0.8rem;
+	color: #888;
+}
+
+/* 摘要限制最多三行，多的顯示... */
+.news-desc {
+	flex-grow: 1;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 3; /* 限制最多顯示三行 */
+	-webkit-box-orient: vertical;
+	text-overflow: ellipsis;
+	margin: 0 0 8px 0;
+	color: #444;
+	font-size: 0.9rem;
+}
+
+/* 標籤與分類 */
+.news-tags {
+	font-size: 0.8rem;
+	color: #666;
+	margin-top: auto;
+}
+
+.add-to-cart-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  background-color: #ffffff;
+  color: #333;
+  border: 1px solid #aaa;
+  border-radius: 20px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.star-button {
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 0;
+}
+
+.news-item {
+	position: relative;
+	padding: 1rem;
+	border-bottom: 1px solid #ccc;
+	
+}
+
+.star-form {
+	position: absolute;
+	top: 0.5rem;
+	right: 0.5rem;
+}
+
+.star-button {
+	position: absolute;
+	top: 0;
+	right: -24px; /* 凸出右側約一半寬度 */
+	width: 32px; /* ✅ 書籤的寬度 */
+	height: 36px; /* ✅ 書籤的高度，比字體稍長，像標籤紙 */
+	background-color: rgba(255, 105, 180, 0.6); /* ✅ 半透明 hotpink */
+	border: none;
+	border-top-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1rem;
+	cursor: pointer;
+	z-index: 1; /* ✅ 讓它「被蓋住」，部分藏在卡片底下 */
+	box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
+	backdrop-filter: blur(2px);
+	transition: transform 0.2s ease;
+}
+
+.star {
+	color: white;
+	transition: color 0.3s, transform 0.2s;
+}
+
+.star.filled {
+	color: gray; /* 可以換成 crimson、deeppink、red 看你喜歡哪種 */
+}
+
+.star:hover {
+	color: pink;
+	transform: scale(1.2);
+}
+.cnn-card .news-title {
+  font-size: 0.95rem;
+  line-height: 1.2;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 60px; /* 為右上角的 ➕ 預留空間 */
+}
+
+body {
+	top: 0 !important;
+}
+
+.custom-auth-btn {
+  background-color: transparent !important; /* 背景透明 */
+  border: 1px solid white; /* 白色邊框 */
+  color: black !important;
+  transition: all 0.3s ease;
+}
+
+.custom-auth-btn:hover {
+  background-color: white !important;
+  color: black !important; /* 滑過變反色 */
+}

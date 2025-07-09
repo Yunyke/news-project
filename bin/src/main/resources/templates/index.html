@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head translate="no">
+<meta charset="UTF-8">
+<title th:text="${title}">Daily News</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet" th:href="@{css/index.css}">
+<style>
+</style>
+
+</head>
+<body>
+	<script th:inline="javascript">
+  window.USER_SESSION = {
+    isLoggedIn: /*[[${session.name != null}]]*/ false,
+    userId: /*[[${session.userId}]]*/ null,
+    name: /*[['${session.name}']]*/ ''
+  };
+  window.IS_LOGGED_IN = /*[[${session.name != null}]]*/ false;
+</script>
+
+	<!-- 🔵 頁面主標題 -->
+	<div class="header-title notranslate" translate="no">Daily News</div>
+
+	<!-- 🔵 導覽列 -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark mt-3 mb-4">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#" translate="no">Home</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNav">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link active" href="#">Top30</a></li>
+
+					<li class="nav-item"><a class="nav-link" href="/cnn">CNN</a></li>
+					<li class="nav-item"><a class="nav-link" href="/bbc">BBC</a></li>
+					<li class="nav-item"><a class="nav-link" href="/nhk">NHK</a></li>
+				</ul>
+				<a href="#"
+					class="btn btn-warning position-fixed bottom-0 end-0 m-4"
+					style="z-index: 999;" onclick="handleViewCartClick()"> 📰
+					查看新聞清單 <span id="cart-count" class="badge bg-dark ms-1"></span>
+				</a>
+				<ul class="navbar-nav ms-auto">
+
+
+					<form class="d-flex ms-auto align-items-center"
+						th:action="@{/search}" method="get">
+						<!-- 🔤 Label -->
+
+
+						<!-- 🔘 按鈕 + 輸入框 -->
+						<div class="input-group input-group-sm" style="max-width: 250px;">
+							<!-- 搜尋按鈕 -->
+							<button class="btn btn-outline-light" type="submit">搜尋</button>
+
+							<!-- 輸入框 -->
+							<input type="text" name="keyword"
+								class="form-control white text-black  border-0"
+								placeholder="輸入關鍵字…" aria-label="Search">
+						</div>
+					</form>
+
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- ✅ 尚未登入時顯示登入/註冊 -->
+	<div th:if="${session.name == null}"
+		style="position: absolute; top: 5px; right: 20px; z-index: 1050; background-color: #f8f9fa; padding: 5px 10px; border-radius: 8px; color: #6c757d;">
+		<a class="btn btn-sm btn-outline-light me-2 custom-auth-btn"
+			th:href="@{/login}" style="color: #6c757d;">登入</a> <a
+			class="btn btn-sm btn-outline-light custom-auth-btn"
+			th:href="@{/register}" style="color: #6c757d;">註冊</a>
+	</div>
+
+	<!-- ✅ 已登入時顯示歡迎詞和登出 -->
+	<div th:if="${session.name != null}"
+		style="position: absolute; top: 5px; right: 20px; z-index: 1050; background-color: #f8f9fa; padding: 5px 10px; border-radius: 8px; color: #6c757d;">
+		<span class="text-warning me-2"> 歡迎～<strong
+			th:text="${session.name}" style="color: #6c757d;">使用者</strong>
+		</span> <a id="logoutBtn" class="btn btn-sm btn-outline-light me-2"
+			th:href="@{/logout}" style="color: #6c757d;">登出</a>
+	</div>
+	<!-- 🔵 新聞卡片區 -->
+	<div class="grid-container">
+		<!-- 三個區塊：CNN、BBC 和 NHK -->
+		<div class="news-grid">
+
+
+			<div class="news-section">
+				<h2 class="news-section-title mb-3" translate="no">CNN</h2>
+
+				<div th:each="news : ${cnnNewsList}"
+					th:if="${news != null and news.title != null and news.title != ''}"
+					class="news-card  ">
+
+					<button class="btn btn-sm btn-outline-primary add-to-cart-btn"
+						th:attr="data-id=${news.id}">➕</button>
+					<a th:href="${news.url}" target="_blank">
+						<div style="display: flex;">
+							<img th:if="${news.imageUrl != null}" th:src="${news.imageUrl}"
+								class="news-img" />
+							<div class="news-content">
+								<h5 class="news-title" th:text="${news.title}"></h5>
+								<p class="hover-description" th:text="${news.description}"></p>
+								<p class="news-time"
+									th:text="${#temporals.format(news.publishedAt, 'yyyy-MM-dd HH:mm')}"></p>
+							</div>
+						</div>
+					</a>
+
+				</div>
+
+
+			</div>
+
+
+			<!-- BBC News -->
+			<div class="news-section">
+				<h2 class="news-section-title mb-3" translate="no">BBC</h2>
+				<div th:each="news : ${bbcNewsList}" class="news-card">
+
+					<!-- 加入清單用主鍵 id 就好 -->
+					<button class="btn btn-sm btn-outline-primary add-to-cart-btn"
+						th:attr="data-id=${news.id}">➕</button>
+
+					<!-- 統一用 url －－ Entity 裡的唯一欄位 -->
+					<a th:href="${news.url}" target="_blank">
+						<div style="display: flex">
+							<img th:if="${news.imageUrl}" th:src="${news.imageUrl}"
+								class="news-img" />
+
+							<div class="news-content">
+								<h5 class="news-title" th:text="${news.title}">標題</h5>
+
+								<p class="hover-description" th:text="${news.description}">摘要</p>
+
+								<!-- publishedAt ➜ 用 #temporals 格式化 -->
+								<p class="news-time"
+									th:text="${#temporals.format(news.publishedAt,'yyyy-MM-dd HH:mm')}">
+								</p>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+
+			<!-- NHK News -->
+			<div class="news-section">
+				<h2 class="news-section-title mb-3" translate="no">NHK</h2>
+				<div th:each="news : ${nhkNewsList}"
+					th:if="${news.title != null and news.title != ''}"
+					class="news-card">
+
+					<!-- 🔧 用 news.url.hashCode() 而非不存在的 news.link -->
+					<button class="btn btn-sm btn-outline-primary add-to-cart-btn"
+						th:attr="data-id=${news.id}">➕</button>
+
+					<!-- 🔧 href 改為 news.url -->
+					<a th:href="${news.url}" target="_blank"
+						style="text-decoration: none; color: inherit;">
+						<div style="display: flex; align-items: center;">
+							<img th:if="${news.imageUrl != null}" th:src="${news.imageUrl}"
+								class="news-img" alt="新聞圖片" onerror="this.style.display='none'" />
+							<div class="news-content">
+								<h5 class="news-title" th:text="${news.title}">標題</h5>
+								<div class="hover-description" th:text="${news.description}">內容</div>
+
+								<!-- 🔧 統一使用 publishedAt 時間格式（若有） -->
+								<p class="text-muted news-time"
+									th:text="${#temporals.format(news.publishedAt, 'yyyy-MM-dd HH:mm')}">日期</p>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+
+
+
+		</div>
+	</div>
+
+	</div>
+	<script>
+/* ==================== index.html – 購物車腳本 ==================== */
+document.addEventListener("DOMContentLoaded", async function () {
+	
+	if (!window.IS_LOGGED_IN) {
+	    console.log(" 未登入狀態，自動清除 localStorage.newsCart");
+	    localStorage.removeItem("newsCart");
+	  }
+
+
+  /* ---------- 0. 若剛登入強制清空 localStorage ---------- */
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get("resetCart") === "true") {
+    console.log("🧹 清除 localStorage.newsCart（因登入）");
+    localStorage.removeItem("newsCart");
+    
+    
+
+    // 把 resetCart 參數從網址拿掉，避免 F5 又執行一次
+    const cleanUrl = window.location.origin + window.location.pathname;
+    window.history.replaceState({}, document.title, cleanUrl);
+  }
+
+  /* ---------- 1. 先從 localStorage 取；如果已登入再向後端同步 ---------- */
+  let cart = JSON.parse(localStorage.getItem("newsCart") || "[]");
+
+  // 🆕 只有「已登入」才跟雲端比對清單
+  if (window.IS_LOGGED_IN) {
+    try {
+      const res = await fetch(`/api/cart/users/${window.USER_SESSION.userId}/cart`);
+      if (res.ok) {
+        const serverIds = await res.json();     // [101, 102, 103…]
+        // 🆕 合併（避免 localStorage 已有的手動加入）
+        cart = Array.from(new Set([...cart, ...serverIds]));
+        localStorage.setItem("newsCart", JSON.stringify(cart));
+        console.log("☁️  已從伺服器同步清單：", serverIds);
+      }
+    } catch (err) {
+      console.error("⚠️  雲端清單讀取失敗：", err);
+    }
+  }
+
+  /* ---------- 2. 掃描所有「➕」按鈕，依 cart 狀態決定文字 ---------- */
+  document.querySelectorAll(".add-to-cart-btn").forEach(btn => {
+    const id   = parseInt(btn.dataset.id, 10);
+    const card = btn.closest(".news-card");
+
+    /* 預設狀態 */
+    if (cart.includes(id)) {
+      card.classList.add("added-to-cart");
+      btn.innerText = "✅ 已加入";
+    }
+
+    /* 點擊事件 */
+    btn.addEventListener("click", function (event) {
+      event.stopPropagation();
+
+      /* 未登入直接擋下 */
+      if (!window.IS_LOGGED_IN) {
+        alert("請先登入才能加入新聞清單！");
+        return;
+      }
+
+      const userId = window.USER_SESSION.userId;
+      if (!userId) {
+        alert("無法辨識使用者 ID，請重新登入");
+        return;
+      }
+
+      /* --- 加入 --- */
+      if (!cart.includes(id)) {
+        cart.push(id);
+        card.classList.add("added-to-cart");
+        btn.innerText = "✅ 已加入";
+
+        fetch(`/api/cart/users/${userId}/cart`, {     // 路徑不變
+          method : "POST",
+          headers: { "Content-Type": "application/json" },
+          body   : JSON.stringify({ newsId: id })
+        }).catch(err => console.error("加入清單失敗：", err));
+
+      /* --- 移除 --- */
+      } else {
+        cart = cart.filter(itemId => itemId !== id);
+        card.classList.remove("added-to-cart");
+        btn.innerText = "➕";
+
+        fetch(
+          `/api/cart/users/${userId}/cart/${id}`,      // 🔄 改用 RESTful 路徑
+          { method: "DELETE" }
+        ).catch(err => console.error("移除清單失敗：", err));
+      }
+
+      localStorage.setItem("newsCart", JSON.stringify(cart));
+      updateCartCount();
+    });
+  });
+
+  updateCartCount();  // 初始載入更新右下角 badge
+
+}); /* --- DOMContentLoaded end --- */
+
+/* ---------- 3. 小工具：更新右下角數字 ---------- */
+function updateCartCount() {
+  const cart   = JSON.parse(localStorage.getItem("newsCart") || "[]");
+  const badge  = document.getElementById("cart-count");
+  if (badge) {
+    badge.innerText = cart.length;
+    badge.style.display = cart.length === 0 ? "none" : "inline-block";
+  }
+}
+
+document.getElementById("logoutBtn")?.addEventListener("click", function (e) {
+	  e.preventDefault(); // 防止預設跳轉
+
+	  // 🔥 清除本地儲存
+	  console.log("🚪 使用者登出，清除 localStorage.newsCart");
+	  localStorage.removeItem("newsCart");
+	  updateCartCount();
+	  // ➡️ 然後導向後端 logout URL
+	  window.location.href = "/logout";
+	});
+
+/* ---------- 4. 查看新聞清單 ---------- */
+function handleViewCartClick() {
+  if (!window.IS_LOGGED_IN) {
+    alert("請先登入才能查看新聞清單！");
+    return;
+  }  
+    window.location.href = "/cart";
+}
+</script>
+
+</body>
+</html>

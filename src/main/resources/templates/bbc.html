@@ -3,13 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>BBC 最新新聞</title>
-
-<!-- Bootstrap & 自訂樣式 -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
-
 </head>
+
 <style>
 body {
 	margin: 0;
@@ -43,30 +41,28 @@ body {
 }
 
 .news-section {
-	margin-bottom: 30px; /* 顯示區塊間的間距 */
-	background-color: #f0f0f0; /* 設置背景色 */
-	padding: 20px; /* 向右偏移，這裡的40px會讓區塊更靠右 */
-	border-radius: 8px; /* 圓角效果 */
+	margin-bottom: 30px;
+	background-color: #f0f0f0;
+	padding: 20px;
+	border-radius: 8px;
 }
 
 h2.news-section-title {
-	margin-bottom: 20px; /* 減少標題與卡片之間的空間 */
-	text-align: left; /* 確保標題左對齊 */
-	margin-left: 15px; /* 增加左边距，向右偏移 */
+	margin-bottom: 20px;
+	text-align: left;
+	margin-left: 15px;
 }
 
-/* 新聞區塊的排列 */
 .news-grid {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	gap: 20PX 170px;
 	align-items: start;
-	max-width: 1400px; /* ✅ 限制整個 grid 最大寬度 */
-	margin: 0 auto; /* ✅ 讓整個 grid 水平置中 */
+	max-width: 1400px;
+	margin: 0 auto;
 	padding: 0 20px;
 }
 
-/* 卡片樣式調整 */
 .news-card {
 	background-color: #f7f7f7;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -75,7 +71,7 @@ h2.news-section-title {
 	display: flex;
 	flex-direction: row;
 	padding: 10px;
-	position: relative; /* 讓 tooltip 可以定位 */
+	position: relative;
 	transition: background-color 0.3s ease;
 	margin: 10px;
 	height: 150px;
@@ -95,7 +91,7 @@ h2.news-section-title {
 	max-width: 500px;
 	z-index: 999;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-	top: 100%; /* 出現在卡片下方 */
+	top: 100%;
 	left: 0;
 	white-space: normal;
 }
@@ -116,19 +112,17 @@ h2.news-section-title {
 	margin-top: 5px;
 }
 
-/* 文字內容區 */
 .news-content {
-	padding-top: 5px; /* ✅ 輕微上邊距控制間距 */
-	padding-bottom: 20px; /* ✅ 保留底部空間給時間 */
+	padding-top: 5px;
+	padding-bottom: 20px;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
 	flex-grow: 1;
 	max-height: 120px;
-	overflow: hidden; /* 防止文字溢出 */
+	overflow: hidden;
 }
 
-/* 標題加大並換行 */
 .news-title {
 	font-weight: 700;
 	font-size: 1.2rem;
@@ -136,11 +130,11 @@ h2.news-section-title {
 	word-wrap: break-word;
 	line-height: 1.2;
 	overflow: visible;
-	text-overflow: normal; /* 超過範圍顯示省略號 */
-	white-space: normal; /* 允許標題換行 */
+	text-overflow: normal;
+	white-space: normal;
 	max-height: 2.4em;
-	padding-right: 80px; /* ✅ 預留按鈕位置 */
-	padding-left: 2px; /* ✅ 減一點左右空間，讓 title 留更多行 */
+	padding-right: 80px;
+	padding-left: 2px;
 }
 
 .news-time {
@@ -151,12 +145,11 @@ h2.news-section-title {
 	color: #888;
 }
 
-/* 摘要限制最多三行，多的顯示... */
 .news-desc {
 	flex-grow: 1;
 	overflow: hidden;
 	display: -webkit-box;
-	-webkit-line-clamp: 3; /* 限制最多顯示三行 */
+	-webkit-line-clamp: 3;
 	-webkit-box-orient: vertical;
 	text-overflow: ellipsis;
 	margin: 0 0 8px 0;
@@ -164,7 +157,6 @@ h2.news-section-title {
 	font-size: 0.9rem;
 }
 
-/* 標籤與分類 */
 .news-tags {
 	font-size: 0.8rem;
 	color: #666;
@@ -186,53 +178,10 @@ h2.news-section-title {
 	transition: all 0.2s ease;
 }
 
-.star-button {
-	background: none;
-	border: none;
-	cursor: pointer;
-	padding: 0;
-}
-
 .news-item {
 	position: relative;
 	padding: 1rem;
 	border-bottom: 1px solid #ccc;
-}
-
-.star-form {
-	position: absolute;
-	top: 0.5rem;
-	right: 0.5rem;
-}
-
-.star-button {
-	position: absolute;
-	top: 0;
-	right: -24px; /* 凸出右側約一半寬度 */
-	width: 32px; /* ✅ 書籤的寬度 */
-	height: 36px; /* ✅ 書籤的高度，比字體稍長，像標籤紙 */
-	background-color: rgba(255, 105, 180, 0.6); /* ✅ 半透明 hotpink */
-	border: none;
-	border-top-right-radius: 8px;
-	border-bottom-right-radius: 8px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 1rem;
-	cursor: pointer;
-	z-index: 1; /* ✅ 讓它「被蓋住」，部分藏在卡片底下 */
-	box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
-	backdrop-filter: blur(2px);
-	transition: transform 0.2s ease;
-}
-
-.star {
-	color: white;
-	transition: color 0.3s, transform 0.2s;
-}
-
-.star.filled {
-	color: gray; /* 可以換成 crimson、deeppink、red 看你喜歡哪種 */
 }
 
 .cnn-card .news-title {
@@ -242,7 +191,7 @@ h2.news-section-title {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	padding-right: 60px; /* 為右上角的 ➕ 預留空間 */
+	padding-right: 60px;
 }
 
 body {
@@ -250,22 +199,21 @@ body {
 }
 
 .custom-auth-btn {
-	background-color: transparent !important; /* 背景透明 */
-	border: 1px solid white; /* 白色邊框 */
+	background-color: transparent !important;
+	border: 1px solid white;
 	color: black !important;
 	transition: all 0.3s ease;
 }
 
 .custom-auth-btn:hover {
 	background-color: white !important;
-	color: black !important; /* 滑過變反色 */
+	color: black !important;
 }
 </style>
-<body>
-	<!-- Daily News 標題 -->
-	<div class="header-title notranslate" translate="no">Daily News</div>
 
-	<!-- 導覽列 -->
+<body>
+
+	<div class="header-title notranslate" translate="no">Daily News</div>
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark mt-3 mb-4">
 		<div class="container-fluid">
@@ -283,7 +231,6 @@ body {
 					<li class="nav-item"><a class="nav-link" href="/nhk">NHK</a></li>
 				</ul>
 
-				<!-- 🔍 搜尋表單 -->
 				<ul class="navbar-nav ms-auto">
 					<form class="d-flex ms-auto align-items-center"
 						th:action="@{/search}" method="get">
@@ -299,7 +246,6 @@ body {
 		</div>
 	</nav>
 
-
 	<div class="container-fluid px-4 mt-4"
 		style="max-width: 1600px; margin: auto;">
 		<h1 class="mb-4">BBC 新聞</h1>
@@ -308,12 +254,8 @@ body {
 			<div th:each="news : ${newsList}"
 				th:if="${news != null and news.title != null and news.title != ''}"
 				class="news-card">
-
-				<!-- 加入清單按鈕 -->
 				<button class="btn btn-sm btn-outline-primary add-to-cart-btn"
 					th:attr="data-id=${news.id}">➕</button>
-
-				<!-- 新聞卡片內容 -->
 				<a th:href="${news.url}" target="_blank"
 					style="text-decoration: none;">
 					<div style="display: flex;">
@@ -331,12 +273,10 @@ body {
 		</div>
 	</div>
 
-	<!-- 右下角查看清單 -->
 	<a href="#" class="btn btn-warning position-fixed bottom-0 end-0 m-4"
 		style="z-index: 999;" onclick="handleViewCartClick()"> 📰 查看新聞清單 <span
-		id="cart-count" class="badge bg-dark ms-1"></span>
-	</a>
-	<!-- ✅ 尚未登入時顯示登入/註冊 -->
+		id="cart-count" class="badge bg-dark ms-1"></span></a>
+
 	<div th:if="${session.name == null}"
 		style="position: absolute; top: 5px; right: 20px; z-index: 1050; background-color: #f8f9fa; padding: 5px 10px; border-radius: 8px; color: #6c757d;">
 		<a class="btn btn-sm btn-outline-light me-2 custom-auth-btn"
@@ -345,123 +285,122 @@ body {
 			th:href="@{/register}" style="color: #6c757d;">註冊</a>
 	</div>
 
-	<!-- ✅ 已登入時顯示歡迎詞和登出 -->
 	<div th:if="${session.name != null}"
 		style="position: absolute; top: 5px; right: 20px; z-index: 1050; background-color: #f8f9fa; padding: 5px 10px; border-radius: 8px; color: #6c757d;">
 		<span class="text-warning me-2"> 歡迎～<strong
-			th:text="${session.name}" style="color: #6c757d;">使用者</strong>
-		</span> <a id="logoutBtn" class="btn btn-sm btn-outline-light me-2"
+			th:text="${session.name}" style="color: #6c757d;">使用者</strong></span> <a
+			id="logoutBtn" class="btn btn-sm btn-outline-light me-2"
 			th:href="@{/logout}" style="color: #6c757d;">登出</a>
 	</div>
 
-	<!-- 可選：共用的購物車 JS -->
 	<script th:src="@{/js/cart.js}"></script>
 	<script th:inline="javascript">
-  window.USER_SESSION = {
-    isLoggedIn: /*[[${session.name != null}]]*/ false,
-    userId: /*[[${session.userId}]]*/ null,
-    name: /*[['${session.name}']]*/ ''
-  };
-  window.IS_LOGGED_IN = /*[[${session.name != null}]]*/ false;
-</script>
+    window.USER_SESSION = {
+      isLoggedIn: /*[[${session.name != null}]]*/ false,
+      userId: /*[[${session.userId}]]*/ null,
+      name: /*[['${session.name}']]*/ ''
+    };
+    window.IS_LOGGED_IN = /*[[${session.name != null}]]*/ false;
+  </script>
+
 	<script>
-  document.addEventListener("DOMContentLoaded", async function () {
-    if (!window.IS_LOGGED_IN) {
-      localStorage.removeItem("newsCart");
-    }
-
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get("resetCart") === "true") {
-      localStorage.removeItem("newsCart");
-      const cleanUrl = window.location.origin + window.location.pathname;
-      window.history.replaceState({}, document.title, cleanUrl);
-    }
-
-    let cart = JSON.parse(localStorage.getItem("newsCart") || "[]");
-
-    if (window.IS_LOGGED_IN) {
-      try {
-        const res = await fetch(`/api/cart/users/${window.USER_SESSION.userId}/cart`);
-        if (res.ok) {
-          const serverIds = await res.json();
-          cart = Array.from(new Set([...cart, ...serverIds]));
-          localStorage.setItem("newsCart", JSON.stringify(cart));
-        }
-      } catch (err) {
-        console.error("⚠️ 雲端清單讀取失敗：", err);
-      }
-    }
-
-    document.querySelectorAll(".add-to-cart-btn").forEach(btn => {
-      const id = parseInt(btn.dataset.id, 10);
-      const card = btn.closest(".news-card");
-
-      if (cart.includes(id)) {
-        card.classList.add("added-to-cart");
-        btn.innerText = "✅ 已加入";
+    document.addEventListener("DOMContentLoaded", async function () {
+      if (!window.IS_LOGGED_IN) {
+        localStorage.removeItem("newsCart");
       }
 
-      btn.addEventListener("click", function (event) {
-        event.stopPropagation();
-        if (!window.IS_LOGGED_IN) {
-          alert("請先登入才能加入新聞清單！");
-          return;
-        }
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get("resetCart") === "true") {
+        localStorage.removeItem("newsCart");
+        const cleanUrl = window.location.origin + window.location.pathname;
+        window.history.replaceState({}, document.title, cleanUrl);
+      }
 
-        const userId = window.USER_SESSION.userId;
-        if (!userId) {
-          alert("無法辨識使用者 ID，請重新登入");
-          return;
-        }
+      let cart = JSON.parse(localStorage.getItem("newsCart") || "[]");
 
-        if (!cart.includes(id)) {
-          cart.push(id);
+      if (window.IS_LOGGED_IN) {
+        try {
+          const res = await fetch(`/api/cart/users/${window.USER_SESSION.userId}/cart`);
+          if (res.ok) {
+            const serverIds = await res.json();
+            cart = Array.from(new Set([...cart, ...serverIds]));
+            localStorage.setItem("newsCart", JSON.stringify(cart));
+          }
+        } catch (err) {
+          console.error("⚠️ 雲端清單讀取失敗：", err);
+        }
+      }
+
+      document.querySelectorAll(".add-to-cart-btn").forEach(btn => {
+        const id = parseInt(btn.dataset.id, 10);
+        const card = btn.closest(".news-card");
+
+        if (cart.includes(id)) {
           card.classList.add("added-to-cart");
           btn.innerText = "✅ 已加入";
-          fetch(`/api/cart/users/${userId}/cart`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ newsId: id })
-          });
-        } else {
-          cart = cart.filter(itemId => itemId !== id);
-          card.classList.remove("added-to-cart");
-          btn.innerText = "➕";
-          fetch(`/api/cart/users/${userId}/cart/${id}`, { method: "DELETE" });
         }
 
-        localStorage.setItem("newsCart", JSON.stringify(cart));
-        updateCartCount();
+        btn.addEventListener("click", function (event) {
+          event.stopPropagation();
+          if (!window.IS_LOGGED_IN) {
+            alert("請先登入才能加入新聞清單！");
+            return;
+          }
+
+          const userId = window.USER_SESSION.userId;
+          if (!userId) {
+            alert("無法辨識使用者 ID，請重新登入");
+            return;
+          }
+
+          if (!cart.includes(id)) {
+            cart.push(id);
+            card.classList.add("added-to-cart");
+            btn.innerText = "✅ 已加入";
+            fetch(`/api/cart/users/${userId}/cart`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ newsId: id })
+            });
+          } else {
+            cart = cart.filter(itemId => itemId !== id);
+            card.classList.remove("added-to-cart");
+            btn.innerText = "➕";
+            fetch(`/api/cart/users/${userId}/cart/${id}`, { method: "DELETE" });
+          }
+
+          localStorage.setItem("newsCart", JSON.stringify(cart));
+          updateCartCount();
+        });
       });
+
+      updateCartCount();
     });
 
-    updateCartCount();
-  });
-
-  function updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem("newsCart") || "[]");
-    const badge = document.getElementById("cart-count");
-    if (badge) {
-      badge.innerText = cart.length;
-      badge.style.display = cart.length === 0 ? "none" : "inline-block";
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem("newsCart") || "[]");
+      const badge = document.getElementById("cart-count");
+      if (badge) {
+        badge.innerText = cart.length;
+        badge.style.display = cart.length === 0 ? "none" : "inline-block";
+      }
     }
-  }
 
-  document.getElementById("logoutBtn")?.addEventListener("click", function (e) {
-    e.preventDefault();
-    localStorage.removeItem("newsCart");
-    updateCartCount();
-    window.location.href = "/logout";
-  });
+    document.getElementById("logoutBtn")?.addEventListener("click", function (e) {
+      e.preventDefault();
+      localStorage.removeItem("newsCart");
+      updateCartCount();
+      window.location.href = "/logout";
+    });
 
-  function handleViewCartClick() {
-    if (!window.IS_LOGGED_IN) {
-      alert("請先登入才能查看新聞清單！");
-      return;
+    function handleViewCartClick() {
+      if (!window.IS_LOGGED_IN) {
+        alert("請先登入才能查看新聞清單！");
+        return;
+      }
+      window.location.href = "/cart";
     }
-    window.location.href = "/cart";
-  }
-</script>
+  </script>
 
 </body>
 </html>
