@@ -22,27 +22,28 @@ public class LoginController {
     private CertService certService;
 
     @GetMapping
-    public String loginPage(@RequestParam(defaultValue = "/news") String redirect,
+    public String loginPage(@RequestParam(defaultValue = "/index") String redirect, 
             Model model) {
-model.addAttribute("redirect", redirect);
-return "login";
-}
+        model.addAttribute("redirect", redirect);
+        return "login";
+    }
+
     @GetMapping("/news")
     public String newsPage(HttpSession session, Model model) {
         Integer userId = (Integer) session.getAttribute("userId");
         if (userId != null) {
             model.addAttribute("userId", userId); 
         } else {
-            return "redirect:/login?redirect=/news"; 
+            return "redirect:/login?redirect=/index"; 
         }
-        return "news"; // 對應 news.html
+        return "index"; 
     }
 
     @PostMapping
     public String checkLogin(
             @RequestParam String username,
             @RequestParam String password,
-            @RequestParam(defaultValue = "/news") String redirect, 
+            @RequestParam(defaultValue = "/index") String redirect, 
             HttpServletRequest req,
             Model model) {
 
@@ -72,4 +73,4 @@ return "login";
             return "error";
         }
     }
-    }
+}

@@ -24,6 +24,6 @@ public class LogoutController {
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate(); // 清除所有 session
-		return "redirect:/news"; // 回登入頁
+		return "redirect:/index"; // 回登入頁
 	}
 }

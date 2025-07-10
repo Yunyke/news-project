@@ -37,7 +37,7 @@ public class NewsScraperController {
 	// 1.加載各新聞來源的資料
 	// 2.裝進 model 裡供前端（Thymeleaf）使用
 	// 3.處理登入使用者的顯示邏輯
-	@GetMapping({ "/", "/news" })
+	@GetMapping({ "/", "/index" })
 	public String showNews(Model model, HttpSession session) {
 
 		model.addAttribute("title", "Daily News");

@@ -6,11 +6,10 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
-	<link rel="stylesheet" th:href="@{css/webstyle.css}">
+<link rel="stylesheet" th:href="@{css/webstyle.css}">
 </head>
 
 <style>
-
 .news-grid {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
@@ -38,9 +37,6 @@
 	margin-left: -13%;
 }
 
-
-
-
 .news-title {
 	font-weight: 700;
 	font-size: 1rem;
@@ -55,7 +51,6 @@
 	padding-left: 2px;
 }
 
-
 .cnn-card .news-title {
 	font-size: 0.95rem;
 	line-height: 1.2;
@@ -65,43 +60,11 @@
 	text-overflow: ellipsis;
 	padding-right: 60px;
 }
-
 </style>
 
 <body>
 
-	<div class="header-title notranslate" translate="no">Daily News</div>
-
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark mt-3 mb-4">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="/" translate="no">Home</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarNav">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-
-			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link" href="/">Top30</a></li>
-					<li class="nav-item"><a class="nav-link" href="/cnn">CNN</a></li>
-					<li class="nav-item"><a class="nav-link" href="/bbc">BBC</a></li>
-					<li class="nav-item"><a class="nav-link" href="/nhk">NHK</a></li>
-				</ul>
-
-				<ul class="navbar-nav ms-auto">
-					<form class="d-flex ms-auto align-items-center"
-						th:action="@{/search}" method="get">
-						<div class="input-group input-group-sm" style="max-width: 250px;">
-							<button class="btn btn-outline-light" type="submit">搜尋</button>
-							<input type="text" name="keyword"
-								class="form-control white text-black border-0"
-								placeholder="輸入關鍵字…" aria-label="Search">
-						</div>
-					</form>
-				</ul>
-			</div>
-		</div>
-	</nav>
+<div th:replace="~{fragments :: navbar}"></div>
 
 	<div class="container-fluid px-4 mt-4"
 		style="max-width: 1600px; margin: auto;">

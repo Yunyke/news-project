@@ -13,9 +13,6 @@
 <link rel="stylesheet" th:href="@{css/webstyle.css}">
 <style>
 
-
-
-
 /* 新聞區塊 */
 .news-grid {
 	display: grid;
@@ -39,9 +36,6 @@
 	height: 135px;
 }
 
-
-
-
 .news-title {
 	font-weight: 700;
 	font-size: 1.2rem;
@@ -56,7 +50,6 @@
 	padding-left: 5px;
 }
 
-
 .cnn-card .news-title {
 	font-size: 0.95rem;
 	line-height: 1.2;
@@ -66,13 +59,13 @@
 	text-overflow: ellipsis;
 	padding-right: 60px;
 }
-
-
-
 </style>
 
 </head>
 <body>
+
+	<div th:replace="~{fragments :: navbar}"></div>
+
 	<script th:inline="javascript">
   window.USER_SESSION = {
     isLoggedIn: /*[[${session.name != null}]]*/ false,
@@ -82,25 +75,8 @@
   window.IS_LOGGED_IN = /*[[${session.name != null}]]*/ false;
 </script>
 
-	<!--  頁面主標題 -->
-	<div class="header-title notranslate" translate="no">Daily News</div>
-
-	<!-- 導覽列 -->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark mt-3 mb-4">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="#" translate="no">Home</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarNav">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link active" href="#">Top30</a></li>
-
-					<li class="nav-item"><a class="nav-link" href="/cnn">CNN</a></li>
-					<li class="nav-item"><a class="nav-link" href="/bbc">BBC</a></li>
-					<li class="nav-item"><a class="nav-link" href="/nhk">NHK</a></li>
-				</ul>
+	
+				
 				<a href="#"
 					class="btn btn-warning position-fixed bottom-0 end-0 m-4"
 					style="z-index: 999;" onclick="handleViewCartClick()"> 📰
@@ -115,15 +91,7 @@
 
 
 
-						<div class="input-group input-group-sm" style="max-width: 250px;">
-							<!-- 搜尋按鈕 -->
-							<button class="btn btn-outline-light" type="submit">搜尋</button>
-
-							<!-- 輸入框 -->
-							<input type="text" name="keyword"
-								class="form-control white text-black  border-0"
-								placeholder="輸入關鍵字…" aria-label="Search">
-						</div>
+						
 					</form>
 
 				</ul>
