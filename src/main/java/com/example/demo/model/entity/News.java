@@ -25,34 +25,26 @@ import lombok.NoArgsConstructor;
 @Table(name = "news")
 public class News {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    private String title;
-    @Column(length = 1000)
-    private String description;
-    @Column(length = 500,unique = true, nullable = false)
-    private String url;
-    private String imageUrl;
-    private String source;
-    private String author;
-    @Column(columnDefinition = "TEXT")
-    private String content;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-    private ZonedDateTime publishedAt;
-    
-    @Column(length = 1000) // 視長度可調整
-    private String aiSummary;
-    
-    public String getAiSummary() {
-        return aiSummary;
-    }
+	private String title;
+	@Column(length = 1000)
+	private String description;
+	@Column(length = 500, unique = true, nullable = false)
+	private String url;
+	private String imageUrl;
+	private String source;
+	private String author;
+	@Column(columnDefinition = "TEXT")
+	private String content;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	private ZonedDateTime publishedAt;
 
-    public void setAiSummary(String aiSummary) {
-        this.aiSummary = aiSummary;
-    }
-    
-    @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Favorite> favorites = new HashSet<>();
-    
+	@Column(length = 1000) 
+	private String aiSummary;
+
+	@OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Favorite> favorites = new HashSet<>();
+
 }

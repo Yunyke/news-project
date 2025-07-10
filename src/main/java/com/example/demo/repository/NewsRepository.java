@@ -11,6 +11,8 @@ import java.time.ZonedDateTime;
 
 @Repository
 public interface NewsRepository extends JpaRepository<News, Long> {
+	
+	//根據新聞的網址 url 查詢單一新聞,Optional 類別，用於包裝可能為空的物件，避免 null 值帶來的問題。
 	Optional<News> findByUrl(String url);
 
 	List<News> findByIdIn(List<Long> ids);
