@@ -7,7 +7,7 @@ import com.example.demo.service.NewsService;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model; // ✅ 正確的 Model
+import org.springframework.ui.Model; 
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
