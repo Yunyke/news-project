@@ -56,3 +56,16 @@
       th:href="@{/logout}" style="color: #6c757d;">登出</a>
   </div>
 </div>
+
+<script th:fragment="session-script" th:src="@{/js/member.js}"></script>
+<script th:fragment="session-inline-script" th:inline="javascript">
+  window.USER_SESSION = {
+    isLoggedIn: /*[[${session.name != null}]]*/ false,
+    userId: /*[[${session.userId}]]*/ null,
+    name: /*[['${session.name}']]*/ ''
+  };
+  window.IS_LOGGED_IN = /*[[${session.name != null}]]*/ false;
+</script>
+
+</body>
+</html>

@@ -66,41 +66,25 @@
 
 	<div th:replace="~{fragments :: navbar}"></div>
 
-	<script th:inline="javascript">
-  window.USER_SESSION = {
-    isLoggedIn: /*[[${session.name != null}]]*/ false,
-    userId: /*[[${session.userId}]]*/ null,
-    name: /*[['${session.name}']]*/ ''
-  };
-  window.IS_LOGGED_IN = /*[[${session.name != null}]]*/ false;
-</script>
+<script th:replace="~{fragments :: session-inline-script}"></script>
 
-	
-				
-				<a href="#"
-					class="btn btn-warning position-fixed bottom-0 end-0 m-4"
-					style="z-index: 999;" onclick="handleViewCartClick()"> 📰
-					查看新聞清單 <span id="cart-count" class="badge bg-dark ms-1"></span>
-				</a>
-				<ul class="navbar-nav ms-auto">
+	<a href="#" class="btn btn-warning position-fixed bottom-0 end-0 m-4"
+		style="z-index: 999;" onclick="handleViewCartClick()"> 📰 查看新聞清單 <span
+		id="cart-count" class="badge bg-dark ms-1"></span>
+	</a>
+	<ul class="navbar-nav ms-auto">
 
 
-					<form class="d-flex ms-auto align-items-center"
-						th:action="@{/search}" method="get">
+		<form class="d-flex ms-auto align-items-center" th:action="@{/search}"
+			method="get"></form>
 
-
-
-
-						
-					</form>
-
-				</ul>
-			</div>
-		</div>
+	</ul>
+	</div>
+	</div>
 	</nav>
-	
+
 	<div th:replace="fragments :: auth-section"></div>
-	
+
 	<!-- 新聞卡片區 -->
 	<div class="grid-container">
 

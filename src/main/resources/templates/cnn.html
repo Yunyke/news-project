@@ -101,15 +101,7 @@
 
 	<div th:replace="fragments :: auth-section"></div>
 	
-	<script th:src="@{/js/cart.js}"></script>
-	<script th:inline="javascript">
-    window.USER_SESSION = {
-      isLoggedIn: /*[[${session.name != null}]]*/ false,
-      userId: /*[[${session.userId}]]*/ null,
-      name: /*[['${session.name}']]*/ ''
-    };
-    window.IS_LOGGED_IN = /*[[${session.name != null}]]*/ false;
-  </script>
+<script th:replace="~{fragments :: session-inline-script}"></script>
 	<script>
     document.addEventListener("DOMContentLoaded", async function () {
       if (!window.IS_LOGGED_IN) {
