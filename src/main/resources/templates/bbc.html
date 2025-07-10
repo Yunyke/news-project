@@ -99,21 +99,7 @@
 		style="z-index: 999;" onclick="handleViewCartClick()"> 📰 查看新聞清單 <span
 		id="cart-count" class="badge bg-dark ms-1"></span></a>
 
-	<div th:if="${session.name == null}"
-		style="position: absolute; top: 5px; right: 20px; z-index: 1050; background-color: #f8f9fa; padding: 5px 10px; border-radius: 8px; color: #6c757d;">
-		<a class="btn btn-sm btn-outline-light me-2 custom-auth-btn"
-			th:href="@{/login}" style="color: #6c757d;">登入</a> <a
-			class="btn btn-sm btn-outline-light custom-auth-btn"
-			th:href="@{/register}" style="color: #6c757d;">註冊</a>
-	</div>
-
-	<div th:if="${session.name != null}"
-		style="position: absolute; top: 5px; right: 20px; z-index: 1050; background-color: #f8f9fa; padding: 5px 10px; border-radius: 8px; color: #6c757d;">
-		<span class="text-warning me-2"> 歡迎～<strong
-			th:text="${session.name}" style="color: #6c757d;">使用者</strong></span> <a
-			id="logoutBtn" class="btn btn-sm btn-outline-light me-2"
-			th:href="@{/logout}" style="color: #6c757d;">登出</a>
-	</div>
+	<div th:replace="fragments :: auth-section"></div>
 
 	<script th:src="@{/js/cart.js}"></script>
 	<script th:inline="javascript">
