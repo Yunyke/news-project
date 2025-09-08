@@ -42,8 +42,7 @@ public class NewsScraperController {
 
 		model.addAttribute("title", "Daily News");
 
-		// 抓好CNN / BBC / NHK新聞、寫進 DB
-		// newsService.fetchAndSaveAllNews();
+		
 
 		// 依 source 撈出新聞
 		model.addAttribute("cnnNewsList", limit(newsRepository.findBySourceOrderByPublishedAtDesc("CNN"), 30));
