@@ -16,7 +16,7 @@ public class NewApplicationRunner implements ApplicationRunner {
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		newsService.fetchAndSaveAllNews();
-		System.out.println("抓取新聞功能啟動~");
+		System.out.println("抓取新聞功能啟動~~");
 	}
 
 }
